@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'bloc.dart';
 
 abstract class BlocScreenState<S extends StatefulWidget, B extends Bloc>
     extends State {
-  BlocScreenState(this.bloc);
-
   @protected
-  final B bloc;
+  final B bloc = GetIt.I.get<B>();
 
   @override
   void initState() {
