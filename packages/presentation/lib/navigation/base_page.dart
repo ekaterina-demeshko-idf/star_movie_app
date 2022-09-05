@@ -13,30 +13,8 @@ class BasePage<T extends BaseArguments> extends Page {
   final WidgetBuilder builder;
 
   @override
-  Route createRoute(BuildContext context) => _AppRoute(
+  Route createRoute(BuildContext context) => MaterialPageRoute(
         settings: this,
         builder: builder,
       );
-}
-
-class _AppRoute extends MaterialPageRoute {
-  _AppRoute({
-    required WidgetBuilder builder,
-    RouteSettings? settings,
-  }) : super(builder: builder, settings: settings);
-
-  @override
-  Widget buildTransitions(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-    Widget child,
-  ) {
-    return super.buildTransitions(
-      context,
-      animation,
-      secondaryAnimation,
-      child,
-    );
-  }
 }

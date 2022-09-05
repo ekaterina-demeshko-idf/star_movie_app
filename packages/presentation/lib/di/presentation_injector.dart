@@ -9,9 +9,6 @@ void initPresentationInjector() {
 }
 
 void _initMainScreenModule() {
-  GetIt.I.registerFactory(
-    () => {},
-  );
 }
 
 void _initAppModule() {
