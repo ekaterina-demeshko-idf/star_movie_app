@@ -8,6 +8,7 @@ abstract class Bloc {
   Stream<BlocData> get dataStream;
 
   void initState();
+  void dispose();
 }
 
 abstract class BlocImpl implements Bloc {
@@ -28,4 +29,7 @@ abstract class BlocImpl implements Bloc {
 
   @override
   void initState() {}
+
+  @override
+  void dispose() {}
 }
