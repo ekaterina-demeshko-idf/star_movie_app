@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import '../navigation/app_navigator.dart';
 import 'bloc_data.dart';
 
 abstract class Bloc {
@@ -11,6 +13,9 @@ abstract class Bloc {
 abstract class BlocImpl implements Bloc {
   final _data = StreamController<BlocData>();
   final _blocData = BlocData.init();
+
+  @protected
+  final appNavigator = GetIt.I.get<AppNavigator>();
 
   @override
   Stream<BlocData> get dataStream => _data.stream;
