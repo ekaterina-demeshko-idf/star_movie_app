@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:collection/collection.dart';
 import '../base/bloc.dart';
 import '../navigation/base_page.dart';
 import 'data/app_data.dart';
@@ -95,7 +96,7 @@ class _AppBloc extends BlocImpl implements AppBloc {
   }
 
   BasePage? _currentPage() =>
-      _appData.pages.isNotEmpty ? _appData.pages.last : null;
+       _appData.pages.lastOrNull;
 
   void _updateData() {
     super.handleData(data: _appData);

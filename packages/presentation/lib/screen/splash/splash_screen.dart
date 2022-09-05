@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-
 import '../../navigation/base_page.dart';
+import '../../utils/colors.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
-  static const gradientTopColor = Color(0xFFE51937);
-  static const gradientBottomColor = Color(0xFFDB5252);
 
   static const _routeName = '/SplashScreen';
 
   static BasePage page() => BasePage(
-    key: const ValueKey(_routeName),
-    name: _routeName,
-    builder: (context) => const SplashScreen(),
-  );
+        key: const ValueKey(_routeName),
+        name: _routeName,
+        builder: (context) => const SplashScreen(),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +23,8 @@ class SplashScreen extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                gradientTopColor,
-                gradientBottomColor,
+                Color(CustomColors.gradientTopColor),
+                Color(CustomColors.gradientBottomColor),
               ],
             ),
           ),
@@ -41,5 +39,4 @@ class SplashScreen extends StatelessWidget {
       ),
     );
   }
-
 }

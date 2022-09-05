@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-
 import '../app/app_bloc.dart';
 import '../navigation/app_navigator.dart';
 
