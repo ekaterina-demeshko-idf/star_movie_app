@@ -1,19 +1,19 @@
-class BlocData {
-  dynamic data;
+class BlocData<T>  {
+  T? data;
 
-  BlocData(
+  BlocData({
     this.data,
-  );
+  });
 
   factory BlocData.init() => BlocData(
-        null,
+        data: null,
       );
 
   BlocData copy() => BlocData(
-        data,
+        data: data,
       );
 
-  void updateParams(dynamic data) {
+  void updateParams(T data) {
     if (data != null) this.data = data;
   }
 }
