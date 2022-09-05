@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/screen/splash_screen/splash_screen.dart';
+import 'package:presentation/screen/splash/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

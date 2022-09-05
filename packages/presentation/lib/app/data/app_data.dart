@@ -1,4 +1,4 @@
-import 'package:presentation/screen/splash_screen/splash_screen.dart';
+import 'package:presentation/screen/splash/splash_screen.dart';
 
 import '../../navigation/base_page.dart';
 
