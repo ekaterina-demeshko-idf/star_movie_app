@@ -10,7 +10,11 @@ class AppData {
   );
 
   factory AppData.init() {
-    final pages = List<BasePage>.from([SplashScreen.page()]);
+    final pages = List<BasePage>.from(
+      [
+        SplashScreen.page(),
+      ],
+    );
     return AppData(pages);
   }
 }

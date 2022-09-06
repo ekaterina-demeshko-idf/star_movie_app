@@ -38,7 +38,5 @@ abstract class BlocImpl<T extends BaseArguments, D> implements Bloc<T, D> {
   void initArgs(T arguments) {}
 
   @override
-  void dispose() {
-    _data.close();
-  }
+  void dispose() {}
 }
