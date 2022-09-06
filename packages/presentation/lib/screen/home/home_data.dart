@@ -1,7 +1,9 @@
 class HomeData {
-  HomeData();
+  int selectedIndex;
 
-  factory HomeData.init() => HomeData();
+  HomeData(this.selectedIndex);
 
-  HomeData copy() => HomeData();
+  factory HomeData.init() => HomeData(1);
+
+  HomeData copy() => HomeData(selectedIndex);
 }
