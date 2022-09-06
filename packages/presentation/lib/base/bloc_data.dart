@@ -1,19 +1,19 @@
-class BlocData<T>  {
-  T? data;
+class BlocData<D>  {
+  D? data;
 
   BlocData({
     this.data,
   });
 
-  factory BlocData.init() => BlocData(
+  factory BlocData.init() => BlocData<D>(
         data: null,
       );
 
-  BlocData copy() => BlocData(
-        data: data,
+  BlocData<D?> copy<D>() => BlocData<D?>(
+        data: data as D,
       );
 
-  void updateParams(T data) {
+  void updateParams(D data) {
     if (data != null) this.data = data;
   }
 }
