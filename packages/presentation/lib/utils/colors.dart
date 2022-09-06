@@ -1,4 +1,4 @@
-class CustomColors {
-  static const splashGradientTop = 0xFFE51937;
-  static const splashGradientBottom = 0xFFDB5252;
+class PrimaryGradient {
+  static const primaryColor = 0xFFE51937;
+  static const primaryGradientBottom = 0xFFDB5252;
 }
