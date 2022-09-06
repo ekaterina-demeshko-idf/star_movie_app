@@ -75,37 +75,41 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
             ),
           ]),
       body: SafeArea(
-          child: Column(
-        children: [
-          TabBarContainer(tabController: tabController),
-          Flexible(
-            child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 200,
-                    childAspectRatio: 3 / 2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20),
-                itemCount: 10,
-                itemBuilder: (BuildContext ctx, index) {
-                  return Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
+        child: Column(
+          children: [
+            TabBarContainer(tabController: tabController),
+            Flexible(
+              child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio: 3 / 2,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20),
+                  itemCount: 10,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
                         color: Colors.amber,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: const Text("name"),
-                  );
-                }),
-          ),
-        ],
-      )),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: const Text("name"),
+                    );
+                  }),
+            ),
+          ],
+        ),
+      ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(bottom: 15),
         decoration: const BoxDecoration(
-            border: Border(
-                top: BorderSide(
-          width: 0.5,
-          color: Colors.grey,
-        ))),
+          border: Border(
+            top: BorderSide(
+              width: 0.5,
+              color: Colors.grey,
+            ),
+          ),
+        ),
         child: BottomNavigationBar(
           showSelectedLabels: false,
           showUnselectedLabels: false,
