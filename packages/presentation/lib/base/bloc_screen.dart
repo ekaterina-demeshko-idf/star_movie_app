@@ -11,5 +11,6 @@ abstract class BlocScreenState<S extends StatefulWidget, B extends Bloc>
   void initState() {
     super.initState();
     bloc.initState();
+    bloc.dispose();
   }
 }

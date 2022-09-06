@@ -31,5 +31,7 @@ abstract class BlocImpl implements Bloc {
   void initState() {}
 
   @override
-  void dispose() {}
+  void dispose() {
+    _data.close();
+  }
 }
