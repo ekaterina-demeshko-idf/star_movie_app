@@ -5,6 +5,7 @@ import '../../base/bloc_screen.dart';
 import '../../navigation/base_arguments.dart';
 import '../../navigation/base_page.dart';
 import '../../utils/widgets/tabbar.dart';
+import '../../utils/text_styles.dart';
 import 'home_bloc.dart';
 
 class HomeScreenArguments extends BaseArguments {
@@ -57,13 +58,13 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
               appBar: AppBar(
                   backgroundColor:
                       const Color(PrimaryColors.primaryBackgroundColor),
-                  title: const Text(
+                  title: Text(
                     'Star Movie',
-                    style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontFamily: '.SF Pro Text'),
+                    style: AppTextStyles.headerStyle(
+                      AppTextStyles.header,
+                      fontWeight: AppFonts.bold,
+                      fontFamily: AppFonts.sfProText,
+                    ),
                   ),
                   actions: [
                     IconButton(
