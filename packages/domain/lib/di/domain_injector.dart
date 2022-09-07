@@ -1,3 +1,4 @@
+import 'package:domain/usecase/imitate_api_call_usecase.dart';
 import 'package:get_it/get_it.dart';
 
 void initDomainInjector() {
@@ -5,4 +6,8 @@ void initDomainInjector() {
 }
 
 void _initUseCaseModule() {
+  GetIt.I.registerFactory<ImitateApiCallUseCase>(
+        () => ImitateApiCallUseCase(),
+  );
+
 }

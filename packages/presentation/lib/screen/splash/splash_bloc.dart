@@ -1,11 +1,21 @@
 import 'package:presentation/base/bloc.dart';
 import '../home/home_screen.dart';
+import 'package:domain/usecase/imitate_api_call_usecase.dart';
 
 abstract class SplashBloc extends Bloc {
-  factory SplashBloc() => _SplashBloc();
+  factory SplashBloc(
+    ImitateApiCallUseCase imitateApiCallUseCase,
+  ) =>
+      _SplashBloc(
+        imitateApiCallUseCase,
+      );
 }
 
 class _SplashBloc extends BlocImpl implements SplashBloc {
+  final ImitateApiCallUseCase _imitateApiCallUseCase;
+
+  _SplashBloc(this._imitateApiCallUseCase);
+
   @override
   void initState() {
     super.initState();
@@ -13,12 +23,10 @@ class _SplashBloc extends BlocImpl implements SplashBloc {
   }
 
   Future<void> loadData() async {
-    Future.delayed(
-      const Duration(seconds: 3),
-      () => appNavigator.popAndPush(
-        HomeScreen.page(
-          HomeScreenArguments(),
-        ),
+    await _imitateApiCallUseCase();
+    appNavigator.popAndPush(
+      HomeScreen.page(
+        HomeScreenArguments(),
       ),
     );
   }
