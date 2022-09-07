@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:presentation/screen/splash/splash_bloc.dart';
 import '../../navigation/base_page.dart';
 import '../../utils/colors.dart';
+import '../../base/bloc_screen.dart';
+import '../../utils/images/paths.dart';
 
-class SplashScreen extends StatelessWidget {
+
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   static const _routeName = '/SplashScreen';
@@ -14,6 +19,11 @@ class SplashScreen extends StatelessWidget {
       );
 
   @override
+  State createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends BlocScreenState<SplashScreen, SplashBloc> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
@@ -23,17 +33,13 @@ class SplashScreen extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color(PrimaryGradient.primaryColor),
-                Color(PrimaryGradient.primaryGradientBottom),
+                Color(PrimaryColors.primaryColor),
+                Color(PrimaryColors.primaryGradientBottom),
               ],
             ),
           ),
-          child: const Center(
-            child: Icon(
-              Icons.energy_savings_leaf_outlined,
-              color: Colors.white,
-              size: 162,
-            ),
+          child: Center(
+            child: SvgPicture.asset(ImagesPath.splashScreen),
           ),
         ),
       ),
