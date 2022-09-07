@@ -1,5 +1,4 @@
 import 'package:presentation/base/bloc.dart';
-import 'package:presentation/screen/splash/splash_data.dart';
 import '../home/home_screen.dart';
 
 abstract class SplashBloc extends Bloc {

@@ -23,29 +23,24 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends BlocScreenState<SplashScreen, SplashBloc> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: bloc.dataStream,
-      builder: (context, snapshot) {
-        return Scaffold(
-          body: Center(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(PrimaryColors.primaryColor),
-                    Color(PrimaryColors.primaryGradientBottom),
-                  ],
-                ),
-              ),
-              child: Center(
-                child: SvgPicture.asset('resources/images/Group.svg'),
-              ),
+    return Scaffold(
+      body: Center(
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(PrimaryColors.primaryColor),
+                Color(PrimaryColors.primaryGradientBottom),
+              ],
             ),
           ),
-        );
-      },
+          child: Center(
+            child: SvgPicture.asset('resources/images/Group.svg'),
+          ),
+        ),
+      ),
     );
   }
 }

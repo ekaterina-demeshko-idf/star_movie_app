@@ -24,8 +24,7 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
       home: StreamBuilder<BlocData>(
         stream: bloc.dataStream,
         builder: (context, result) {
-          final blocData = result.data;
-          final appData = blocData?.data;
+          final appData = result.data?.data;
           if (appData is AppData) {
             return Scaffold(
               body: Navigator(
