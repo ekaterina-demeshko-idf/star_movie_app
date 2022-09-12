@@ -28,10 +28,11 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
   @override
   void initState() async {
     super.initState();
+    _updateData(isLoading: true);
     final responseAnticipated = await _getMovieAnticipatedResponseUseCase();
     final responseTrending = await _getMovieTrendingResponseUseCase();
     _screenData = HomeData(0, responseTrending, responseAnticipated);
-    _updateData();
+    _updateData(isLoading: false);
   }
 
   @override
@@ -48,9 +49,10 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     _updateData();
   }
 
-  _updateData() {
+  _updateData({bool? isLoading}) {
     handleData(
       data: _screenData,
+      isLoading: isLoading,
     );
   }
 }

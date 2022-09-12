@@ -1,9 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:domain/model/data_model.dart';
-import 'package:domain/model/movie_trending_response.dart';
 import '../service/api_base_service.dart';
 import '../service/service_payload.dart';
-import '../utils/const.dart';
 import 'package:domain/repository/movie_repository.dart';
 
 class NetworkRepositoryImpl implements NetworkRepository {

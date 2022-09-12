@@ -1,17 +1,16 @@
-import 'package:domain/model/movie_trending_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:presentation/utils/colors.dart';
-import 'package:presentation/utils/widgets/nowShowing.dart';
 import '../../base/bloc_data.dart';
 import '../../base/bloc_screen.dart';
 import '../../navigation/base_arguments.dart';
 import '../../navigation/base_page.dart';
 import '../../utils/images/paths.dart';
-import '../../utils/widgets/anticipated.dart';
-import '../../utils/widgets/tabbar.dart';
+import '../../utils/widgets/homeContent.dart';
+import '../../utils/widgets/homeSkelet.dart';
 import '../../utils/text_styles.dart';
 import 'home_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreenArguments extends BaseArguments {
   List<dynamic>? movieResponse;
@@ -85,32 +84,9 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
                       color: Colors.white,
                     ),
                   ]),
-              body: Column(
-                children: [
-                  DefaultTabController(
-                    length: 2,
-                    child: Expanded(
-                      child: Column(
-                        children: <Widget>[
-                          const TabBarContainer(),
-                          Expanded(
-                            child: TabBarView(
-                              children: [
-                                NowShowing(
-                                  screenData: screenData,
-                                ),
-                                Anticipated(
-                                  screenData: screenData,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              body: data.isLoading
+                  ? const HomeSkelet()
+                  : HomeContent(screenData: screenData),
               bottomNavigationBar: Container(
                 padding: const EdgeInsets.only(bottom: 15),
                 decoration: const BoxDecoration(

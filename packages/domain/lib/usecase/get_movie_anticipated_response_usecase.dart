@@ -23,7 +23,8 @@ class GetMovieAnticipatedResponseUseCase
       jsonMovies.addAll(
           response1.body.map((e) => MovieAnticipatedResponse.fromJson(e)));
     } else {
-      final itemCount = int.parse(response.headers['x-pagination-item-count'][0]);
+      final itemCount =
+          int.parse(response.headers['x-pagination-item-count'][0]);
       final response1 = await _repository.getMovieData(
         apiPath: C.apiAnticipatedPath,
         itemCount: itemCount,
