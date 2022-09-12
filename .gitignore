@@ -33,7 +33,8 @@ migrate_working_dir/
 /build/
 pubspec.lock
 .metadata
-
+.env
+secrets.dart
 # Web related
 lib/generated_plugin_registrant.dart
 
@@ -47,3 +48,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/packages/data/lib/interceptor/secrets.dart

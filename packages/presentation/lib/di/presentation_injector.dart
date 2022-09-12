@@ -1,3 +1,5 @@
+import 'package:domain/usecase/get_movie_trending_response_usecase.dart';
+import 'package:domain/usecase/get_movie_anticipated_response_usecase.dart';
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:presentation/screen/home/home_bloc.dart';
@@ -21,7 +23,10 @@ void _initSplashScreenModule() {
 
 void _initHomeScreenModule() {
   GetIt.I.registerFactory<HomeBloc>(
-    () => HomeBloc(),
+    () => HomeBloc(
+      GetIt.I.get<GetMovieTrendingResponseUseCase>(),
+      GetIt.I.get<GetMovieAnticipatedResponseUseCase>(),
+    ),
   );
 }
 

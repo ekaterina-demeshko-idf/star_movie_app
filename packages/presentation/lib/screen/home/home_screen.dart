@@ -1,15 +1,25 @@
+import 'package:domain/model/movie_trending_response.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:presentation/utils/colors.dart';
+import 'package:presentation/utils/widgets/nowShowing.dart';
 import '../../base/bloc_data.dart';
 import '../../base/bloc_screen.dart';
 import '../../navigation/base_arguments.dart';
 import '../../navigation/base_page.dart';
+import '../../utils/images/paths.dart';
+import '../../utils/widgets/anticipated.dart';
 import '../../utils/widgets/tabbar.dart';
 import '../../utils/text_styles.dart';
 import 'home_bloc.dart';
 
 class HomeScreenArguments extends BaseArguments {
+  List<dynamic>? movieResponse;
+  List<dynamic>? anticipatedResponse;
+
   HomeScreenArguments({
+    required this.movieResponse,
+    required this.anticipatedResponse,
     Function(dynamic value)? result,
   }) : super(result: result);
 }
@@ -52,12 +62,14 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
         stream: bloc.dataStream,
         builder: (context, snapshot) {
           final data = snapshot.data;
+          final screenData = data?.data;
           if (data != null) {
             final blocData = data.data;
             return Scaffold(
               appBar: AppBar(
                   backgroundColor:
                       const Color(PrimaryColors.primaryBackgroundColor),
+                  elevation: 0,
                   title: Text(
                     'Star Movie',
                     style: AppTextStyles.headerStyle(
@@ -68,41 +80,36 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
                   ),
                   actions: [
                     IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.search,
-                        size: 40,
-                      ),
+                      onPressed: () => {},
+                      icon: SvgPicture.asset(ImagesPath.searchIcon),
                       color: Colors.white,
                     ),
                   ]),
-              body: SafeArea(
-                child: Column(
-                  children: [
-                    TabBarContainer(tabController: tabController),
-                    Flexible(
-                      child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 200,
-                                childAspectRatio: 3 / 2,
-                                crossAxisSpacing: 20,
-                                mainAxisSpacing: 20),
-                        itemCount: 10,
-                        itemBuilder: (BuildContext ctx, index) {
-                          return Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.amber,
-                              borderRadius: BorderRadius.circular(15),
+              body: Column(
+                children: [
+                  DefaultTabController(
+                    length: 2,
+                    child: Expanded(
+                      child: Column(
+                        children: <Widget>[
+                          const TabBarContainer(),
+                          Expanded(
+                            child: TabBarView(
+                              children: [
+                                NowShowing(
+                                  screenData: screenData,
+                                ),
+                                Anticipated(
+                                  screenData: screenData,
+                                ),
+                              ],
                             ),
-                            child: const Text("name"),
-                          );
-                        },
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               bottomNavigationBar: Container(
                 padding: const EdgeInsets.only(bottom: 15),
@@ -110,37 +117,63 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
                   border: Border(
                     top: BorderSide(
                       width: 0.5,
-                      color: Colors.grey,
+                      color: Color(PrimaryColors.primaryUnselected),
                     ),
                   ),
                 ),
                 child: BottomNavigationBar(
                   showSelectedLabels: false,
                   showUnselectedLabels: false,
-                  unselectedItemColor: Colors.grey,
                   backgroundColor:
                       const Color(PrimaryColors.primaryBackgroundColor),
                   elevation: 0,
-                  items: const <BottomNavigationBarItem>[
+                  items: <BottomNavigationBarItem>[
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.album),
+                      icon: SvgPicture.asset(
+                        ImagesPath.movieIcon,
+                        color: const Color(PrimaryColors.whiteWithOpacity),
+                      ),
+                      activeIcon: SvgPicture.asset(
+                        ImagesPath.movieIcon,
+                        color: const Color(PrimaryColors.primarySelected),
+                      ),
                       label: 'Home',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.airplane_ticket_rounded),
+                      icon: SvgPicture.asset(
+                        ImagesPath.tickerIcon,
+                        color: const Color(PrimaryColors.whiteWithOpacity),
+                      ),
+                      activeIcon: SvgPicture.asset(
+                        ImagesPath.tickerIcon,
+                        color: const Color(PrimaryColors.primarySelected),
+                      ),
                       label: 'Business',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.notifications),
+                      icon: SvgPicture.asset(
+                        ImagesPath.alarmIcon,
+                        color: const Color(PrimaryColors.whiteWithOpacity),
+                      ),
+                      activeIcon: SvgPicture.asset(
+                        ImagesPath.alarmIcon,
+                        color: const Color(PrimaryColors.primarySelected),
+                      ),
                       label: 'School',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.person),
+                      icon: SvgPicture.asset(
+                        ImagesPath.personIcon,
+                        color: const Color(PrimaryColors.whiteWithOpacity),
+                      ),
+                      activeIcon: SvgPicture.asset(
+                        ImagesPath.personIcon,
+                        color: const Color(PrimaryColors.primarySelected),
+                      ),
                       label: 'School',
                     ),
                   ],
                   currentIndex: blocData.selectedIndex,
-                  selectedItemColor: Colors.blueAccent,
                   onTap: bloc.onItemTapped,
                 ),
               ),

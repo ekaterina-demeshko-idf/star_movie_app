@@ -1,39 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/utils/colors.dart';
-import 'package:presentation/utils/widgets/tabbarHomeScreen.dart';
 
 class TabBarContainer extends StatelessWidget {
   const TabBarContainer({
     Key? key,
-    required this.tabController,
   }) : super(key: key);
-
-  final TabController tabController;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: const Color(PrimaryColors.primaryBackgroundColor),
-        borderRadius: BorderRadius.circular(25),
+      height: 40,
+      margin: const EdgeInsets.only(
+        top: 10,
+        right: 18,
+        left: 18,
+        bottom: 24,
       ),
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: const Color(PrimaryColors.primaryBorderColor),
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(35),
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: const Color(PrimaryColors.primaryBorderColor),
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(35),
+      ),
+      child: TabBar(
+        unselectedLabelColor: const Color(PrimaryColors.whiteWithOpacity),
+        labelColor: Colors.white,
+        indicatorColor: const Color(PrimaryColors.whiteWithOpacity),
+        indicator: BoxDecoration(
+          color: const Color(PrimaryColors.primaryColor),
+          borderRadius: BorderRadius.circular(25),
+        ),
+        tabs: [
+          Tab(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Icon(Icons.play_circle_fill_rounded),
+                SizedBox(width: 8),
+                Text('Now Showing'),
+              ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(4),
-              // extract widget to widget folder
-              child: TabBarHomeScreen(tabController: tabController),
-            ),
+          ),
+          const Tab(
+            text: 'Coming Soon',
           ),
         ],
       ),
