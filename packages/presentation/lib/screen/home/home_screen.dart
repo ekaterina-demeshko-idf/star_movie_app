@@ -10,7 +10,6 @@ import '../../utils/widgets/homeContent.dart';
 import '../../utils/widgets/homeSkelet.dart';
 import '../../utils/text_styles.dart';
 import 'home_bloc.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomeScreenArguments extends BaseArguments {
   List<dynamic>? movieResponse;

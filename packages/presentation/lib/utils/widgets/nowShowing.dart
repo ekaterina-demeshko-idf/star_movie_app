@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class NowShowing extends StatelessWidget {
   const NowShowing({
@@ -26,7 +27,7 @@ class NowShowing extends StatelessWidget {
       //   mainAxisExtent: 450,
       //   childAspectRatio: (.1/ .21),
       // ),
-      itemCount: screenData?.movieResponse.length,
+      itemCount: screenData?.movieTrending.length,
       itemBuilder: (BuildContext ctx, index) {
         return Padding(
           padding: const EdgeInsets.all(5.0),
@@ -35,10 +36,10 @@ class NowShowing extends StatelessWidget {
             children: [
               Expanded(
                 child: Image.network(
-                  'http://img.omdbapi.com/?apikey=956febbc&i=${screenData?.movieResponse[index].movie.ids.imdb}',
+                  screenData?.movieTrending[index].image,
                   errorBuilder: (context, exception, stackTrace) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 108.0),
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 108.0),
                       child: Center(
                           child: Icon(
                         Icons.not_interested_rounded,
@@ -50,61 +51,41 @@ class NowShowing extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Icon(
+              RatingBar(
+                initialRating: screenData?.movieTrending[index].rating,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemSize: 17,
+                ratingWidget: RatingWidget(
+                  full: const Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  ),
+                  half: const Icon(
+                    Icons.star_half,
+                    color: Colors.yellow,
+                  ),
+                  empty: const Icon(
                     Icons.star_border,
                     color: Colors.yellow,
                   ),
-                  Icon(
-                    Icons.star_border,
-                    color: Colors.yellow,
-                  ),
-                  Icon(
-                    Icons.star_border,
-                    color: Colors.yellow,
-                  ),
-                  Icon(
-                    Icons.star_border,
-                    color: Colors.yellow,
-                  ),
-                  Icon(
-                    Icons.star_border,
-                    color: Colors.yellow,
-                  ),
-                ],
+                ),
+                itemPadding: const EdgeInsets.only(right: 1.0),
+                onRatingUpdate: (rating) {},
               ),
               Text(
-                screenData?.movieResponse[index].movie.title ?? 'fa',
+                screenData?.movieTrending[index].title ?? 'fa',
                 textAlign: TextAlign.start,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text(
-                    'Crime ',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  Icon(
-                    Icons.circle,
-                    size: 6,
-                    color: Colors.grey,
-                  ),
-                  Text(
-                    ' 2h 40m ',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  Text(
-                    '| Rating',
-                    style: TextStyle(color: Colors.grey),
-                  )
-                ],
-              )
+              Text(
+                '${screenData?.movieTrending[index].genre} · ${screenData?.movieTrending[index].runtime} | ${screenData?.movieTrending[index].certification}',
+                style: const TextStyle(color: Colors.grey),
+              ),
             ],
           ),
         );

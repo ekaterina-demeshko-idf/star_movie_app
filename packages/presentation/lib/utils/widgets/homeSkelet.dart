@@ -73,7 +73,7 @@ class HomeSkelet extends StatelessWidget {
                                     height: 18,
                                     color: Colors.white,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Row(
@@ -84,7 +84,7 @@ class HomeSkelet extends StatelessWidget {
                                         width: 24,
                                         color: Colors.white,
                                       ),
-                                      Icon(
+                                      const Icon(
                                         Icons.circle,
                                         size: 6,
                                         color: Colors.grey,
@@ -94,7 +94,7 @@ class HomeSkelet extends StatelessWidget {
                                         width: 44,
                                         color: Colors.white,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Container(
@@ -109,7 +109,7 @@ class HomeSkelet extends StatelessWidget {
                             );
                           },
                         ),
-                        Text('hi'),
+                        const Text('hi'),
                       ],
                     ),
                   ),

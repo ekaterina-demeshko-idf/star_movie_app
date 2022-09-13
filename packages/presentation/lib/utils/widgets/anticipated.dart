@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class Anticipated extends StatelessWidget {
   const Anticipated({
@@ -28,10 +29,10 @@ class Anticipated extends StatelessWidget {
             children: [
               Expanded(
                 child: Image.network(
-                  'http://img.omdbapi.com/?apikey=956febbc&i=${screenData?.movieAnticipated[index].movie.ids.imdb}',
+                  screenData?.movieAnticipated[index].image,
                   errorBuilder: (context, exception, stackTrace) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 108.0),
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 108.0),
                       child: Center(
                           child: Icon(
                         Icons.not_interested_rounded,
@@ -43,61 +44,41 @@ class Anticipated extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Icon(
+              RatingBar(
+                initialRating: screenData?.movieAnticipated[index].rating,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemSize: 17,
+                ratingWidget: RatingWidget(
+                  full: const Icon(
+                    Icons.star,
+                    color: Colors.yellow,
+                  ),
+                  half: const Icon(
+                    Icons.star_half,
+                    color: Colors.yellow,
+                  ),
+                  empty: const Icon(
                     Icons.star_border,
                     color: Colors.yellow,
                   ),
-                  Icon(
-                    Icons.star_border,
-                    color: Colors.yellow,
-                  ),
-                  Icon(
-                    Icons.star_border,
-                    color: Colors.yellow,
-                  ),
-                  Icon(
-                    Icons.star_border,
-                    color: Colors.yellow,
-                  ),
-                  Icon(
-                    Icons.star_border,
-                    color: Colors.yellow,
-                  ),
-                ],
+                ),
+                itemPadding: const EdgeInsets.only(right: 1.0),
+                onRatingUpdate: (rating) {},
               ),
               Text(
-                screenData?.movieAnticipated[index].movie.title ?? 'fa',
+                screenData?.movieAnticipated[index].title ?? 'fa',
                 textAlign: TextAlign.start,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Text(
-                    'Crime ',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  Icon(
-                    Icons.circle,
-                    size: 6,
-                    color: Colors.grey,
-                  ),
-                  Text(
-                    ' 2h 40m ',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  Text(
-                    '| Rating',
-                    style: TextStyle(color: Colors.grey),
-                  )
-                ],
-              )
+              Text(
+                '${screenData?.movieAnticipated[index].genre} · ${screenData?.movieAnticipated[index].runtime} | ${screenData?.movieAnticipated[index].certification}',
+                style: const TextStyle(color: Colors.grey),
+              ),
             ],
           ),
         );

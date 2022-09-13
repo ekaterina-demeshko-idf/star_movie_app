@@ -2,13 +2,13 @@ import 'package:domain/usecase/get_movie_anticipated_response_usecase.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:domain/usecase/get_movie_trending_response_usecase.dart';
 import 'package:presentation/screen/home/home_screen.dart';
+import 'package:presentation/screen/home/movie_model.dart';
 import 'home_data.dart';
 
 abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
   factory HomeBloc(
-    GetMovieTrendingResponseUseCase getMovieTrendingResponseUseCase,
-    GetMovieAnticipatedResponseUseCase getMovieAnticipatedResponseUseCase,
-  ) =>
+      GetMovieTrendingResponseUseCase getMovieTrendingResponseUseCase,
+      GetMovieAnticipatedResponseUseCase getMovieAnticipatedResponseUseCase,) =>
       _HomeBloc(
           getMovieTrendingResponseUseCase, getMovieAnticipatedResponseUseCase);
 
@@ -31,7 +31,13 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     _updateData(isLoading: true);
     final responseAnticipated = await _getMovieAnticipatedResponseUseCase();
     final responseTrending = await _getMovieTrendingResponseUseCase();
-    _screenData = HomeData(0, responseTrending, responseAnticipated);
+    final List<MoviePresentation> moviesTrending = responseTrending.map(
+        (e) => MoviePresentation.fromMovie(e.movie)
+    ).toList();
+    final List<MoviePresentation> moviesAnticipated = responseAnticipated.map(
+            (e) => MoviePresentation.fromMovie(e.movie)
+    ).toList();
+    _screenData = HomeData(0, moviesTrending, moviesAnticipated);
     _updateData(isLoading: false);
   }
 

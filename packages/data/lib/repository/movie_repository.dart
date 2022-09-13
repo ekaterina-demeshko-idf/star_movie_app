@@ -9,23 +9,22 @@ class NetworkRepositoryImpl implements NetworkRepository {
   NetworkRepositoryImpl(this._movieApiService);
 
   @override
-  Future<GetDataResponse> getMovieData({required String apiPath, int? itemCount}) async {
+  Future<GetDataResponse> getMovieData(
+      {required String apiPath, int? itemCount}) async {
     final response = await _movieApiService.get(
       apiPath,
       queryParameters: {
         'extended': 'full',
-        'page' : 1,
+        'page': 1,
         'limit': itemCount,
       },
-
     );
 
     return GetDataResponse(
       headers: response.headers.map,
       body: (response.data as List<dynamic>)
-          .map((e) => e as Map<String, dynamic>).toList(),
-          // .map((e) => MovieTrendingResponse.fromJson(e))
-          // .toList(),
+          .map((e) => e as Map<String, dynamic>)
+          .toList(),
     );
   }
 }
