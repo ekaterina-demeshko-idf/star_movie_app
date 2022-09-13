@@ -6,8 +6,8 @@ import '../../base/bloc_screen.dart';
 import '../../navigation/base_arguments.dart';
 import '../../navigation/base_page.dart';
 import '../../utils/images/paths.dart';
-import '../../utils/widgets/homeContent.dart';
-import '../../utils/widgets/homeSkelet.dart';
+import './widgets/homeContent.dart';
+import './widgets/homeSkelet.dart';
 import '../../utils/text_styles.dart';
 import 'home_bloc.dart';
 
@@ -85,7 +85,7 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
                   ]),
               body: data.isLoading
                   ? const HomeSkelet()
-                  : HomeContent(screenData: screenData),
+                  : HomeContent(screenData: screenData, bloc: bloc),
               bottomNavigationBar: Container(
                 padding: const EdgeInsets.only(bottom: 15),
                 decoration: const BoxDecoration(

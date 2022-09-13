@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/utils/widgets/tabbar.dart';
+import './tabbar.dart';
 import 'anticipated.dart';
 import 'nowShowing.dart';
 
 class HomeContent extends StatelessWidget {
+  final bloc;
+  final screenData;
+
   const HomeContent({
     Key? key,
     required this.screenData,
+    required this.bloc,
   }) : super(key: key);
-
-  final screenData;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,11 @@ class HomeContent extends StatelessWidget {
                     children: [
                       NowShowing(
                         screenData: screenData,
+                        bloc: bloc,
                       ),
                       Anticipated(
                         screenData: screenData,
+                        bloc: bloc,
                       ),
                     ],
                   ),

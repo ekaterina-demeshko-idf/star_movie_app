@@ -1,13 +1,14 @@
 import 'package:domain/model/movie_response.dart';
 import '../../utils/funcs/capitalize.dart';
 import '../../utils/funcs/convert_time.dart';
+import 'package:domain/utils/extensions/string_extension.dart';
 
 class MoviePresentation {
   final String title;
   final String image;
   final String runtime;
   final double rating;
-  final String genre;
+  final String? genre;
   final String? certification;
 
   MoviePresentation(
@@ -21,7 +22,7 @@ class MoviePresentation {
 
   factory MoviePresentation.fromMovie(Movie movie) {
     return MoviePresentation(
-      movie.title ?? '',
+      movie.title.orEmpty,
       'http://img.omdbapi.com/?apikey=956febbc&i=${movie.ids?.imdb}',
       getTimeString(movie.runtime),
       (movie.rating ?? 0.0) / 2,

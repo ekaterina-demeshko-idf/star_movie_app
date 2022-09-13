@@ -3,16 +3,20 @@ import 'package:presentation/base/bloc.dart';
 import 'package:domain/usecase/get_movie_trending_response_usecase.dart';
 import 'package:presentation/screen/home/home_screen.dart';
 import 'package:presentation/screen/home/movie_model.dart';
+import '../details/details_page.dart';
 import 'home_data.dart';
 
 abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
   factory HomeBloc(
-      GetMovieTrendingResponseUseCase getMovieTrendingResponseUseCase,
-      GetMovieAnticipatedResponseUseCase getMovieAnticipatedResponseUseCase,) =>
+    GetMovieTrendingResponseUseCase getMovieTrendingResponseUseCase,
+    GetMovieAnticipatedResponseUseCase getMovieAnticipatedResponseUseCase,
+  ) =>
       _HomeBloc(
           getMovieTrendingResponseUseCase, getMovieAnticipatedResponseUseCase);
 
   void onItemTapped(int index);
+
+  void openDetailsPage(MoviePresentation movie);
 }
 
 class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
@@ -31,12 +35,12 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     _updateData(isLoading: true);
     final responseAnticipated = await _getMovieAnticipatedResponseUseCase();
     final responseTrending = await _getMovieTrendingResponseUseCase();
-    final List<MoviePresentation> moviesTrending = responseTrending.map(
-        (e) => MoviePresentation.fromMovie(e.movie)
-    ).toList();
-    final List<MoviePresentation> moviesAnticipated = responseAnticipated.map(
-            (e) => MoviePresentation.fromMovie(e.movie)
-    ).toList();
+    final List<MoviePresentation> moviesTrending = responseTrending
+        .map((e) => MoviePresentation.fromMovie(e.movie))
+        .toList();
+    final List<MoviePresentation> moviesAnticipated = responseAnticipated
+        .map((e) => MoviePresentation.fromMovie(e.movie))
+        .toList();
     _screenData = HomeData(0, moviesTrending, moviesAnticipated);
     _updateData(isLoading: false);
   }
@@ -44,8 +48,8 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
   @override
   void initArgs(HomeScreenArguments arguments) {
     super.initArgs(arguments);
-    _screenData =
-        HomeData(0, arguments.movieResponse, arguments.anticipatedResponse);
+    // _screenData =
+    //     HomeData(0, arguments.movieResponse, arguments.anticipatedResponse);
     _updateData();
   }
 
@@ -53,6 +57,17 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
   void onItemTapped(int index) {
     selectedIndex = index;
     _updateData();
+  }
+
+  @override
+  void openDetailsPage(MoviePresentation movie) {
+    appNavigator.push(
+      DetailsPage.page(
+        DetailsPageArguments(
+          movie: movie,
+        ),
+      ),
+    );
   }
 
   _updateData({bool? isLoading}) {
