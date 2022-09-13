@@ -37,15 +37,15 @@ class NowShowing extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                    child: Image.network(
-                      screenData?.movieTrending[index].image,
-                      errorBuilder: (context, exception, stackTrace) {
-                        return Image.asset(
-                          ImagesPath.notFound,
-                          fit: BoxFit.cover,
-                        );
-                      },
-                      fit: BoxFit.cover,
+                  child: Image.network(
+                    screenData?.movieTrending[index].image,
+                    errorBuilder: (context, exception, stackTrace) {
+                      return Image.asset(
+                        ImagesPath.notFound,
+                        fit: BoxFit.cover,
+                      );
+                    },
+                    fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(
