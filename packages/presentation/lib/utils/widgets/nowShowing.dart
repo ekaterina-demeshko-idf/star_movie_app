@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../images/paths.dart';
 
 class NowShowing extends StatelessWidget {
   const NowShowing({
@@ -20,13 +23,6 @@ class NowShowing extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 30,
       ),
-      // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      //   crossAxisCount: 2,
-      //   mainAxisSpacing: 20.0,
-      //   crossAxisSpacing: 0,
-      //   mainAxisExtent: 450,
-      //   childAspectRatio: (.1/ .21),
-      // ),
       itemCount: screenData?.movieTrending.length,
       itemBuilder: (BuildContext ctx, index) {
         return Padding(
@@ -38,17 +34,9 @@ class NowShowing extends StatelessWidget {
                 child: Image.network(
                   screenData?.movieTrending[index].image,
                   errorBuilder: (context, exception, stackTrace) {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 108.0),
-                      child: Center(
-                          child: Icon(
-                        Icons.not_interested_rounded,
-                        size: 60,
-                        color: Colors.white,
-                      )),
-                    );
+                    return Image.asset(ImagesPath.notFound,);
                   },
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
               ),
               RatingBar(
@@ -58,18 +46,9 @@ class NowShowing extends StatelessWidget {
                 itemCount: 5,
                 itemSize: 17,
                 ratingWidget: RatingWidget(
-                  full: const Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                  ),
-                  half: const Icon(
-                    Icons.star_half,
-                    color: Colors.yellow,
-                  ),
-                  empty: const Icon(
-                    Icons.star_border,
-                    color: Colors.yellow,
-                  ),
+                  full: SvgPicture.asset(ImagesPath.starFull),
+                  half: SvgPicture.asset(ImagesPath.starHalf),
+                  empty: SvgPicture.asset(ImagesPath.starEmpty),
                 ),
                 itemPadding: const EdgeInsets.only(right: 1.0),
                 onRatingUpdate: (rating) {},
