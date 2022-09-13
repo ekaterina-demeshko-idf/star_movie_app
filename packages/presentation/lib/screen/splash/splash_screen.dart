@@ -6,7 +6,6 @@ import '../../utils/colors.dart';
 import '../../base/bloc_screen.dart';
 import '../../utils/images/paths.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 

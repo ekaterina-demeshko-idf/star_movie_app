@@ -31,7 +31,6 @@ class DetailsPage extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text('details'),
-
       ),
       body: Container(
         child: Center(

@@ -16,7 +16,6 @@ class NowShowing extends StatelessWidget {
           key: key,
         );
 
-
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
