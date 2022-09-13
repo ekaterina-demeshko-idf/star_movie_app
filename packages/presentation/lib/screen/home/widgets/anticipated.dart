@@ -46,6 +46,9 @@ class Anticipated extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
                 RatingBar(
                   initialRating: screenData?.movieAnticipated[index].rating,
                   direction: Axis.horizontal,
@@ -60,6 +63,9 @@ class Anticipated extends StatelessWidget {
                   itemPadding: const EdgeInsets.only(right: 1.0),
                   onRatingUpdate: (rating) {},
                 ),
+                const SizedBox(
+                  height: 8,
+                ),
                 Text(
                   screenData?.movieAnticipated[index].title ?? '',
                   textAlign: TextAlign.start,
@@ -69,6 +75,9 @@ class Anticipated extends StatelessWidget {
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(
+                  height: 4,
                 ),
                 Text(
                   '${screenData?.movieAnticipated[index].genre} · ${screenData?.movieAnticipated[index].runtime} | ${screenData?.movieAnticipated[index].certification}',
