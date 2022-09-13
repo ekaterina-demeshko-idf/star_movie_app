@@ -27,7 +27,7 @@ class Anticipated extends StatelessWidget {
       itemCount: screenData?.movieAnticipated.length,
       itemBuilder: (BuildContext ctx, index) {
         return Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: GestureDetector(
             onTap: () {
               bloc.openDetailsPage(screenData?.movieTrending[index]);
@@ -41,6 +41,7 @@ class Anticipated extends StatelessWidget {
                     errorBuilder: (context, exception, stackTrace) {
                       return Image.asset(
                         ImagesPath.notFound,
+                        fit: BoxFit.cover,
                       );
                     },
                     fit: BoxFit.cover,

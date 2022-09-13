@@ -28,7 +28,7 @@ class NowShowing extends StatelessWidget {
       itemCount: screenData?.movieTrending.length,
       itemBuilder: (BuildContext ctx, index) {
         return Padding(
-          padding: const EdgeInsets.all(5.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: GestureDetector(
             onTap: () {
               bloc.openDetailsPage(screenData?.movieTrending[index]);
@@ -37,14 +37,15 @@ class NowShowing extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Image.network(
-                    screenData?.movieTrending[index].image,
-                    errorBuilder: (context, exception, stackTrace) {
-                      return Image.asset(
-                        ImagesPath.notFound,
-                      );
-                    },
-                    fit: BoxFit.contain,
+                    child: Image.network(
+                      screenData?.movieTrending[index].image,
+                      errorBuilder: (context, exception, stackTrace) {
+                        return Image.asset(
+                          ImagesPath.notFound,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                      fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(
