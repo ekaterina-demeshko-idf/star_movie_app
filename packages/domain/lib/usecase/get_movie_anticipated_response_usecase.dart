@@ -15,23 +15,26 @@ class GetMovieAnticipatedResponseUseCase
     final response =
         await _repository.getMovieData(apiPath: C.apiAnticipatedPath);
     if (int.parse(response.headers['x-pagination-page-count'][0]) >= 5) {
-      int itemCount = 50;
-      final response1 = await _repository.getMovieData(
-        apiPath: C.apiAnticipatedPath,
-        itemCount: itemCount,
-      );
-      jsonMovies.addAll(
-          response1.body.map((e) => MovieAnticipatedResponse.fromJson(e)));
+      const int itemCount = 50;
+      await _addToJsonMovies(itemCount, jsonMovies);
     } else {
       final itemCount =
           int.parse(response.headers['x-pagination-item-count'][0]);
-      final response1 = await _repository.getMovieData(
-        apiPath: C.apiAnticipatedPath,
-        itemCount: itemCount,
-      );
-      jsonMovies.addAll(
-          response1.body.map((e) => MovieAnticipatedResponse.fromJson(e)));
+      await _addToJsonMovies(itemCount, jsonMovies);
     }
+    return jsonMovies;
+  }
+
+  Future<List<MovieAnticipatedResponse>> _addToJsonMovies(
+    int itemCount,
+    List<MovieAnticipatedResponse> jsonMovies,
+  ) async {
+    final response = await _repository.getMovieData(
+      apiPath: C.apiAnticipatedPath,
+      itemCount: itemCount,
+    );
+    jsonMovies
+        .addAll(response.body.map((e) => MovieAnticipatedResponse.fromJson(e)));
     return jsonMovies;
   }
 }

@@ -12,25 +12,28 @@ class GetMovieTrendingResponseUseCase
   @override
   Future<List<MovieTrendingResponse>> call() async {
     final List<MovieTrendingResponse> jsonMovies = [];
-    final response = await _repository.getMovieData(apiPath: C.apiCorrectPath);
+    final response = await _repository.getMovieData(apiPath: C.apiTrendingPath);
     if (int.parse(response.headers['x-pagination-page-count'][0]) >= 5) {
-      int itemCount = 50;
-      final response1 = await _repository.getMovieData(
-        apiPath: C.apiCorrectPath,
-        itemCount: itemCount,
-      );
-      jsonMovies
-          .addAll(response1.body.map((e) => MovieTrendingResponse.fromJson(e)));
+      const int itemCount = 50;
+      await _addToJsonMovies(itemCount, jsonMovies);
     } else {
       final itemCount =
           int.parse(response.headers['x-pagination-item-count'][0]);
-      final response1 = await _repository.getMovieData(
-        apiPath: C.apiCorrectPath,
-        itemCount: itemCount,
-      );
-      jsonMovies
-          .addAll(response1.body.map((e) => MovieTrendingResponse.fromJson(e)));
+      await _addToJsonMovies(itemCount, jsonMovies);
     }
+    return jsonMovies;
+  }
+
+  Future<List<MovieTrendingResponse>> _addToJsonMovies(
+    int itemCount,
+    List<MovieTrendingResponse> jsonMovies,
+  ) async {
+    final response = await _repository.getMovieData(
+      apiPath: C.apiTrendingPath,
+      itemCount: itemCount,
+    );
+    jsonMovies
+        .addAll(response.body.map((e) => MovieTrendingResponse.fromJson(e)));
     return jsonMovies;
   }
 }

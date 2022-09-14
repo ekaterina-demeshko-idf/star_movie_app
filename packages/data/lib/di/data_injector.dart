@@ -40,6 +40,9 @@ Dio _buildDio() {
   );
 
   final dio = Dio(options);
-  dio.interceptors.add(MyInterceptor());
+  dio.interceptors.addAll([
+    MyInterceptor(),
+    LogInterceptor(requestBody: true, responseBody: true),
+  ]);
   return dio;
 }
