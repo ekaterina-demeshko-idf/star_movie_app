@@ -48,8 +48,6 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
   @override
   void initArgs(HomeScreenArguments arguments) {
     super.initArgs(arguments);
-    // _screenData =
-    //     HomeData(0, arguments.movieResponse, arguments.anticipatedResponse);
     _updateData();
   }
 
