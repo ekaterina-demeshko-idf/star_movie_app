@@ -7,7 +7,7 @@ class ApiKeyInterceptor extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    options.headers[C.traktApiKey] = await getSecrets();
+    options.headers[Config.traktApiKey] = await getSecrets();
     return handler.next(options);
   }
 }

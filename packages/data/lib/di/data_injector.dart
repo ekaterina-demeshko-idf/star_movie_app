@@ -47,9 +47,9 @@ void _initRepositoryModule() {
 
 Dio _buildDio(List<Interceptor> interceptors) {
   final options = BaseOptions(
-    sendTimeout: C.sendTimeout,
-    receiveTimeout: C.receiveTimeout,
-    connectTimeout: C.connectTimeout,
+    sendTimeout: Config.sendTimeout,
+    receiveTimeout: Config.receiveTimeout,
+    connectTimeout: Config.connectTimeout,
   );
 
   final dio = Dio(options);
