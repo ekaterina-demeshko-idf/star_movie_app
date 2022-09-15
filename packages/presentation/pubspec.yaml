@@ -13,8 +13,6 @@ dependencies:
     sdk: flutter
   domain:
     path: ../domain
-  data:
-    path: ../data
   collection: ^1.16.0
   flutter_svg: ^1.1.4
   shimmer: ^2.0.0

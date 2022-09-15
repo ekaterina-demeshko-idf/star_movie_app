@@ -48,4 +48,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-/packages/data/lib/interceptor/secrets.dart
+/packages/data/secrets.json
+/secrets.yaml

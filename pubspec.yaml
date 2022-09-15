@@ -16,8 +16,6 @@ dependencies:
     path: packages/presentation
   data:
     path: packages/data
-
-
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
@@ -29,4 +27,5 @@ dev_dependencies:
 flutter:
   assets:
     - resources/images/
+    - secrets.yaml
   uses-material-design: true

@@ -41,7 +41,7 @@ Dio _buildDio() {
 
   final dio = Dio(options);
   dio.interceptors.addAll([
-    MyInterceptor(),
+    ApiKeyInterceptor(),
     LogInterceptor(requestBody: true, responseBody: true),
   ]);
   return dio;
