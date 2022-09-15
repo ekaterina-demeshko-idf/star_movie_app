@@ -11,15 +11,12 @@ class NetworkRepositoryImpl implements NetworkRepository {
   @override
   Future<GetMovieDataResponse> getMovieData({
     required String apiPath,
+    required Map<String, dynamic> queryParameters,
     int? itemCount,
   }) async {
     final response = await _movieApiService.get(
       apiPath,
-      queryParameters: {
-        'extended': 'full',
-        'page': 1,
-        'limit': itemCount,
-      },
+      queryParameters,
     );
 
     return GetMovieDataResponse(

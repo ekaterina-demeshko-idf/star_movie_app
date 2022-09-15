@@ -12,8 +12,13 @@ class GetMovieTrendingResponseUseCase
   @override
   Future<List<MovieTrendingResponse>> call() async {
     final List<MovieTrendingResponse> jsonMovies = [];
-    final response =
-        await _repository.getMovieData(apiPath: Config.apiTrendingPath);
+    final response = await _repository.getMovieData(
+      apiPath: Config.apiTrendingPath,
+      queryParameters: {
+        'extended': 'full',
+        'page': 1,
+      },
+    );
     final pageCount = int.parse(response.headers[Config.pageCount][0]);
     if (pageCount >= 5) {
       const int itemCount = 50;
@@ -29,10 +34,12 @@ class GetMovieTrendingResponseUseCase
     int itemCount,
     List<MovieTrendingResponse> jsonMovies,
   ) async {
-    final response = await _repository.getMovieData(
-      apiPath: Config.apiTrendingPath,
-      itemCount: itemCount,
-    );
+    final response = await _repository
+        .getMovieData(apiPath: Config.apiTrendingPath, queryParameters: {
+      'extended': 'full',
+      'page': 1,
+      'limit': itemCount,
+    });
     jsonMovies
         .addAll(response.body.map((e) => MovieTrendingResponse.fromJson(e)));
     return jsonMovies;

@@ -3,8 +3,7 @@ import 'package:dio/dio.dart';
 
 abstract class ApiBaseService<P extends ServicePayload> {
   Future<Response<T>> get<T>(
-    String path, {
-    Map<String, dynamic> queryParameters,
+    String path, Map<String, dynamic> queryParameters, {
     P? payload,
   });
 
@@ -23,8 +22,8 @@ class ApiServiceImpl implements ApiBaseService<DioServicePayload> {
 
   @override
   Future<Response<T>> get<T>(
-    String path, {
-    Map<String, dynamic>? queryParameters,
+    String path,
+    Map<String, dynamic>? queryParameters, {
     DioServicePayload? payload,
   }) async {
     final response = _dio.get<T>(
