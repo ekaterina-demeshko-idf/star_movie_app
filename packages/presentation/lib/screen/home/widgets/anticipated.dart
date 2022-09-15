@@ -3,11 +3,11 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/utils/images/paths.dart';
 
-class Anticipated extends StatelessWidget {
+class AnticipatedWidget extends StatelessWidget {
   final screenData;
   final bloc;
 
-  const Anticipated({
+  const AnticipatedWidget({
     Key? key,
     required this.screenData,
     required this.bloc,

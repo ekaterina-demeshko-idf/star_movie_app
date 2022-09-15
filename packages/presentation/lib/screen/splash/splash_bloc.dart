@@ -28,7 +28,7 @@ class _SplashBloc extends BlocImpl implements SplashBloc {
     await _imitateApiCallUseCase();
     appNavigator.popAndPush(
       HomeScreen.page(
-        HomeScreenArguments(anticipatedResponse: [], movieResponse: []),
+        HomeScreenArguments(),
       ),
     );
   }

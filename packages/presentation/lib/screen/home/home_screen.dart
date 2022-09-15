@@ -12,12 +12,8 @@ import '../../utils/text_styles.dart';
 import 'home_bloc.dart';
 
 class HomeScreenArguments extends BaseArguments {
-  List<dynamic>? movieResponse;
-  List<dynamic>? anticipatedResponse;
 
   HomeScreenArguments({
-    required this.movieResponse,
-    required this.anticipatedResponse,
     Function(dynamic value)? result,
   }) : super(result: result);
 }
@@ -84,7 +80,7 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
                     ),
                   ]),
               body: data.isLoading
-                  ? const HomeSkelet()
+                  ? const HomeSkeletWidget()
                   : HomeContent(screenData: screenData, bloc: bloc),
               bottomNavigationBar: Container(
                 padding: const EdgeInsets.only(bottom: 15),

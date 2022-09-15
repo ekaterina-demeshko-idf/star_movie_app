@@ -12,7 +12,9 @@ abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
     GetMovieAnticipatedResponseUseCase getMovieAnticipatedResponseUseCase,
   ) =>
       _HomeBloc(
-          getMovieTrendingResponseUseCase, getMovieAnticipatedResponseUseCase);
+        getMovieTrendingResponseUseCase,
+        getMovieAnticipatedResponseUseCase,
+      );
 
   void onItemTapped(int index);
 
@@ -23,11 +25,14 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     implements HomeBloc {
   int? selectedIndex = 1;
   HomeData _screenData = HomeData.init();
+
   final GetMovieTrendingResponseUseCase _getMovieTrendingResponseUseCase;
   final GetMovieAnticipatedResponseUseCase _getMovieAnticipatedResponseUseCase;
 
-  _HomeBloc(this._getMovieTrendingResponseUseCase,
-      this._getMovieAnticipatedResponseUseCase);
+  _HomeBloc(
+    this._getMovieTrendingResponseUseCase,
+    this._getMovieAnticipatedResponseUseCase,
+  );
 
   @override
   void initState() async {
@@ -43,12 +48,6 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
         .toList();
     _screenData = HomeData(0, moviesTrending, moviesAnticipated);
     _updateData(isLoading: false);
-  }
-
-  @override
-  void initArgs(HomeScreenArguments arguments) {
-    super.initArgs(arguments);
-    _updateData();
   }
 
   @override

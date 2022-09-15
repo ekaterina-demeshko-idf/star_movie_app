@@ -18,7 +18,7 @@ void _initUseCaseModule() {
     ),
   );
   GetIt.I.registerFactory<GetMovieAnticipatedResponseUseCase>(
-        () => GetMovieAnticipatedResponseUseCase(
+    () => GetMovieAnticipatedResponseUseCase(
       GetIt.I.get<NetworkRepository>(),
     ),
   );

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import './tabbar.dart';
 import 'package:shimmer/shimmer.dart';
 
-class HomeSkelet extends StatelessWidget {
-  const HomeSkelet({Key? key}) : super(key: key);
+class HomeSkeletWidget extends StatelessWidget {
+  const HomeSkeletWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

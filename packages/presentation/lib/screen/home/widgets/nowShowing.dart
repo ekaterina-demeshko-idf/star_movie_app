@@ -4,11 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:presentation/utils/images/paths.dart';
 import 'package:presentation/base/bloc_screen.dart';
 
-class NowShowing extends StatelessWidget {
+class NowShowingWidget extends StatelessWidget {
   final bloc;
   final screenData;
 
-  const NowShowing({
+  const NowShowingWidget({
     Key? key,
     required this.screenData,
     required this.bloc,

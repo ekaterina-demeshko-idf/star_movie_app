@@ -37,7 +37,7 @@ pubspec.lock
 secrets.dart
 # Web related
 lib/generated_plugin_registrant.dart
-
+.g.dart
 # Symbolication related
 app.*.symbols
 

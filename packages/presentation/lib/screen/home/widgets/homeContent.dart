@@ -26,11 +26,11 @@ class HomeContent extends StatelessWidget {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      NowShowing(
+                      NowShowingWidget(
                         screenData: screenData,
                         bloc: bloc,
                       ),
-                      Anticipated(
+                      AnticipatedWidget(
                         screenData: screenData,
                         bloc: bloc,
                       ),
