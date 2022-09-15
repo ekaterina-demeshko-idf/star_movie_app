@@ -1,7 +1,6 @@
 import 'package:domain/model/movie_response.dart';
-import '../../utils/funcs/capitalize.dart';
-import '../../utils/funcs/convert_time.dart';
 import 'package:domain/utils/extensions/string_extension.dart';
+import 'package:domain/utils/extensions/int_extension.dart';
 
 class MoviePresentation {
   final String title;
@@ -24,9 +23,9 @@ class MoviePresentation {
     return MoviePresentation(
       movie.title.orEmpty,
       'http://img.omdbapi.com/?apikey=956febbc&i=${movie.ids?.imdb}',
-      getTimeString(movie.runtime),
+      movie.runtime.convertTimeToString,
       (movie.rating ?? 0.0) / 2,
-      capitalize(movie.genres?.first),
+      movie.genres?.first.orEmpty.capitalize,
       movie.certification.toString(),
     );
   }

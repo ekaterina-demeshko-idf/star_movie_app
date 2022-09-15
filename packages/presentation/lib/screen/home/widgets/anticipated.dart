@@ -54,6 +54,7 @@ class AnticipatedWidget extends StatelessWidget {
                   initialRating: screenData?.movieAnticipated[index].rating,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
+                  ignoreGestures: true,
                   itemCount: 5,
                   itemSize: 17,
                   ratingWidget: RatingWidget(
@@ -68,7 +69,7 @@ class AnticipatedWidget extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  screenData?.movieAnticipated[index].title ?? '',
+                  screenData?.movieAnticipated[index].title,
                   textAlign: TextAlign.start,
                   style: const TextStyle(
                     color: Colors.white,

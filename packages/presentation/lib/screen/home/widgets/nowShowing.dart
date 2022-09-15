@@ -55,6 +55,7 @@ class NowShowingWidget extends StatelessWidget {
                   initialRating: screenData?.movieTrending[index].rating,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
+                  ignoreGestures: true,
                   itemCount: 5,
                   itemSize: 17,
                   ratingWidget: RatingWidget(
@@ -69,7 +70,7 @@ class NowShowingWidget extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  screenData?.movieTrending[index].title ?? 'fa',
+                  screenData?.movieTrending[index].title,
                   textAlign: TextAlign.start,
                   style: const TextStyle(
                     color: Colors.white,
