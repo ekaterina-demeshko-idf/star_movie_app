@@ -9,8 +9,10 @@ class NetworkRepositoryImpl implements NetworkRepository {
   NetworkRepositoryImpl(this._movieApiService);
 
   @override
-  Future<GetDataResponse> getMovieData(
-      {required String apiPath, int? itemCount}) async {
+  Future<GetMovieDataResponse> getMovieData({
+    required String apiPath,
+    int? itemCount,
+  }) async {
     final response = await _movieApiService.get(
       apiPath,
       queryParameters: {
@@ -20,7 +22,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
       },
     );
 
-    return GetDataResponse(
+    return GetMovieDataResponse(
       headers: response.headers.map,
       body: (response.data as List<dynamic>)
           .map((e) => e as Map<String, dynamic>)

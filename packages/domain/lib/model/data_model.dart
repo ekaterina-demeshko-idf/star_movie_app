@@ -1,8 +1,8 @@
-class GetDataResponse {
+class GetMovieDataResponse {
   final Map<String, dynamic> headers;
   final List<dynamic> body;
 
-  GetDataResponse({
+  GetMovieDataResponse({
     required this.headers,
     required this.body,
   });

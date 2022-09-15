@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import "package:flutter/services.dart" as s;
 import "package:yaml/yaml.dart";
+import 'package:data/utils/const.dart';
 
 class ApiKeyInterceptor extends Interceptor {
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-    options.headers['trakt-api-key'] = await getSecrets();
+    options.headers[C.traktApiKey] = await getSecrets();
     return handler.next(options);
   }
 }
