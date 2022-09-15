@@ -18,3 +18,5 @@ migrate_working_dir/
 .dart_tool/
 .packages
 build/
+movie_anticipated_response.g.dart
+*.g.dart
