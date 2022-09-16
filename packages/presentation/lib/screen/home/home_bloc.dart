@@ -5,15 +5,18 @@ import 'package:presentation/screen/home/home_screen.dart';
 import 'package:presentation/screen/home/movie_model.dart';
 import '../details/details_page.dart';
 import 'home_data.dart';
+import 'home_view_mapper.dart';
 
 abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
   factory HomeBloc(
     GetMovieTrendingResponseUseCase getMovieTrendingResponseUseCase,
     GetMovieAnticipatedResponseUseCase getMovieAnticipatedResponseUseCase,
+    HomeViewMapper viewMapper,
   ) =>
       _HomeBloc(
         getMovieTrendingResponseUseCase,
         getMovieAnticipatedResponseUseCase,
+        viewMapper,
       );
 
   void openDetailsPage(MoviePresentation movie);
@@ -22,6 +25,7 @@ abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
 class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     implements HomeBloc {
   HomeData _screenData = HomeData.init();
+  final HomeViewMapper _viewMapper;
 
   final GetMovieTrendingResponseUseCase _getMovieTrendingResponseUseCase;
   final GetMovieAnticipatedResponseUseCase _getMovieAnticipatedResponseUseCase;
@@ -29,6 +33,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
   _HomeBloc(
     this._getMovieTrendingResponseUseCase,
     this._getMovieAnticipatedResponseUseCase,
+    this._viewMapper,
   );
 
   @override
@@ -41,12 +46,10 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     _updateData(isLoading: true);
     final responseAnticipated = await _getMovieAnticipatedResponseUseCase();
     final responseTrending = await _getMovieTrendingResponseUseCase();
-    final List<MoviePresentation> moviesTrending = responseTrending
-        .map((e) => MoviePresentation.fromMovie(e.movie))
-        .toList();
-    final List<MoviePresentation> moviesAnticipated = responseAnticipated
-        .map((e) => MoviePresentation.fromMovie(e.movie))
-        .toList();
+    final List<MoviePresentation> moviesTrending =
+        _viewMapper.mapTrendingDataToRequest(responseTrending);
+    final List<MoviePresentation> moviesAnticipated =
+        _viewMapper.mapAnticipatedDataToRequest(responseAnticipated);
     _screenData = HomeData(moviesTrending, moviesAnticipated);
     _updateData(isLoading: false);
   }
