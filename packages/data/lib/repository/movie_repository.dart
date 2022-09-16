@@ -1,3 +1,4 @@
+import 'package:data/utils/const.dart';
 import 'package:domain/model/data_model.dart';
 import '../service/api_base_service.dart';
 import '../service/service_payload.dart';
@@ -9,13 +10,28 @@ class NetworkRepositoryImpl implements NetworkRepository {
   NetworkRepositoryImpl(this._movieApiService);
 
   @override
-  Future<GetMovieDataResponse> getMovieData({
-    required String apiPath,
+  Future<GetMovieDataResponse> getMovieTrendingData({
     required Map<String, dynamic> queryParameters,
-    int? itemCount,
   }) async {
     final response = await _movieApiService.get(
-      apiPath,
+      Config.apiTrendingPath,
+      queryParameters,
+    );
+
+    return GetMovieDataResponse(
+      headers: response.headers.map,
+      body: (response.data as List<dynamic>)
+          .map((e) => e as Map<String, dynamic>)
+          .toList(),
+    );
+  }
+
+  @override
+  Future<GetMovieDataResponse> getMovieAnticipatedData({
+    required Map<String, dynamic> queryParameters,
+  }) async {
+    final response = await _movieApiService.get(
+      Config.apiAnticipatedPath,
       queryParameters,
     );
 

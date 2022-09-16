@@ -1,6 +1,6 @@
-import 'package:domain/usecase/get_movie_anticipated_response_usecase.dart';
+import 'package:domain/enum/movie_type.dart';
+import 'package:domain/usecase/get_movie_response_usecase.dart';
 import 'package:presentation/base/bloc.dart';
-import 'package:domain/usecase/get_movie_trending_response_usecase.dart';
 import 'package:presentation/screen/home/home_screen.dart';
 import 'package:presentation/screen/home/movie_model.dart';
 import '../details/details_page.dart';
@@ -9,13 +9,11 @@ import 'home_view_mapper.dart';
 
 abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
   factory HomeBloc(
-    GetMovieTrendingResponseUseCase getMovieTrendingResponseUseCase,
-    GetMovieAnticipatedResponseUseCase getMovieAnticipatedResponseUseCase,
+    GetMovieResponseUseCase getMovieResponseUseCase,
     HomeViewMapper viewMapper,
   ) =>
       _HomeBloc(
-        getMovieTrendingResponseUseCase,
-        getMovieAnticipatedResponseUseCase,
+        getMovieResponseUseCase,
         viewMapper,
       );
 
@@ -27,12 +25,10 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
   HomeData _screenData = HomeData.init();
   final HomeViewMapper _viewMapper;
 
-  final GetMovieTrendingResponseUseCase _getMovieTrendingResponseUseCase;
-  final GetMovieAnticipatedResponseUseCase _getMovieAnticipatedResponseUseCase;
+  final GetMovieResponseUseCase _getMovieResponseUseCase;
 
   _HomeBloc(
-    this._getMovieTrendingResponseUseCase,
-    this._getMovieAnticipatedResponseUseCase,
+    this._getMovieResponseUseCase,
     this._viewMapper,
   );
 
@@ -44,12 +40,14 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   void getInitialData() async {
     _updateData(isLoading: true);
-    final responseAnticipated = await _getMovieAnticipatedResponseUseCase();
-    final responseTrending = await _getMovieTrendingResponseUseCase();
+    final responseTrending = await _getMovieResponseUseCase(MovieType.trending);
+    final responseAnticipated =
+        await _getMovieResponseUseCase(MovieType.anticipated);
+
     final List<MoviePresentation> moviesTrending =
-        await _viewMapper.mapTrendingDataToRequest(responseTrending);
+        await _viewMapper.mapMovieDataToRequest(responseTrending);
     final List<MoviePresentation> moviesAnticipated =
-        await _viewMapper.mapAnticipatedDataToRequest(responseAnticipated);
+        await _viewMapper.mapMovieDataToRequest(responseAnticipated);
     _screenData = HomeData(moviesTrending, moviesAnticipated);
     _updateData(isLoading: false);
   }
