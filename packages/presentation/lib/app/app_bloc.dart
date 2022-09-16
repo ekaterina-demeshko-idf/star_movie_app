@@ -8,10 +8,13 @@ abstract class AppBloc extends Bloc {
   factory AppBloc() => _AppBloc();
 
   void handleRemoveRouteSettings(RouteSettings value);
+
+  void onItemTapped(int index);
 }
 
 class _AppBloc extends BlocImpl implements AppBloc {
   final _appData = AppData.init();
+  int? selectedIndex = 0;
 
   @override
   void initState() {
@@ -41,6 +44,12 @@ class _AppBloc extends BlocImpl implements AppBloc {
     );
   }
 
+  @override
+  void onItemTapped(int index) {
+    selectedIndex = index;
+    _updateData();
+  }
+
   void _push(BasePage page) {
     _appData.pages.add(page);
     _updateData();
@@ -64,6 +73,7 @@ class _AppBloc extends BlocImpl implements AppBloc {
   void _popAndPush(BasePage page) {
     _appData.pages.removeLast();
     _push(page);
+    _updateData();
   }
 
   void _pushPages(List<BasePage> pages) {
@@ -95,10 +105,10 @@ class _AppBloc extends BlocImpl implements AppBloc {
     _updateData();
   }
 
-  BasePage? _currentPage() =>
-       _appData.pages.lastOrNull;
+  BasePage? _currentPage() => _appData.pages.lastOrNull;
 
   void _updateData() {
+    _appData.hideNavBar = _currentPage()!.hideNavBar;
     super.handleData(data: _appData);
   }
 }

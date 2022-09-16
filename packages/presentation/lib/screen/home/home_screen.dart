@@ -12,7 +12,6 @@ import '../../utils/text_styles.dart';
 import 'home_bloc.dart';
 
 class HomeScreenArguments extends BaseArguments {
-
   HomeScreenArguments({
     Function(dynamic value)? result,
   }) : super(result: result);
@@ -28,6 +27,7 @@ class HomeScreen extends StatefulWidget {
         name: _routeName,
         builder: (context) => const HomeScreen(),
         arguments: arguments,
+        hideNavBar: false,
       );
 
   @override
@@ -82,72 +82,6 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
               body: data.isLoading
                   ? const HomeSkeletWidget()
                   : HomeContent(screenData: screenData, bloc: bloc),
-              bottomNavigationBar: Container(
-                padding: const EdgeInsets.only(bottom: 15),
-                decoration: const BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      width: 0.5,
-                      color: Color(PrimaryColors.primaryUnselected),
-                    ),
-                  ),
-                ),
-                child: BottomNavigationBar(
-                  showSelectedLabels: false,
-                  showUnselectedLabels: false,
-                  backgroundColor:
-                      const Color(PrimaryColors.primaryBackgroundColor),
-                  elevation: 0,
-                  items: <BottomNavigationBarItem>[
-                    BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        ImagesPath.movieIcon,
-                        color: const Color(PrimaryColors.whiteWithOpacity),
-                      ),
-                      activeIcon: SvgPicture.asset(
-                        ImagesPath.movieIcon,
-                        color: const Color(PrimaryColors.primarySelected),
-                      ),
-                      label: 'Home',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        ImagesPath.tickerIcon,
-                        color: const Color(PrimaryColors.whiteWithOpacity),
-                      ),
-                      activeIcon: SvgPicture.asset(
-                        ImagesPath.tickerIcon,
-                        color: const Color(PrimaryColors.primarySelected),
-                      ),
-                      label: 'Business',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        ImagesPath.alarmIcon,
-                        color: const Color(PrimaryColors.whiteWithOpacity),
-                      ),
-                      activeIcon: SvgPicture.asset(
-                        ImagesPath.alarmIcon,
-                        color: const Color(PrimaryColors.primarySelected),
-                      ),
-                      label: 'School',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        ImagesPath.personIcon,
-                        color: const Color(PrimaryColors.whiteWithOpacity),
-                      ),
-                      activeIcon: SvgPicture.asset(
-                        ImagesPath.personIcon,
-                        color: const Color(PrimaryColors.primarySelected),
-                      ),
-                      label: 'School',
-                    ),
-                  ],
-                  currentIndex: blocData.selectedIndex,
-                  onTap: bloc.onItemTapped,
-                ),
-              ),
               backgroundColor:
                   const Color(PrimaryColors.primaryBackgroundColor),
             );

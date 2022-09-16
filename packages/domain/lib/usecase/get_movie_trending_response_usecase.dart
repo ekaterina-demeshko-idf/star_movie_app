@@ -30,7 +30,7 @@ class GetMovieTrendingResponseUseCase
     return jsonMovies;
   }
 
-  Future<List<MovieTrendingResponse>> _addToJsonMovies(
+  Future<List<MovieTrendingResponse>> _addToJsonMovies( //
     int itemCount,
     List<MovieTrendingResponse> jsonMovies,
   ) async {

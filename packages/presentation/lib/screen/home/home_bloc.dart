@@ -16,14 +16,11 @@ abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
         getMovieAnticipatedResponseUseCase,
       );
 
-  void onItemTapped(int index);
-
   void openDetailsPage(MoviePresentation movie);
 }
 
 class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     implements HomeBloc {
-  int? selectedIndex = 1;
   HomeData _screenData = HomeData.init();
 
   final GetMovieTrendingResponseUseCase _getMovieTrendingResponseUseCase;
@@ -50,14 +47,8 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     final List<MoviePresentation> moviesAnticipated = responseAnticipated
         .map((e) => MoviePresentation.fromMovie(e.movie))
         .toList();
-    _screenData = HomeData(0, moviesTrending, moviesAnticipated);
+    _screenData = HomeData(moviesTrending, moviesAnticipated);
     _updateData(isLoading: false);
-  }
-
-  @override
-  void onItemTapped(int index) {
-    selectedIndex = index;
-    _updateData();
   }
 
   @override

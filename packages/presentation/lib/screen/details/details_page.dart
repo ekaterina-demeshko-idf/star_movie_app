@@ -23,6 +23,7 @@ class DetailsPage extends StatelessWidget {
         name: _routeName,
         builder: (context) => const DetailsPage(),
         arguments: arguments,
+        hideNavBar: false,
       );
 
   @override

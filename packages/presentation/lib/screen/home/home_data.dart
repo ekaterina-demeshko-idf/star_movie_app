@@ -1,11 +1,10 @@
 class HomeData {
-  int selectedIndex;
   List<dynamic>? movieTrending;
   List<dynamic>? movieAnticipated;
 
-  HomeData(this.selectedIndex, this.movieTrending, this.movieAnticipated);
+  HomeData(this.movieTrending, this.movieAnticipated);
 
-  factory HomeData.init() => HomeData(0, [], []);
+  factory HomeData.init() => HomeData([], []);
 
-  HomeData copy() => HomeData(selectedIndex, movieTrending, movieAnticipated);
+  HomeData copy() => HomeData(movieTrending, movieAnticipated);
 }
