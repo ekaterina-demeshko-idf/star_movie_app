@@ -22,15 +22,15 @@ class GetMovieAnticipatedResponseUseCase
     final pageCount = int.parse(response.headers[Config.pageCount][0]);
     if (pageCount >= 5) {
       const int itemCount = 50;
-      await _addToJsonMovies(itemCount, jsonMovies);
+      await _getMovies(itemCount, jsonMovies);
     } else {
       final itemCount = int.parse(response.headers[Config.itemCount][0]);
-      await _addToJsonMovies(itemCount, jsonMovies);
+      await _getMovies(itemCount, jsonMovies);
     }
     return jsonMovies;
   }
 
-  Future<List<MovieAnticipatedResponse>> _addToJsonMovies(
+  Future<List<MovieAnticipatedResponse>> _getMovies(
     int itemCount,
     List<MovieAnticipatedResponse> jsonMovies,
   ) async {

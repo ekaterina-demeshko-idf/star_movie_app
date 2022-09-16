@@ -47,9 +47,9 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     final responseAnticipated = await _getMovieAnticipatedResponseUseCase();
     final responseTrending = await _getMovieTrendingResponseUseCase();
     final List<MoviePresentation> moviesTrending =
-        _viewMapper.mapTrendingDataToRequest(responseTrending);
+        await _viewMapper.mapTrendingDataToRequest(responseTrending);
     final List<MoviePresentation> moviesAnticipated =
-        _viewMapper.mapAnticipatedDataToRequest(responseAnticipated);
+        await _viewMapper.mapAnticipatedDataToRequest(responseAnticipated);
     _screenData = HomeData(moviesTrending, moviesAnticipated);
     _updateData(isLoading: false);
   }
