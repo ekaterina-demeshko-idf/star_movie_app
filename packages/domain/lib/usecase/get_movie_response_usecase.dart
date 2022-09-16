@@ -1,16 +1,11 @@
+import '../enum/movie_type.dart';
 import '../utils/const.dart';
 import '../model/movie_response_model.dart';
 import '../repository/movie_repository.dart';
 import 'usecase.dart';
 
-enum MovieType {
-  anticipated,
-  trending,
-}
-
 class GetMovieResponseUseCase
-    implements
-        UseCaseParams<MovieType, Future<List<MovieResponse>>> {
+    implements UseCaseParams<MovieType, Future<List<MovieResponse>>> {
   final NetworkRepository _repository;
 
   GetMovieResponseUseCase(this._repository);
@@ -42,8 +37,8 @@ class GetMovieResponseUseCase
     return jsonMovies;
   }
 
-  Future<List<MovieResponse>> _getMovies(int itemCount,
-      List<MovieResponse> jsonMovies, movieType) async {
+  Future<List<MovieResponse>> _getMovies(
+      int itemCount, List<MovieResponse> jsonMovies, movieType) async {
     final response = (movieType == MovieType.anticipated)
         ? await _repository.getMovieAnticipatedData(
             queryParameters: {
@@ -59,8 +54,7 @@ class GetMovieResponseUseCase
               'limit': itemCount,
             },
           );
-    jsonMovies
-        .addAll(response.body.map((e) => MovieResponse.fromJson(e)));
+    jsonMovies.addAll(response.body.map((e) => MovieResponse.fromJson(e)));
     return jsonMovies;
   }
 }
