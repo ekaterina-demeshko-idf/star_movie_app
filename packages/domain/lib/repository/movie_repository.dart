@@ -1,8 +1,11 @@
 import '../model/data_model.dart';
 
 abstract class NetworkRepository {
-  Future<GetMovieDataResponse> getMovieData({
-    required String apiPath,
+  Future<GetMovieDataResponse> getMovieTrendingData({
+    required Map<String, Object> queryParameters,
+  });
+
+  Future<GetMovieDataResponse> getMovieAnticipatedData({
     required Map<String, Object> queryParameters,
   });
 }
