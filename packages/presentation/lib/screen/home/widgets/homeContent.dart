@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import './tabbar.dart';
-import 'anticipated.dart';
-import 'nowShowing.dart';
+import 'movieList.dart';
 
 class HomeContent extends StatelessWidget {
   final bloc;
@@ -26,12 +25,12 @@ class HomeContent extends StatelessWidget {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      NowShowingWidget(
-                        screenData: screenData,
+                      MovieListWidget(
+                        screenData: screenData.movieTrending,
                         bloc: bloc,
                       ),
-                      AnticipatedWidget(
-                        screenData: screenData,
+                      MovieListWidget(
+                        screenData: screenData.movieAnticipated,
                         bloc: bloc,
                       ),
                     ],

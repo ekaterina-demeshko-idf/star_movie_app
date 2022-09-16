@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:presentation/utils/images/paths.dart';
-import 'package:presentation/base/bloc_screen.dart';
 
-class NowShowingWidget extends StatelessWidget {
-  final bloc;
+class MovieListWidget extends StatelessWidget {
   final screenData;
+  final bloc;
 
-  const NowShowingWidget({
+  const MovieListWidget({
     Key? key,
     required this.screenData,
     required this.bloc,
@@ -25,20 +24,20 @@ class NowShowingWidget extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 30,
       ),
-      itemCount: screenData?.movieTrending.length,
+      itemCount: screenData?.length,
       itemBuilder: (BuildContext ctx, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: GestureDetector(
             onTap: () {
-              bloc.openDetailsPage(screenData?.movieTrending[index]);
+              bloc.openDetailsPage(screenData[index]);
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Image.network(
-                    screenData?.movieTrending[index].image,
+                    screenData[index].image,
                     errorBuilder: (context, exception, stackTrace) {
                       return Image.asset(
                         ImagesPath.notFound,
@@ -52,7 +51,7 @@ class NowShowingWidget extends StatelessWidget {
                   height: 15,
                 ),
                 RatingBar(
-                  initialRating: screenData?.movieTrending[index].rating,
+                  initialRating: screenData[index].rating,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   ignoreGestures: true,
@@ -70,7 +69,7 @@ class NowShowingWidget extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  screenData?.movieTrending[index].title,
+                  screenData[index].title,
                   textAlign: TextAlign.start,
                   style: const TextStyle(
                     color: Colors.white,
@@ -83,7 +82,7 @@ class NowShowingWidget extends StatelessWidget {
                   height: 4,
                 ),
                 Text(
-                  '${screenData?.movieTrending[index].genre} · ${screenData?.movieTrending[index].runtime} | ${screenData?.movieTrending[index].certification}',
+                  '${screenData[index].genre} · ${screenData[index].runtime} | ${screenData[index].certification}',
                   style: const TextStyle(color: Colors.grey),
                 ),
               ],
