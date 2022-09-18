@@ -15,11 +15,9 @@ class GetMovieResponseUseCase
     final List<MovieResponse> jsonMovies = [];
     final response = movieType == MovieType.anticipated
         ? await _repository.getMovieAnticipatedData(
-            queryParameters: setQueryParams()
-          )
+            queryParameters: setQueryParams())
         : await _repository.getMovieTrendingData(
-            queryParameters: setQueryParams()
-          );
+            queryParameters: setQueryParams());
     final pageCount = int.parse(response.headers[Config.pageCount][0]);
     final itemCount =
         pageCount >= 5 ? 50 : int.parse(response.headers[Config.itemCount][0]);
@@ -34,11 +32,9 @@ class GetMovieResponseUseCase
   ) async {
     final response = (movieType == MovieType.anticipated)
         ? await _repository.getMovieAnticipatedData(
-            queryParameters: setQueryParams(itemCount: itemCount)
-          )
+            queryParameters: setQueryParams(itemCount: itemCount))
         : await _repository.getMovieTrendingData(
-            queryParameters: setQueryParams(itemCount: itemCount)
-          );
+            queryParameters: setQueryParams(itemCount: itemCount));
     jsonMovies.addAll(response.body.map((e) => MovieResponse.fromJson(e)));
     return jsonMovies;
   }
