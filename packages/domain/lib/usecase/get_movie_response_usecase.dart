@@ -11,9 +11,9 @@ class GetMovieResponseUseCase
   GetMovieResponseUseCase(this._repository);
 
   @override
-  Future<List<MovieResponse>> call(movieType) async {
+  Future<List<MovieResponse>> call(MovieType movieType) async {
     final List<MovieResponse> jsonMovies = [];
-    final response = (movieType == MovieType.anticipated)
+    final response = movieType == MovieType.anticipated
         ? await _repository.getMovieAnticipatedData(
             queryParameters: {
               'extended': 'full',
@@ -38,7 +38,7 @@ class GetMovieResponseUseCase
   }
 
   Future<List<MovieResponse>> _getMovies(
-      int itemCount, List<MovieResponse> jsonMovies, movieType) async {
+      int itemCount, List<MovieResponse> jsonMovies, MovieType movieType,) async {
     final response = (movieType == MovieType.anticipated)
         ? await _repository.getMovieAnticipatedData(
             queryParameters: {

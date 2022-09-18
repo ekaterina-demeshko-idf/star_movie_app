@@ -12,7 +12,7 @@ void _initUseCaseModule() {
     () => ImitateApiCallUseCase(),
   );
   GetIt.I.registerFactory<GetMovieResponseUseCase>(
-        () => GetMovieResponseUseCase(
+    () => GetMovieResponseUseCase(
       GetIt.I.get<NetworkRepository>(),
     ),
   );
