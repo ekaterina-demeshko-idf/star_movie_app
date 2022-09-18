@@ -27,18 +27,17 @@ class GetMovieResponseUseCase
             },
           );
     final pageCount = int.parse(response.headers[Config.pageCount][0]);
-    if (pageCount >= 5) {
-      const int itemCount = 50;
-      await _getMovies(itemCount, jsonMovies, movieType);
-    } else {
-      final itemCount = int.parse(response.headers[Config.itemCount][0]);
-      await _getMovies(itemCount, jsonMovies, movieType);
-    }
+    final itemCount =
+        pageCount >= 5 ? 50 : int.parse(response.headers[Config.itemCount][0]);
+    await _getMovies(itemCount, jsonMovies, movieType);
     return jsonMovies;
   }
 
   Future<List<MovieResponse>> _getMovies(
-      int itemCount, List<MovieResponse> jsonMovies, MovieType movieType,) async {
+    int itemCount,
+    List<MovieResponse> jsonMovies,
+    MovieType movieType,
+  ) async {
     final response = (movieType == MovieType.anticipated)
         ? await _repository.getMovieAnticipatedData(
             queryParameters: {
