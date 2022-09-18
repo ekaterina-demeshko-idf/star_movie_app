@@ -34,7 +34,6 @@ migrate_working_dir/
 pubspec.lock
 .metadata
 .env
-secrets.dart
 # Web related
 lib/generated_plugin_registrant.dart
 *.g.dart
