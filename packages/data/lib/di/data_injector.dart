@@ -50,6 +50,7 @@ Dio _buildDio(List<Interceptor> interceptors) {
     sendTimeout: Config.sendTimeout,
     receiveTimeout: Config.receiveTimeout,
     connectTimeout: Config.connectTimeout,
+    baseUrl: Config.apiBasePath,
   );
 
   final dio = Dio(options);
