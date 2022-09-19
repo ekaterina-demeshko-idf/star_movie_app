@@ -3,7 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/utils/images/paths.dart';
 
-class MovieListWidget extends StatelessWidget {
+class MovieListWidget extends StatefulWidget {
   final screenData;
   final bloc;
 
@@ -16,6 +16,17 @@ class MovieListWidget extends StatelessWidget {
         );
 
   @override
+  State<MovieListWidget> createState() => _MovieListWidgetState();
+}
+
+class _MovieListWidgetState extends State<MovieListWidget> {
+  @override
+  void initState() {
+    super.initState();
+    print('init');
+    // bloc.getAnotherData(screenData.)
+  }
+  @override
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
@@ -24,20 +35,20 @@ class MovieListWidget extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 30,
       ),
-      itemCount: screenData?.length,
+      itemCount: widget.screenData?.length,
       itemBuilder: (BuildContext ctx, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: GestureDetector(
             onTap: () {
-              bloc.openDetailsPage(screenData[index]);
+              widget.bloc.openDetailsPage(widget.screenData[index]);
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Image.network(
-                    screenData[index].image,
+                    widget.screenData[index].image,
                     errorBuilder: (context, exception, stackTrace) {
                       return Image.asset(
                         ImagesPath.notFound,
@@ -51,7 +62,7 @@ class MovieListWidget extends StatelessWidget {
                   height: 15,
                 ),
                 RatingBar(
-                  initialRating: screenData[index].rating,
+                  initialRating: widget.screenData[index].rating,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   ignoreGestures: true,
@@ -69,7 +80,7 @@ class MovieListWidget extends StatelessWidget {
                   height: 8,
                 ),
                 Text(
-                  screenData[index].title,
+                  widget.screenData[index].title,
                   textAlign: TextAlign.start,
                   style: const TextStyle(
                     color: Colors.white,
@@ -82,7 +93,7 @@ class MovieListWidget extends StatelessWidget {
                   height: 4,
                 ),
                 Text(
-                  '${screenData[index].genre} · ${screenData[index].runtime} | ${screenData[index].certification}',
+                  '${widget.screenData[index].genre} · ${widget.screenData[index].runtime} | ${widget.screenData[index].certification}',
                   style: const TextStyle(color: Colors.grey),
                 ),
               ],

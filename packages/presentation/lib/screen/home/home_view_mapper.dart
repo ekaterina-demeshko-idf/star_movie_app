@@ -13,11 +13,17 @@ abstract class HomeViewMapper {
 }
 
 class _HomeViewMapper implements HomeViewMapper {
+  late YamlMap secrets;
+
+  _HomeViewMapper() {
+    getAsyncSecrets();
+  }
+
   @override
   Future<List<MoviePresentation>> mapMovieDataToRequest(
     List<MovieResponse> response,
   ) async {
-    String key = await getImageSecret();
+    String key = secrets["IMG_API_KEY"];
     return response
         .map((e) => MoviePresentation(
               e.movie.title.orEmpty,
@@ -30,8 +36,7 @@ class _HomeViewMapper implements HomeViewMapper {
         .toList();
   }
 
-  Future<String> getImageSecret() async {
-    YamlMap secrets = await getSecrets();
-    return secrets["IMG_API_KEY"];
+  void getAsyncSecrets() async {
+    secrets = await getSecrets();
   }
 }
