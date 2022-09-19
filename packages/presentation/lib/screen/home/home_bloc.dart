@@ -22,7 +22,7 @@ abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
 
 class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     implements HomeBloc {
-  HomeData _screenData = HomeData.init();
+  var _screenData = HomeData.init();
   final HomeViewMapper _viewMapper;
 
   final GetMovieListUseCase _getMovieListUseCase;
@@ -35,20 +35,25 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
   @override
   void initState() {
     super.initState();
-    getInitialData();
+    getTrendingData();
+    //getAnticipatedData();
   }
 
-  void getInitialData() async {
+  void getTrendingData() async {
     _updateData(isLoading: true);
     final responseTrending = await _getMovieListUseCase(MovieType.trending);
-    final responseAnticipated =
-        await _getMovieListUseCase(MovieType.anticipated);
-
     final List<MoviePresentation> moviesTrending =
         await _viewMapper.mapMovieDataToRequest(responseTrending);
+    _screenData = _screenData.copyWith(movieTrending: moviesTrending);
+    _updateData(isLoading: false);
+  }
+
+  void getAnticipatedData() async {
+    _updateData(isLoading: true);
+    final responseAnticipated = await _getMovieListUseCase(MovieType.anticipated);
     final List<MoviePresentation> moviesAnticipated =
         await _viewMapper.mapMovieDataToRequest(responseAnticipated);
-    _screenData = HomeData(moviesTrending, moviesAnticipated);
+    _screenData = _screenData.copyWith(movieAnticipated: moviesAnticipated);
     _updateData(isLoading: false);
   }
 

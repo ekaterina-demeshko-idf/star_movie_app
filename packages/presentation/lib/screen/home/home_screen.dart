@@ -6,8 +6,7 @@ import '../../base/bloc_screen.dart';
 import '../../navigation/base_arguments.dart';
 import '../../navigation/base_page.dart';
 import '../../utils/images/paths.dart';
-import './widgets/homeContent.dart';
-import './widgets/homeSkelet.dart';
+import './widgets/home_content.dart';
 import '../../utils/text_styles.dart';
 import 'home_bloc.dart';
 
@@ -79,9 +78,11 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
                       color: Colors.white,
                     ),
                   ]),
-              body: data.isLoading
-                  ? const HomeSkeletWidget()
-                  : HomeContent(screenData: screenData, bloc: bloc),
+              body: HomeContent(
+                screenData: screenData,
+                bloc: bloc,
+                isLoading: data.isLoading,
+              ),
               backgroundColor:
                   const Color(PrimaryColors.primaryBackgroundColor),
             );

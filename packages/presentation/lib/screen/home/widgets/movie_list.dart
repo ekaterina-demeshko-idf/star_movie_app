@@ -20,12 +20,16 @@ class MovieListWidget extends StatefulWidget {
 }
 
 class _MovieListWidgetState extends State<MovieListWidget> {
+
   @override
   void initState() {
     super.initState();
-    print('init');
-    // bloc.getAnotherData(screenData.)
+    if (widget.screenData.length == 0)
+    {
+      widget.bloc.getAnticipatedData();
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
