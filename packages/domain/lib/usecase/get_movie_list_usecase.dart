@@ -4,11 +4,11 @@ import '../model/movie_response_model.dart';
 import '../repository/movie_repository.dart';
 import 'usecase.dart';
 
-class GetMovieResponseUseCase
+class GetMovieListUseCase
     implements UseCaseParams<MovieType, Future<List<MovieResponse>>> {
   final NetworkRepository _repository;
 
-  GetMovieResponseUseCase(this._repository);
+  GetMovieListUseCase(this._repository);
 
   @override
   Future<List<MovieResponse>> call(MovieType movieType) async {

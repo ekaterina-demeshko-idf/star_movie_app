@@ -1,5 +1,5 @@
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
-import 'package:domain/usecase/get_movie_response_usecase.dart';
+import 'package:domain/usecase/get_movie_list_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:presentation/screen/home/home_bloc.dart';
 import 'package:presentation/screen/splash/splash_bloc.dart';
@@ -25,7 +25,7 @@ void _initHomeScreenModule() {
   GetIt.I.registerFactory<HomeViewMapper>(() => HomeViewMapper());
   GetIt.I.registerFactory<HomeBloc>(
     () => HomeBloc(
-      GetIt.I.get<GetMovieResponseUseCase>(),
+      GetIt.I.get<GetMovieListUseCase>(),
       GetIt.I.get<HomeViewMapper>(),
     ),
   );
