@@ -10,12 +10,11 @@ class NetworkRepositoryImpl implements NetworkRepository {
   NetworkRepositoryImpl(this._movieApiService);
 
   @override
-  Future<GetMovieDataResponse> getMovieTrendingData({
-    required Map<String, dynamic> queryParameters,
-  }) async {
+  Future<GetMovieDataResponse> getMovieTrendingData(
+      {int itemCount = 10}) async {
     final response = await _movieApiService.get(
       Config.apiTrendingPath,
-      queryParameters,
+      setQueryParams(itemCount),
     );
 
     return GetMovieDataResponse(
@@ -27,12 +26,11 @@ class NetworkRepositoryImpl implements NetworkRepository {
   }
 
   @override
-  Future<GetMovieDataResponse> getMovieAnticipatedData({
-    required Map<String, dynamic> queryParameters,
-  }) async {
+  Future<GetMovieDataResponse> getMovieAnticipatedData(
+      {int itemCount = 10}) async {
     final response = await _movieApiService.get(
       Config.apiAnticipatedPath,
-      queryParameters,
+      setQueryParams(itemCount),
     );
 
     return GetMovieDataResponse(
@@ -41,5 +39,13 @@ class NetworkRepositoryImpl implements NetworkRepository {
           .map((e) => e as Map<String, dynamic>)
           .toList(),
     );
+  }
+
+  Map<String, Object> setQueryParams(int itemCount) {
+    return {
+      'extended': 'full',
+      'page': 1,
+      'limit': itemCount,
+    };
   }
 }
