@@ -3,6 +3,7 @@ import 'package:domain/usecase/get_movie_list_usecase.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/screen/home/home_screen.dart';
 import 'package:presentation/screen/home/movie_model.dart';
+import '../../enum/current_tab.dart';
 import '../details/details_page.dart';
 import 'home_data.dart';
 import 'home_view_mapper.dart';
@@ -50,11 +51,19 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   void getAnticipatedData() async {
     _updateData(isLoading: true);
-    final responseAnticipated = await _getMovieListUseCase(MovieType.anticipated);
+    final responseAnticipated =
+        await _getMovieListUseCase(MovieType.anticipated);
     final List<MoviePresentation> moviesAnticipated =
         await _viewMapper.mapMovieDataToRequest(responseAnticipated);
     _screenData = _screenData.copyWith(movieAnticipated: moviesAnticipated);
     _updateData(isLoading: false);
+  }
+
+  void setCurrentTab(index) {
+    _screenData = _screenData.copyWith(
+      currentTab: index == 0 ? CurrentTab.trending : CurrentTab.anticipated,
+    );
+    _updateData();
   }
 
   @override

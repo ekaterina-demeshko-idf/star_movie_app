@@ -3,13 +3,17 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/utils/images/paths.dart';
 
+import '../../../enum/current_tab.dart';
+
 class MovieListWidget extends StatefulWidget {
-  final screenData;
+  final movieList;
+  final currentTab;
   final bloc;
 
   const MovieListWidget({
     Key? key,
-    required this.screenData,
+    required this.movieList,
+    required this.currentTab,
     required this.bloc,
   }) : super(
           key: key,
@@ -20,12 +24,11 @@ class MovieListWidget extends StatefulWidget {
 }
 
 class _MovieListWidgetState extends State<MovieListWidget> {
-
   @override
   void initState() {
     super.initState();
-    if (widget.screenData.length == 0)
-    {
+    if (widget.currentTab == CurrentTab.anticipated &&
+        widget.movieList.length == 0) {
       widget.bloc.getAnticipatedData();
     }
   }
@@ -39,20 +42,20 @@ class _MovieListWidgetState extends State<MovieListWidget> {
         crossAxisCount: 2,
         mainAxisSpacing: 30,
       ),
-      itemCount: widget.screenData?.length,
+      itemCount: widget.movieList?.length,
       itemBuilder: (BuildContext ctx, index) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: GestureDetector(
             onTap: () {
-              widget.bloc.openDetailsPage(widget.screenData[index]);
+              widget.bloc.openDetailsPage(widget.movieList[index]);
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Image.network(
-                    widget.screenData[index].image,
+                    widget.movieList[index].image,
                     errorBuilder: (context, exception, stackTrace) {
                       return Image.asset(
                         ImagesPath.notFound,
@@ -66,7 +69,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                   height: 15,
                 ),
                 RatingBar(
-                  initialRating: widget.screenData[index].rating,
+                  initialRating: widget.movieList[index].rating,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   ignoreGestures: true,
@@ -84,7 +87,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                   height: 8,
                 ),
                 Text(
-                  widget.screenData[index].title,
+                  widget.movieList[index].title,
                   textAlign: TextAlign.start,
                   style: const TextStyle(
                     color: Colors.white,
@@ -97,7 +100,7 @@ class _MovieListWidgetState extends State<MovieListWidget> {
                   height: 4,
                 ),
                 Text(
-                  '${widget.screenData[index].genre} · ${widget.screenData[index].runtime} | ${widget.screenData[index].certification}',
+                  '${widget.movieList[index].genre} · ${widget.movieList[index].runtime} | ${widget.movieList[index].certification}',
                   style: const TextStyle(color: Colors.grey),
                 ),
               ],
