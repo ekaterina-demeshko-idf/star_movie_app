@@ -2,18 +2,10 @@ import 'package:flutter/material.dart';
 import '../../../enum/current_tab.dart';
 import '../../../utils/colors.dart';
 import 'movie_list.dart';
-import 'movie_list_skelet.dart';
 
 class HomeContent extends StatelessWidget {
-  final bloc;
-  final screenData;
-  final bool isLoading;
-
   const HomeContent({
     Key? key,
-    required this.screenData,
-    required this.bloc,
-    required this.isLoading,
   }) : super(key: key);
 
   @override
@@ -42,9 +34,6 @@ class HomeContent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(35),
                   ),
                   child: TabBar(
-                    onTap: (index) {
-                      bloc.setCurrentTab(index);
-                    },
                     unselectedLabelColor:
                         const Color(PrimaryColors.whiteWithOpacity),
                     labelColor: Colors.white,
@@ -70,23 +59,15 @@ class HomeContent extends StatelessWidget {
                     ],
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: TabBarView(
                     children: [
-                      isLoading
-                          ? const MovieListSkelet()
-                          : MovieListWidget(
-                              movieList: screenData.movieTrending,
-                              currentTab: screenData.currentTab,
-                              bloc: bloc,
-                            ),
-                      isLoading
-                          ? const MovieListSkelet()
-                          : MovieListWidget(
-                              movieList: screenData.movieAnticipated,
-                              currentTab: screenData.currentTab,
-                              bloc: bloc,
-                            ),
+                      MovieListWidget(
+                        currentTab: CurrentTab.trending,
+                      ),
+                      MovieListWidget(
+                        currentTab: CurrentTab.anticipated,
+                      ),
                     ],
                   ),
                 ),

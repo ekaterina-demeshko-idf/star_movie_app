@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:presentation/utils/colors.dart';
-import '../../base/bloc_data.dart';
 import '../../base/bloc_screen.dart';
 import '../../navigation/base_arguments.dart';
 import '../../navigation/base_page.dart';
@@ -51,46 +50,27 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<BlocData>(
-        stream: bloc.dataStream,
-        builder: (context, snapshot) {
-          final data = snapshot.data;
-          final screenData = data?.data;
-          if (data != null) {
-            final blocData = data.data;
-            return Scaffold(
-              appBar: AppBar(
-                  backgroundColor:
-                      const Color(PrimaryColors.primaryBackgroundColor),
-                  elevation: 0,
-                  title: Text(
-                    'Star Movie',
-                    style: AppTextStyles.headerStyle(
-                      AppTextStyles.header,
-                      fontWeight: AppFonts.bold,
-                      fontFamily: AppFonts.sfProText,
-                    ),
-                  ),
-                  actions: [
-                    IconButton(
-                      onPressed: () => {},
-                      icon: SvgPicture.asset(ImagesPath.searchIcon),
-                      color: Colors.white,
-                    ),
-                  ]),
-              body: HomeContent(
-                screenData: screenData,
-                bloc: bloc,
-                isLoading: data.isLoading,
-              ),
-              backgroundColor:
-                  const Color(PrimaryColors.primaryBackgroundColor),
-            );
-          } else {
-            return Scaffold(
-              body: Container(),
-            );
-          }
-        });
+    return Scaffold(
+      appBar: AppBar(
+          backgroundColor: const Color(PrimaryColors.primaryBackgroundColor),
+          elevation: 0,
+          title: Text(
+            'Star Movie',
+            style: AppTextStyles.headerStyle(
+              AppTextStyles.header,
+              fontWeight: AppFonts.bold,
+              fontFamily: AppFonts.sfProText,
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () => {},
+              icon: SvgPicture.asset(ImagesPath.searchIcon),
+              color: Colors.white,
+            ),
+          ]),
+      body: const HomeContent(),
+      backgroundColor: const Color(PrimaryColors.primaryBackgroundColor),
+    );
   }
 }

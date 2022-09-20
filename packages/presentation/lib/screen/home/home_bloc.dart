@@ -19,6 +19,8 @@ abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
       );
 
   void openDetailsPage(MoviePresentation movie);
+
+  void getMovieData(CurrentTab currentTab);
 }
 
 class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
@@ -36,8 +38,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
   @override
   void initState() {
     super.initState();
-    getTrendingData();
-    //getAnticipatedData();
+    _updateData();
   }
 
   void getTrendingData() async {
@@ -57,6 +58,15 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
         await _viewMapper.mapMovieDataToRequest(responseAnticipated);
     _screenData = _screenData.copyWith(movieAnticipated: moviesAnticipated);
     _updateData(isLoading: false);
+  }
+
+  @override
+  void getMovieData(CurrentTab currentTab) async {
+    if (currentTab == CurrentTab.anticipated) {
+      getAnticipatedData();
+    } else if (currentTab == CurrentTab.trending) {
+      getTrendingData();
+    }
   }
 
   void setCurrentTab(index) {

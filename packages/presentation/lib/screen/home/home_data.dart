@@ -1,9 +1,10 @@
 import 'package:presentation/enum/current_tab.dart';
+import 'package:presentation/screen/home/movie_model.dart';
 
 class HomeData {
   CurrentTab? currentTab;
-  List<dynamic>? movieTrending;
-  List<dynamic>? movieAnticipated;
+  List<MoviePresentation>? movieTrending;
+  List<MoviePresentation>? movieAnticipated;
 
   HomeData({this.movieTrending, this.movieAnticipated, this.currentTab});
 
@@ -13,8 +14,8 @@ class HomeData {
       movieTrending: movieTrending, movieAnticipated: movieAnticipated, currentTab: currentTab);
 
   HomeData copyWith({
-    List<dynamic>? movieTrending,
-    List<dynamic>? movieAnticipated,
+    List<MoviePresentation>? movieTrending,
+    List<MoviePresentation>? movieAnticipated,
     CurrentTab? currentTab,
   }) =>
       HomeData(
