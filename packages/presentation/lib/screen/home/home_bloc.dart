@@ -2,16 +2,16 @@ import 'package:domain/enum/movie_type.dart';
 import 'package:domain/usecase/get_movie_list_usecase.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/screen/home/home_screen.dart';
-import 'package:presentation/screen/home/movie_model.dart';
+import 'package:presentation/models/movie_model.dart';
 import '../../enum/current_tab.dart';
-import '../details/details_page.dart';
+import '../details/details_screen.dart';
 import 'home_data.dart';
-import 'home_view_mapper.dart';
+import '../../mappers/presentation_view_mapper.dart';
 
 abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
   factory HomeBloc(
     GetMovieListUseCase getMovieListUseCase,
-    HomeViewMapper viewMapper,
+    PresentationViewMapper viewMapper,
   ) =>
       _HomeBloc(
         getMovieListUseCase,
@@ -26,7 +26,7 @@ abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
 class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     implements HomeBloc {
   var _screenData = HomeData.init();
-  final HomeViewMapper _viewMapper;
+  final PresentationViewMapper _viewMapper;
 
   final GetMovieListUseCase _getMovieListUseCase;
 
@@ -79,8 +79,8 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
   @override
   void openDetailsPage(MoviePresentation movie) {
     appNavigator.push(
-      DetailsPage.page(
-        DetailsPageArguments(
+      DetailsScreen.page(
+        DetailsScreenArguments(
           movie: movie,
         ),
       ),

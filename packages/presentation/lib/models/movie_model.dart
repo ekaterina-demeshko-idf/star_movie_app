@@ -4,6 +4,7 @@ class MoviePresentation {
   final String runtime;
   final double rating;
   final String? genre;
+  final String? genres;
   final String? certification;
 
   MoviePresentation(
@@ -12,6 +13,7 @@ class MoviePresentation {
     this.runtime,
     this.rating,
     this.genre,
+    this.genres,
     this.certification,
   );
 }

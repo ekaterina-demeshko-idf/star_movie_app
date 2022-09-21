@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/screen/home/movie_model.dart';
-
+import 'package:presentation/models/movie_model.dart';
 import '../../navigation/base_arguments.dart';
 import '../../navigation/base_page.dart';
 
-class DetailsPageArguments extends BaseArguments {
+class DetailsScreenArguments extends BaseArguments {
   final MoviePresentation movie;
 
-  DetailsPageArguments({
+  DetailsScreenArguments({
     required this.movie,
     Function(dynamic value)? result,
   }) : super(result: result);
 }
 
-class DetailsPage extends StatelessWidget {
-  const DetailsPage({Key? key}) : super(key: key);
+class DetailsScreen extends StatelessWidget {
+  const DetailsScreen({Key? key}) : super(key: key);
 
   static const _routeName = '/DetailsPage';
 
-  static BasePage page(DetailsPageArguments arguments) => BasePage(
+  static BasePage page(DetailsScreenArguments arguments) => BasePage(
         key: const ValueKey(_routeName),
         name: _routeName,
-        builder: (context) => const DetailsPage(),
+        builder: (context) => const DetailsScreen(),
         arguments: arguments,
         hideNavBar: false,
       );
