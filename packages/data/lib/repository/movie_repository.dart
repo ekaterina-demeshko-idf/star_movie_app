@@ -14,7 +14,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
       {int itemCount = 10}) async {
     final response = await _movieApiService.get(
       Config.apiTrendingPath,
-      queryParameters: setQueryParams(itemCount),
+      queryParameters: setItemLimit(itemCount),
     );
 
     return GetMovieDataResponse(
@@ -30,7 +30,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
       {int itemCount = 10}) async {
     final response = await _movieApiService.get(
       Config.apiAnticipatedPath,
-      queryParameters: setQueryParams(itemCount),
+      queryParameters: setItemLimit(itemCount),
     );
 
     return GetMovieDataResponse(
@@ -41,7 +41,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
     );
   }
 
-  Map<String, Object> setQueryParams(int itemCount) {
+  Map<String, Object> setItemLimit(int itemCount) {
     return {
       'extended': 'full',
       'page': 1,
