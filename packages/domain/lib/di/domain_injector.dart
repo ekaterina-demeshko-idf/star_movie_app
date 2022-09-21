@@ -1,5 +1,7 @@
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
 import 'package:get_it/get_it.dart';
+import '../repository/movie_repository.dart';
+import '../usecase/get_movie_list_usecase.dart';
 
 void initDomainInjector() {
   _initUseCaseModule();
@@ -7,7 +9,11 @@ void initDomainInjector() {
 
 void _initUseCaseModule() {
   GetIt.I.registerFactory<ImitateApiCallUseCase>(
-        () => ImitateApiCallUseCase(),
+    () => ImitateApiCallUseCase(),
   );
-
+  GetIt.I.registerFactory<GetMovieListUseCase>(
+    () => GetMovieListUseCase(
+      GetIt.I.get<NetworkRepository>(),
+    ),
+  );
 }

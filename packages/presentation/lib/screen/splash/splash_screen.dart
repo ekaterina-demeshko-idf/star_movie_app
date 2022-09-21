@@ -6,7 +6,6 @@ import '../../utils/colors.dart';
 import '../../base/bloc_screen.dart';
 import '../../utils/images/paths.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -16,6 +15,7 @@ class SplashScreen extends StatefulWidget {
         key: const ValueKey(_routeName),
         name: _routeName,
         builder: (context) => const SplashScreen(),
+        hideNavBar: true,
       );
 
   @override

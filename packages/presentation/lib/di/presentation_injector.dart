@@ -1,9 +1,11 @@
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
+import 'package:domain/usecase/get_movie_list_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:presentation/screen/home/home_bloc.dart';
 import 'package:presentation/screen/splash/splash_bloc.dart';
 import '../app/app_bloc.dart';
 import '../navigation/app_navigator.dart';
+import '../screen/home/home_view_mapper.dart';
 
 void initPresentationInjector() {
   _initSplashScreenModule();
@@ -20,8 +22,12 @@ void _initSplashScreenModule() {
 }
 
 void _initHomeScreenModule() {
+  GetIt.I.registerFactory<HomeViewMapper>(() => HomeViewMapper());
   GetIt.I.registerFactory<HomeBloc>(
-    () => HomeBloc(),
+    () => HomeBloc(
+      GetIt.I.get<GetMovieListUseCase>(),
+      GetIt.I.get<HomeViewMapper>(),
+    ),
   );
 }
 

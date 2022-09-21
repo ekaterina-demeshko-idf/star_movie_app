@@ -1,0 +1,4 @@
+enum CurrentTab {
+  anticipated,
+  trending,
+}

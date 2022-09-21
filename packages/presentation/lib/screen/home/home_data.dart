@@ -1,9 +1,27 @@
+import 'package:presentation/enum/current_tab.dart';
+import 'package:presentation/screen/home/movie_model.dart';
+
 class HomeData {
-  int selectedIndex;
+  CurrentTab? currentTab;
+  List<MoviePresentation>? movieTrending;
+  List<MoviePresentation>? movieAnticipated;
 
-  HomeData(this.selectedIndex);
+  HomeData({this.movieTrending, this.movieAnticipated, this.currentTab});
 
-  factory HomeData.init() => HomeData(1);
+  factory HomeData.init() => HomeData(movieTrending: [], movieAnticipated: [], currentTab: CurrentTab.trending);
 
-  HomeData copy() => HomeData(selectedIndex);
+  HomeData copy() => HomeData(
+      movieTrending: movieTrending, movieAnticipated: movieAnticipated, currentTab: currentTab);
+
+  HomeData copyWith({
+    List<MoviePresentation>? movieTrending,
+    List<MoviePresentation>? movieAnticipated,
+    CurrentTab? currentTab,
+  }) =>
+      HomeData(
+        movieTrending: movieTrending ?? this.movieTrending,
+        movieAnticipated: movieAnticipated ?? this.movieAnticipated,
+        currentTab: currentTab ?? this.currentTab,
+
+      );
 }

@@ -4,9 +4,13 @@ import '../../navigation/base_page.dart';
 
 class AppData {
   final List<BasePage> pages;
+  final int selectedIndex;
+  bool hideNavBar;
 
   AppData(
     this.pages,
+    this.selectedIndex,
+    this.hideNavBar,
   );
 
   factory AppData.init() {
@@ -15,6 +19,11 @@ class AppData {
         SplashScreen.page(),
       ],
     );
-    return AppData(pages);
+
+    return AppData(
+      pages,
+      0,
+      false,
+    );
   }
 }

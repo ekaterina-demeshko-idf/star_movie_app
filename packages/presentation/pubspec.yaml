@@ -8,12 +8,16 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  yaml: ^3.1.0
+  dio: ^4.0.6
   flutter:
     sdk: flutter
   domain:
     path: ../domain
   collection: ^1.16.0
   flutter_svg: ^1.1.4
+  shimmer: ^2.0.0
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:

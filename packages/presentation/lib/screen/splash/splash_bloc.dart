@@ -14,7 +14,9 @@ abstract class SplashBloc extends Bloc {
 class _SplashBloc extends BlocImpl implements SplashBloc {
   final ImitateApiCallUseCase _imitateApiCallUseCase;
 
-  _SplashBloc(this._imitateApiCallUseCase);
+  _SplashBloc(
+    this._imitateApiCallUseCase,
+  );
 
   @override
   void initState() {

@@ -33,13 +33,12 @@ migrate_working_dir/
 /build/
 pubspec.lock
 .metadata
-
+.env
 # Web related
 lib/generated_plugin_registrant.dart
-
+*.g.dart
 # Symbolication related
 app.*.symbols
-
 # Obfuscation related
 app.*.map.json
 
@@ -47,3 +46,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+secrets.yaml
