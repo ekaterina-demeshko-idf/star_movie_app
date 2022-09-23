@@ -1,4 +1,4 @@
-import 'package:domain/model/movie_response_model.dart';
+import 'package:domain/model/movie/movie_response_model.dart';
 import 'package:domain/utils/extensions/string_extension.dart';
 import 'package:domain/utils/extensions/int_extension.dart';
 import 'package:domain/utils/extensions/list_extension.dart';
@@ -32,8 +32,11 @@ class _PresentationViewMapper implements PresentationViewMapper {
               e.movie.runtime.convertTimeToString,
               (e.movie.rating ?? 0.0) / 2,
               e.movie.genres?.first.orEmpty.capitalize,
-              e.movie.genres?.orEmpty.cutToThree, //cutToThree
+              e.movie.genres?.orEmpty.cutToThree,
               e.movie.certification.toString(),
+              e.movie.overview.orEmpty,
+              e.movie.ids?.trakt,
+              e.movie.ids?.tmdb,
             ))
         .toList();
   }

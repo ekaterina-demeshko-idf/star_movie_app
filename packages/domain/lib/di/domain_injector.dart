@@ -1,6 +1,8 @@
+import 'package:domain/usecase/get_cast_usecase.dart';
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
 import 'package:get_it/get_it.dart';
-import '../repository/movie_repository.dart';
+import '../repository/tmdb_api_repository.dart';
+import '../repository/trakt_api_repository.dart';
 import '../usecase/get_movie_list_usecase.dart';
 
 void initDomainInjector() {
@@ -13,7 +15,15 @@ void _initUseCaseModule() {
   );
   GetIt.I.registerFactory<GetMovieListUseCase>(
     () => GetMovieListUseCase(
-      GetIt.I.get<NetworkRepository>(),
+      GetIt.I.get<TraktAPIRepository>(),
+    ),
+  );
+
+  GetIt.I.registerFactory<GetCastUseCase>(
+    () => GetCastUseCase(
+      GetIt.I.get<TraktAPIRepository>(),
+      GetIt.I.get<TmdbAPIRepository>(),
+
     ),
   );
 }

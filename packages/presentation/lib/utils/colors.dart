@@ -4,6 +4,8 @@ class PrimaryColors {
   static const primaryBackgroundColor = 0xFF0F1B2B;
   static const primaryBorderColor = 0xFF2C3F5B;
   static const primaryUnselected = 0xFF575f6b;
-  static const whiteWithOpacity = 0x80FFFFFF;
+  static const whiteWithOpacity80 = 0x80FFFFFF;
+  static const whiteWithOpacity45 = 0x45FFFFFF;
+  static const whiteWithOpacity70 = 0x70FFFFFF;
   static const primarySelected = 0xFF47CFFF;
 }

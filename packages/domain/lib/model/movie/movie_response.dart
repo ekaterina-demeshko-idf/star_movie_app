@@ -53,10 +53,10 @@ class Movie {
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Ids {
-  final num? trakt;
+  final int? trakt;
   final String? slug;
   final String? imdb;
-  final num? tmdb;
+  final int? tmdb;
 
   Ids({
     this.trakt,

@@ -1,6 +1,6 @@
 import '../model/data_model.dart';
 
-abstract class NetworkRepository {
+abstract class TraktAPIRepository {
   Future<GetMovieDataResponse> getMovieTrendingData({
     int itemCount = 10,
   });
@@ -8,4 +8,6 @@ abstract class NetworkRepository {
   Future<GetMovieDataResponse> getMovieAnticipatedData({
     int itemCount = 10,
   });
+
+  Future<dynamic> getCastData(int traktId);
 }

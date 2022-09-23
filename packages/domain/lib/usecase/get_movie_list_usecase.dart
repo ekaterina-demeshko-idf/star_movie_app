@@ -1,12 +1,12 @@
 import '../enum/movie_type.dart';
 import '../utils/const.dart';
-import '../model/movie_response_model.dart';
-import '../repository/movie_repository.dart';
+import '../model/movie/movie_response_model.dart';
+import '../repository/trakt_api_repository.dart';
 import 'usecase.dart';
 
 class GetMovieListUseCase
     implements UseCaseParams<MovieType, Future<List<MovieResponse>>> {
-  final NetworkRepository _repository;
+  final TraktAPIRepository _repository;
 
   GetMovieListUseCase(this._repository);
 

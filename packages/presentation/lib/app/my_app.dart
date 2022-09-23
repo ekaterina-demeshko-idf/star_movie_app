@@ -60,7 +60,7 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                             icon: SvgPicture.asset(
                               ImagesPath.movieIcon,
                               color:
-                                  const Color(PrimaryColors.whiteWithOpacity),
+                                  const Color(PrimaryColors.whiteWithOpacity80),
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.movieIcon,
@@ -72,7 +72,7 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                             icon: SvgPicture.asset(
                               ImagesPath.tickerIcon,
                               color:
-                                  const Color(PrimaryColors.whiteWithOpacity),
+                                  const Color(PrimaryColors.whiteWithOpacity80),
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.tickerIcon,
@@ -84,7 +84,7 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                             icon: SvgPicture.asset(
                               ImagesPath.alarmIcon,
                               color:
-                                  const Color(PrimaryColors.whiteWithOpacity),
+                                  const Color(PrimaryColors.whiteWithOpacity80),
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.alarmIcon,
@@ -96,7 +96,7 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                             icon: SvgPicture.asset(
                               ImagesPath.personIcon,
                               color:
-                                  const Color(PrimaryColors.whiteWithOpacity),
+                                  const Color(PrimaryColors.whiteWithOpacity80),
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.personIcon,

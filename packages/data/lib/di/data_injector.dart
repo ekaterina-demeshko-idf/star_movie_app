@@ -1,14 +1,16 @@
 import 'package:data/interceptor/interceptor.dart';
-import 'package:domain/repository/movie_repository.dart';
+import 'package:domain/repository/tmdb_api_repository.dart';
+import 'package:domain/repository/trakt_api_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
-import '../repository/movie_repository.dart';
+import '../repository/tmdb_repository.dart';
+import '../repository/trakt_repository.dart';
 import '../service/api_base_service.dart';
 import '../service/service_payload.dart';
 import '../utils/const.dart';
 import 'package:data/interceptor/interceptor.dart';
 
-void initDataInjector()  {
+void initDataInjector() {
   _initInterceptorModule();
   _initApiModule();
   _initRepositoryModule();
@@ -38,8 +40,14 @@ void _initInterceptorModule() {
 }
 
 void _initRepositoryModule() {
-  GetIt.I.registerSingleton<NetworkRepository>(
-    NetworkRepositoryImpl(
+  GetIt.I.registerSingleton<TraktAPIRepository>(
+    TraktAPIRepositoryImpl(
+      GetIt.I.get<ApiBaseService>(),
+    ),
+  );
+
+  GetIt.I.registerSingleton<TmdbAPIRepository>(
+    TmdbAPIRepositoryImpl(
       GetIt.I.get<ApiBaseService>(),
     ),
   );
