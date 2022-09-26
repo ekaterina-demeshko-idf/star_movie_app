@@ -20,11 +20,6 @@ class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
   _DetailsBloc(this._getCastUseCase);
 
   @override
-  void initState() async {
-    super.initState();
-  }
-
-  @override
   void initArgs(DetailsScreenArguments arguments) {
     super.initArgs(arguments);
     _screenData = DetailsData(

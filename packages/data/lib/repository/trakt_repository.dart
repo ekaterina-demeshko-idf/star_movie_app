@@ -1,10 +1,11 @@
 import 'package:data/utils/const.dart';
-import 'package:domain/model/cast/cast.dart';
 import 'package:domain/model/data_model.dart';
 import 'package:domain/model/cast/cast_model.dart';
 import '../service/api_base_service.dart';
 import '../service/service_payload.dart';
 import 'package:domain/repository/trakt_api_repository.dart';
+
+import '../utils/apiPath.dart';
 
 class TraktAPIRepositoryImpl implements TraktAPIRepository {
   final ApiBaseService<ServicePayload> _movieApiService;
@@ -46,7 +47,7 @@ class TraktAPIRepositoryImpl implements TraktAPIRepository {
   @override
   Future<CastModel> getCastData(int traktId) async {
     final response = await _movieApiService.get(
-      '${Config.apiMoviesPath}$traktId/people',
+      ApiPath.getCastDataPath(traktId),
     );
     return CastModel.fromJson(response.data);
   }

@@ -8,7 +8,6 @@ import '../repository/trakt_repository.dart';
 import '../service/api_base_service.dart';
 import '../service/service_payload.dart';
 import '../utils/const.dart';
-import 'package:data/interceptor/interceptor.dart';
 
 void initDataInjector() {
   _initInterceptorModule();
@@ -58,7 +57,6 @@ Dio _buildDio(List<Interceptor> interceptors) {
     sendTimeout: Config.sendTimeout,
     receiveTimeout: Config.receiveTimeout,
     connectTimeout: Config.connectTimeout,
-    baseUrl: Config.apiBasePath,
   );
 
   final dio = Dio(options);
