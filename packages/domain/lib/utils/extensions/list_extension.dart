@@ -12,11 +12,10 @@ extension CapitalizeListExt on List {
   }
 
   String get cutToThree {
-    if(this.length > 3) {
+    if (this.length > 3) {
       this.length = 3;
       return this.capitalizeList.join(', ');
-    }
-    else {
+    } else {
       return this.capitalizeList.join(', ');
     }
   }

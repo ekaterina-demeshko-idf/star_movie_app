@@ -172,8 +172,8 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                     empty:
                                         SvgPicture.asset(ImagesPath.starEmpty),
                                   ),
-                                  itemPadding:
-                                      const EdgeInsets.only(right: Dimens.size2),
+                                  itemPadding: const EdgeInsets.only(
+                                      right: Dimens.size2),
                                   onRatingUpdate: (rating) {},
                                 ),
                               ],
@@ -195,7 +195,8 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                   color: PrimaryColors.primaryBorderColor,
                                   width: Dimens.size2,
                                 ),
-                                borderRadius: BorderRadius.circular(Dimens.size34),
+                                borderRadius:
+                                    BorderRadius.circular(Dimens.size34),
                               ),
                               child: TabBar(
                                 unselectedLabelColor:
@@ -205,7 +206,8 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                     PrimaryColors.whiteWithOpacity80,
                                 indicator: BoxDecoration(
                                   color: PrimaryColors.primaryColor,
-                                  borderRadius: BorderRadius.circular(Dimens.size24),
+                                  borderRadius:
+                                      BorderRadius.circular(Dimens.size24),
                                 ),
                                 tabs: const [
                                   Tab(

@@ -23,7 +23,6 @@ void _initUseCaseModule() {
     () => GetCastUseCase(
       GetIt.I.get<TraktAPIRepository>(),
       GetIt.I.get<TmdbAPIRepository>(),
-
     ),
   );
 }
