@@ -22,7 +22,7 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
-        canvasColor: const Color(PrimaryColors.primaryBackgroundColor),
+        canvasColor: PrimaryColors.primaryBackgroundColor,
       ),
       home: StreamBuilder<BlocData>(
         stream: bloc.dataStream,
@@ -45,62 +45,57 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                         border: Border(
                           top: BorderSide(
                             width: 0.5,
-                            color: Color(PrimaryColors.primaryUnselected),
+                            color: PrimaryColors.primaryUnselected,
                           ),
                         ),
                       ),
                       child: BottomNavigationBar(
                         showSelectedLabels: false,
                         showUnselectedLabels: false,
-                        backgroundColor:
-                            const Color(PrimaryColors.primaryBackgroundColor),
+                        backgroundColor: PrimaryColors.primaryBackgroundColor,
                         elevation: 0,
                         items: <BottomNavigationBarItem>[
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
                               ImagesPath.movieIcon,
-                              color:
-                                  const Color(PrimaryColors.whiteWithOpacity80),
+                              color: PrimaryColors.whiteWithOpacity80,
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.movieIcon,
-                              color: const Color(PrimaryColors.primarySelected),
+                              color: PrimaryColors.primarySelected,
                             ),
                             label: 'Home',
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
                               ImagesPath.tickerIcon,
-                              color:
-                                  const Color(PrimaryColors.whiteWithOpacity80),
+                              color: PrimaryColors.whiteWithOpacity80,
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.tickerIcon,
-                              color: const Color(PrimaryColors.primarySelected),
+                              color: PrimaryColors.primarySelected,
                             ),
                             label: 'Business',
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
                               ImagesPath.alarmIcon,
-                              color:
-                                  const Color(PrimaryColors.whiteWithOpacity80),
+                              color: PrimaryColors.whiteWithOpacity80,
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.alarmIcon,
-                              color: const Color(PrimaryColors.primarySelected),
+                              color: PrimaryColors.primarySelected,
                             ),
                             label: 'School',
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
                               ImagesPath.personIcon,
-                              color:
-                                  const Color(PrimaryColors.whiteWithOpacity80),
+                              color: PrimaryColors.whiteWithOpacity80,
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.personIcon,
-                              color: const Color(PrimaryColors.primarySelected),
+                              color: PrimaryColors.primarySelected,
                             ),
                             label: 'School',
                           ),

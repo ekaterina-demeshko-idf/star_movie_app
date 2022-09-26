@@ -5,6 +5,7 @@ import 'package:presentation/screen/home/widgets/movie_list_skelet.dart';
 import 'package:presentation/utils/images/paths.dart';
 import '../../../base/bloc_data.dart';
 import '../../../enum/current_tab.dart';
+import '../../../utils/text_styles.dart';
 import '../home_bloc.dart';
 import '../home_data.dart';
 import '../../../models/movie_model.dart';
@@ -104,9 +105,8 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                               Text(
                                 currentMovie?.title ?? '',
                                 textAlign: TextAlign.start,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                                style: AppTextStyles.headerStyle(
+                                  AppTextStyles.fontSize_16,
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -116,7 +116,8 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                               ),
                               Text(
                                 '${currentMovie?.genre} · ${currentMovie?.runtime} | ${currentMovie?.certification}',
-                                style: const TextStyle(color: Colors.grey),
+                                style: AppTextStyles.descriptionStyle(
+                                    AppTextStyles.fontSize_14),
                               ),
                             ],
                           ),

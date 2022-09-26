@@ -28,19 +28,17 @@ class HomeContent extends StatelessWidget {
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: const Color(PrimaryColors.primaryBorderColor),
+                      color: PrimaryColors.primaryBorderColor,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(35),
                   ),
                   child: TabBar(
-                    unselectedLabelColor:
-                        const Color(PrimaryColors.whiteWithOpacity80),
+                    unselectedLabelColor: PrimaryColors.whiteWithOpacity80,
                     labelColor: Colors.white,
-                    indicatorColor:
-                        const Color(PrimaryColors.whiteWithOpacity80),
+                    indicatorColor: PrimaryColors.whiteWithOpacity80,
                     indicator: BoxDecoration(
-                      color: const Color(PrimaryColors.primaryColor),
+                      color: PrimaryColors.primaryColor,
                       borderRadius: BorderRadius.circular(25),
                     ),
                     tabs: [

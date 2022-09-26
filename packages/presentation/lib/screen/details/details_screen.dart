@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:presentation/screen/details/widgets/cast_list_skelet.dart';
 import 'package:readmore/readmore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -9,7 +10,9 @@ import '../../base/bloc_screen.dart';
 import '../../navigation/base_arguments.dart';
 import '../../navigation/base_page.dart';
 import '../../utils/colors.dart';
+import '../../utils/dimens.dart';
 import '../../utils/images/paths.dart';
+import '../../utils/text_styles.dart';
 import 'details_bloc.dart';
 import 'details_data.dart';
 
@@ -53,11 +56,10 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
               length: 3,
               child: Scaffold(
                 extendBodyBehindAppBar: true,
-                backgroundColor:
-                    const Color(PrimaryColors.primaryBackgroundColor),
+                backgroundColor: PrimaryColors.primaryBackgroundColor,
                 //PrimaryColors.primaryBackgroundColor
                 appBar: AppBar(
-                    backgroundColor: const Color(0x00000000),
+                    backgroundColor: PrimaryColors.transparent,
                     elevation: 0,
                     actions: [
                       IconButton(
@@ -71,7 +73,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                     ImageFiltered(
                       imageFilter: ImageFilter.blur(sigmaY: 3, sigmaX: 3),
                       child: Container(
-                        height: 262,
+                        height: Dimens.size260,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(screenData?.movie?.image ??
@@ -83,79 +85,82 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(25, 50.0, 25, 15),
+                      padding: const EdgeInsets.fromLTRB(
+                        Dimens.size24,
+                        Dimens.size50,
+                        Dimens.size24,
+                        Dimens.size16,
+                      ),
                       child: SizedBox(
-                        height: 1200, // todo remove hardcoded value
+                        height: 1100,
+                        //double.infinity, // todo remove hardcoded value
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                                height: 60,
+                                height: Dimens.size60,
                                 decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Color(
-                                            PrimaryColors.whiteWithOpacity45),
+                                        color: PrimaryColors.whiteWithOpacity45,
                                         blurRadius: .1,
-                                        spreadRadius: 5,
+                                        spreadRadius: Dimens.size6,
                                       ),
                                     ]),
                                 child: const Icon(
                                   Icons.play_circle_fill_rounded,
                                   color: Colors.white,
                                   shadows: [],
-                                  size: 50,
+                                  size: Dimens.size50,
                                 )),
-                            SizedBox(
-                              height: 12,
+                            const SizedBox(
+                              height: Dimens.size12,
                             ),
                             Center(
                               child: Image.network(screenData?.movie?.image ??
                                   'https://www.w3schools.com/images/w3schools_green.jpg'),
                             ),
-                            SizedBox(
-                              height: 18,
+                            const SizedBox(
+                              height: Dimens.size18,
                             ),
                             Text(
                               '${screenData?.movie?.title}',
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 30),
+                              style: AppTextStyles.headerStyle(
+                                AppTextStyles.fontSize_30,
+                              ),
                               textAlign: TextAlign.center,
                             ),
-                            SizedBox(
-                              height: 10,
+                            const SizedBox(
+                              height: Dimens.size10,
                             ),
                             Text(
                               '${screenData?.movie?.runtime} | ${screenData?.movie?.certification}',
-                              style: const TextStyle(
-                                color: Colors.grey,
-                              ),
+                              style: AppTextStyles.descriptionStyle(
+                                  AppTextStyles.fontSize_14),
                             ),
-                            SizedBox(
-                              height: 10,
+                            const SizedBox(
+                              height: Dimens.size10,
                             ),
                             Text(
                               '${screenData?.movie?.genres}',
-                              style: const TextStyle(
-                                color: Colors.grey,
-                              ),
+                              style: AppTextStyles.descriptionStyle(
+                                  AppTextStyles.fontSize_14),
                             ),
-                            SizedBox(
-                              height: 20,
+                            const SizedBox(
+                              height: Dimens.size20,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
                                   '${screenData?.movie?.rating.toStringAsFixed(1)}/5',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 27,
+                                  style: AppTextStyles.headerStyle(
+                                    AppTextStyles.fontSize_26,
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 10,
+                                const SizedBox(
+                                  width: Dimens.size10,
                                 ),
                                 RatingBar(
                                   initialRating: screenData?.movie?.rating ?? 0,
@@ -163,89 +168,86 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                   ignoreGestures: true,
                                   allowHalfRating: true,
                                   itemCount: 5,
-                                  itemSize: 30,
+                                  itemSize: Dimens.size30,
                                   ratingWidget: RatingWidget(
                                     full: SvgPicture.asset(ImagesPath.starFull),
                                     half: SvgPicture.asset(ImagesPath.starHalf),
-                                    empty: SvgPicture.asset(ImagesPath.starEmpty),
+                                    empty:
+                                        SvgPicture.asset(ImagesPath.starEmpty),
                                   ),
-                                  itemPadding: const EdgeInsets.only(right: 1.0),
-                                  onRatingUpdate: (rating) {
-                                    print(rating);
-                                  },
+                                  itemPadding:
+                                      const EdgeInsets.only(right: Dimens.size2),
+                                  onRatingUpdate: (rating) {},
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: 10,
+                            const SizedBox(
+                              height: Dimens.size10,
                             ),
                             Container(
-                              height: 40,
+                              height: Dimens.size40,
                               margin: const EdgeInsets.only(
-                                top: 10,
-                                right: 5,
-                                left: 5,
-                                bottom: 24,
+                                top: Dimens.size10,
+                                right: Dimens.size6,
+                                left: Dimens.size6,
+                                bottom: Dimens.size24,
                               ),
-                              padding: const EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(Dimens.size4),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: const Color(PrimaryColors.primaryBorderColor),
-                                  width: 1,
+                                  color: PrimaryColors.primaryBorderColor,
+                                  width: Dimens.size2,
                                 ),
-                                borderRadius: BorderRadius.circular(35),
+                                borderRadius: BorderRadius.circular(Dimens.size34),
                               ),
                               child: TabBar(
                                 unselectedLabelColor:
-                                const Color(PrimaryColors.whiteWithOpacity80),
+                                    PrimaryColors.whiteWithOpacity80,
                                 labelColor: Colors.white,
                                 indicatorColor:
-                                const Color(PrimaryColors.whiteWithOpacity80),
+                                    PrimaryColors.whiteWithOpacity80,
                                 indicator: BoxDecoration(
-                                  color: const Color(PrimaryColors.primaryColor),
-                                  borderRadius: BorderRadius.circular(25),
+                                  color: PrimaryColors.primaryColor,
+                                  borderRadius: BorderRadius.circular(Dimens.size24),
                                 ),
-                                tabs: [
+                                tabs: const [
                                   Tab(
                                     text: 'Details',
                                   ),
-                                  const Tab(
+                                  Tab(
                                     text: 'Reviews',
                                   ),
-                                  const Tab(
+                                  Tab(
                                     text: 'Showtime',
                                   ),
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              height: 15,
+                            const SizedBox(
+                              height: Dimens.size16,
                             ),
                             Text(
                               'Synopsis',
                               textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                              ),
+                              style: AppTextStyles.headerStyle(
+                                  AppTextStyles.fontSize_20),
                             ),
-                            SizedBox(
-                              height: 10,
+                            const SizedBox(
+                              height: Dimens.size10,
                             ),
                             ReadMoreText(
                               '${screenData?.movie?.overview}',
                               trimLines: 4,
                               trimMode: TrimMode.Line,
-                              colorClickableText: Colors.blue,
+                              colorClickableText: PrimaryColors.primaryLink,
                               trimCollapsedText: 'Show more',
                               trimExpandedText: 'Show less',
-                              style: TextStyle(
-                                color: Color(PrimaryColors.whiteWithOpacity70),
-                                fontSize: 17,
-                              ),
+                              style: AppTextStyles.descriptionStyle(
+                                  AppTextStyles.fontSize_14,
+                                  lineHeight: Dimens.size20),
                             ),
-                            SizedBox(
-                              height: 20,
+                            const SizedBox(
+                              height: Dimens.size20,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -253,71 +255,21 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                 Text(
                                   'Cast & Crew',
                                   textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 21,
-                                  ),
+                                  style: AppTextStyles.headerStyle(
+                                      AppTextStyles.fontSize_20),
                                 ),
                                 Text(
                                   'View All',
-                                  style:
-                                      TextStyle(color: Colors.blue, fontSize: 18),
-                                )
+                                  style: AppTextStyles.headerStyle(
+                                    AppTextStyles.fontSize_18,
+                                  ),
+                                ),
                               ],
                             ),
                             Expanded(
-                              child: ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: 4,
-                                  shrinkWrap: true,
-                                  padding: EdgeInsets.all(5),
-
-                                  itemBuilder: (BuildContext context, int index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween, //why not works
-                                        children: [
-                                          Container(
-                                            height: 50,
-                                            width: 50,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                              child: Image.network(
-                                                '${screenData?.cast?[index].image}',
-                                                fit: BoxFit.fitWidth,
-                                                errorBuilder: (context, exception,
-                                                        stackTrace) =>
-                                                    Container(
-                                                  height: 50,
-                                                  width: 50,
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 10,),
-                                          Text(
-                                            '${screenData?.cast?[index].name}',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          SizedBox(width: 15,),
-                                          TextButton(onPressed: () {}, child: Text(' ··· ', style: TextStyle(fontSize: 20, color: Colors.grey),)),
-                                          SizedBox(width: 5,),
-                                          Expanded(
-                                              child: Text(
-                                            '${screenData?.cast?[index].character?.toUpperCase()}',
-                                            style: TextStyle(color: Colors.grey),
-                                            maxLines: 1,
-                                          ))
-                                        ],
-                                      ),
-                                    );
-                                  }),
+                              child: data.isLoading
+                                  ? const CastListSkelet()
+                                  : CastList(screenData: screenData),
                             )
                           ],
                         ),
@@ -332,6 +284,81 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
               body: Container(),
             );
           }
+        });
+  }
+}
+
+class CastList extends StatelessWidget {
+  const CastList({
+    Key? key,
+    required this.screenData,
+  }) : super(key: key);
+
+  final DetailsData? screenData;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount:
+            (screenData?.cast?.length ?? 0) < 4 ? screenData?.cast?.length : 4,
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(Dimens.size6),
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.all(Dimens.size4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, //why not works
+              children: [
+                Container(
+                  height: Dimens.size50,
+                  width: Dimens.size50,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(Dimens.size24),
+                    child: Image.network(
+                      '${screenData?.cast?[index].image}',
+                      fit: BoxFit.fitWidth,
+                      errorBuilder: (context, exception, stackTrace) =>
+                          Container(
+                        height: Dimens.size50,
+                        width: Dimens.size50,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: Dimens.size10,
+                ),
+                Text(
+                  '${screenData?.cast?[index].name}',
+                  style: AppTextStyles.headerStyle(
+                    AppTextStyles.fontSize_14,
+                  ),
+                ),
+                const SizedBox(
+                  width: Dimens.size16,
+                ),
+                TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      ' ··· ',
+                      style: AppTextStyles.descriptionStyle(
+                          AppTextStyles.fontSize_20),
+                    )),
+                const SizedBox(
+                  width: Dimens.size6,
+                ),
+                Expanded(
+                    child: Text(
+                  '${screenData?.cast?[index].character?.toUpperCase()}',
+                  style:
+                      AppTextStyles.descriptionStyle(AppTextStyles.fontSize_14),
+                  maxLines: 1,
+                ))
+              ],
+            ),
+          );
         });
   }
 }

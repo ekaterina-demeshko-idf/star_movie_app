@@ -35,9 +35,10 @@ class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
   }
 
   void getCastData(int? traktId) async {
+    _updateData(isLoading: true);
     final List<CastAndImages>? responseCast = await _getCastUseCase(traktId);
     _screenData = _screenData.copyWith(cast: responseCast);
-    _updateData();
+    _updateData(isLoading: false);
   }
 
   _updateData({bool? isLoading}) {
