@@ -7,7 +7,6 @@ class Config {
   static const apiBasePath = 'https://api.trakt.tv';
   static const apiAnticipatedPath = 'https://api.trakt.tv/movies/anticipated';
   static const apiTrendingPath = 'https://api.trakt.tv/movies/trending';
- // static const apiPeoplePath = 'https://api.trakt.tv/movies/id/people';
   static const apiMoviesPath = 'https://api.trakt.tv/movies/';
   static const peoplesEndpoint = '/people';
   static const tmdbPersonPath = 'https://api.themoviedb.org/3/person';

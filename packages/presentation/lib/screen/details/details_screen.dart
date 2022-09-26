@@ -51,13 +51,11 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
           final data = snapshot.data;
           final screenData = data?.data;
           if (data != null) {
-            //print('${screenData?.cast?[1].image}');
             return DefaultTabController(
               length: 3,
               child: Scaffold(
                 extendBodyBehindAppBar: true,
                 backgroundColor: PrimaryColors.primaryBackgroundColor,
-                //PrimaryColors.primaryBackgroundColor
                 appBar: AppBar(
                     backgroundColor: PrimaryColors.transparent,
                     elevation: 0,
@@ -93,7 +91,6 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                       ),
                       child: SizedBox(
                         height: 1100,
-                        //double.infinity, // todo remove hardcoded value
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -308,7 +305,7 @@ class CastList extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(Dimens.size4),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween, //why not works
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   height: Dimens.size50,

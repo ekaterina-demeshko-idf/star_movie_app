@@ -16,8 +16,5 @@ class TmdbAPIRepositoryImpl implements TmdbAPIRepository {
       queryParameters: {"api_key": "1dfbe05461f443007f2613fca125cdd8"},
     );
     return TmdbImage.fromJson(response.data);
-    // return TmdbImage(
-    //   profiles: response.data['profiles'].map((e) => Profiles.fromJson(e)).toList(),
-    // );
   }
 }

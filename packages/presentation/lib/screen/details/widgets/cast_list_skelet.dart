@@ -25,7 +25,7 @@ class CastListSkelet extends StatelessWidget {
               padding: const EdgeInsets.all(Dimens.size4),
               child: Row(
                 mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween, //why not works
+                    MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
                     height: Dimens.size50,

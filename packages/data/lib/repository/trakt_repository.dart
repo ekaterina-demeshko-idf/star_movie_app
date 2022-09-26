@@ -51,13 +51,6 @@ class TraktAPIRepositoryImpl implements TraktAPIRepository {
     return CastModel.fromJson(response.data);
   }
 
-  Future<int?> getCastPersonTmdbId(int traktId) async {
-    final response = await _movieApiService.get(
-      '${Config.apiMoviesPath}$traktId/people',
-    );
-    return 7;
-  }
-
   Map<String, Object> setItemLimit(int itemCount) {
     return {
       'extended': 'full',
