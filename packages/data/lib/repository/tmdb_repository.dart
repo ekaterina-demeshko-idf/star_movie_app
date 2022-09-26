@@ -10,11 +10,17 @@ class TmdbAPIRepositoryImpl implements TmdbAPIRepository {
   TmdbAPIRepositoryImpl(this._tmdbService);
 
   @override
-  Future<TmdbImage> getCastImageFilePath(int tmdbId) async {
+  Future<TmdbImage> getCastImageFilePath(int tmdbId, String apiKey) async {
     final response = await _tmdbService.get(
       '${Config.tmdbPersonPath}/$tmdbId/images',
-      queryParameters: {"api_key": "1dfbe05461f443007f2613fca125cdd8"},
+      queryParameters: setApiKey(apiKey),
     );
     return TmdbImage.fromJson(response.data);
+  }
+
+  Map<String, Object> setApiKey(String apiKey) {
+    return {
+      'api_key': apiKey,
+    };
   }
 }
