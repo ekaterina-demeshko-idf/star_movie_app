@@ -29,7 +29,8 @@ class GetCastUseCase
 
     final List<Cast>? cast = castResponse.cast;
 
-    final List<Future<CastAndImages>>? castAndImagesFutureList = cast?.map((e) async {
+    final List<Future<CastAndImages>>? castAndImagesFutureList =
+        cast?.map((e) async {
       final TmdbImage filePath = await _tmdbAPIRepository.getCastImageFilePath(
         e.person?.ids?.tmdb ?? 0,
         apiKey,

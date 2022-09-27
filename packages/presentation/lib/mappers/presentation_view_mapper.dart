@@ -32,13 +32,34 @@ class _HomeViewMapper implements HomeViewMapper {
               e.movie.runtime.convertTimeToString,
               (e.movie.rating ?? 0.0) / 2,
               e.movie.genres?.first.orEmpty.capitalize,
-              e.movie.genres?.orEmpty.cutToThree,
+              cutToThree(e.movie.genres?.orEmpty),
               e.movie.certification.toString(),
               e.movie.overview.orEmpty,
               e.movie.ids?.trakt,
               e.movie.ids?.tmdb,
             ))
         .toList();
+  }
+
+  List capitalizeList(List<String> list) {
+    List newList = [];
+    for (var s in list) {
+      newList.add(s[0].toUpperCase() + s.substring(1).toLowerCase());
+    }
+    return newList;
+  }
+
+  String cutToThree(List<String>? list) {
+    if (list == null) {
+      return 'No info';
+    } else {
+      if (list.length > 3) {
+        list.length = 3;
+        return capitalizeList(list).join(', ');
+      } else {
+        return capitalizeList(list).join(', ');
+      }
+    }
   }
 
   void getAsyncSecrets() async {
