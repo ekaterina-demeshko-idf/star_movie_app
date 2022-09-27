@@ -1,5 +1,5 @@
-extension NullableListExt on List? {
-  List get orEmpty => this ?? [];
+extension NullableListExt<T> on List<T>? {
+  List<T> get orEmpty => this ?? [];
 }
 
 extension CapitalizeListExt on List {

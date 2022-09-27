@@ -22,12 +22,8 @@ class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
   @override
   void initArgs(DetailsScreenArguments arguments) {
     super.initArgs(arguments);
-    _screenData = DetailsData(
-      movie: arguments.movie,
-    );
-    getCastData(
-      arguments.movie.traktId,
-    );
+    _screenData = DetailsData(movie: arguments.movie);
+    getCastData(arguments.movie.traktId);
     _updateData();
   }
 

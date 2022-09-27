@@ -29,11 +29,12 @@ class GetCastUseCase
 
     final List<Cast>? cast = castResponse.cast;
 
-    final castAndImagesModel = cast?.map((e) async {
+    final List<Future<CastAndImages>>? castAndImagesFutureList = cast?.map((e) async {
       final TmdbImage filePath = await _tmdbAPIRepository.getCastImageFilePath(
         e.person?.ids?.tmdb ?? 0,
         apiKey,
       );
+
       final String? url = filePath.profiles?.isNotEmpty == true
           ? 'https://image.tmdb.org/t/p/w185${filePath.profiles![0].filePath?.toString()}'
           : null;
@@ -44,11 +45,11 @@ class GetCastUseCase
       );
     }).toList();
 
-    final List<CastAndImages> response = [];
-    for (var e in castAndImagesModel!) {
-      response.add(await e);
+    final List<CastAndImages> castAndImagesList = [];
+    for (var e in castAndImagesFutureList!) {
+      castAndImagesList.add(await e);
     }
-    return response;
+    return castAndImagesList;
   }
 
   void getAsyncApiKey() async {

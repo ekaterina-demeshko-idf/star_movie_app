@@ -1,3 +1,4 @@
+import '../model/cast/cast_model.dart';
 import '../model/data_model.dart';
 
 abstract class TraktAPIRepository {
@@ -9,5 +10,5 @@ abstract class TraktAPIRepository {
     int itemCount = 10,
   });
 
-  Future<dynamic> getCastData(int traktId);
+  Future<CastModel> getCastData(int traktId);
 }

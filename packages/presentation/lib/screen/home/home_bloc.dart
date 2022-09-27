@@ -80,9 +80,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
   void openDetailsPage(MoviePresentation movie) {
     appNavigator.push(
       DetailsScreen.page(
-        DetailsScreenArguments(
-          movie: movie,
-        ),
+        DetailsScreenArguments(movie: movie),
       ),
     );
   }

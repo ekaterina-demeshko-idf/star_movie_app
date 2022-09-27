@@ -74,8 +74,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                         height: Dimens.size260,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(screenData?.movie?.image ??
-                                'https://www.w3schools.com/images/w3schools_green.jpg'),
+                            image: NetworkImage('${screenData?.movie?.image}'),
                             fit: BoxFit.fitWidth,
                             alignment: FractionalOffset.topCenter,
                           ),
@@ -115,8 +114,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               height: Dimens.size12,
                             ),
                             Center(
-                              child: Image.network(screenData?.movie?.image ??
-                                  'https://www.w3schools.com/images/w3schools_green.jpg'),
+                              child: Image.network('${screenData?.movie?.image}'),
                             ),
                             const SizedBox(
                               height: Dimens.size18,
