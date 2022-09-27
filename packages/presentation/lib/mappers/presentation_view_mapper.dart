@@ -6,17 +6,17 @@ import 'package:domain/utils/getSecrets.dart';
 import 'package:yaml/yaml.dart';
 import '../models/movie_model.dart';
 
-abstract class PresentationViewMapper {
-  factory PresentationViewMapper() => _PresentationViewMapper();
+abstract class HomeViewMapper {
+  factory HomeViewMapper() => _HomeViewMapper();
 
   Future<List<MoviePresentation>> mapMovieDataToRequest(
       List<MovieResponse> response);
 }
 
-class _PresentationViewMapper implements PresentationViewMapper {
+class _HomeViewMapper implements HomeViewMapper {
   late YamlMap secrets;
 
-  _PresentationViewMapper() {
+  _HomeViewMapper() {
     getAsyncSecrets();
   }
 

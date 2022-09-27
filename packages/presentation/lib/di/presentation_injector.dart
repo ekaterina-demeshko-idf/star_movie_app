@@ -25,13 +25,13 @@ void _initSplashScreenModule() {
 }
 
 void _initHomeScreenModule() {
-  GetIt.I.registerFactory<PresentationViewMapper>(
-    () => PresentationViewMapper(),
+  GetIt.I.registerFactory<HomeViewMapper>(
+    () => HomeViewMapper(),
   );
   GetIt.I.registerFactory<HomeBloc>(
     () => HomeBloc(
       GetIt.I.get<GetMovieListUseCase>(),
-      GetIt.I.get<PresentationViewMapper>(),
+      GetIt.I.get<HomeViewMapper>(),
     ),
   );
 }

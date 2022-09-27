@@ -11,7 +11,7 @@ import '../../mappers/presentation_view_mapper.dart';
 abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
   factory HomeBloc(
     GetMovieListUseCase getMovieListUseCase,
-    PresentationViewMapper viewMapper,
+      HomeViewMapper viewMapper,
   ) =>
       _HomeBloc(
         getMovieListUseCase,
@@ -26,7 +26,7 @@ abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
 class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     implements HomeBloc {
   var _screenData = HomeData.init();
-  final PresentationViewMapper _viewMapper;
+  final HomeViewMapper _viewMapper;
 
   final GetMovieListUseCase _getMovieListUseCase;
 
