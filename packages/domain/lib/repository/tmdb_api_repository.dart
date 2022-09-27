@@ -1,3 +1,3 @@
 abstract class TmdbAPIRepository {
-  Future<dynamic> getCastImageFilePath(int tmdbId, String apiKey);
+  Future<dynamic> getCastImageFilePath(int tmdbId);
 }

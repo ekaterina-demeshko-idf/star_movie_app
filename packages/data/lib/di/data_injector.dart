@@ -1,8 +1,9 @@
-import 'package:data/interceptor/interceptor.dart';
+import 'package:data/interceptor/trakt_interceptor.dart';
 import 'package:domain/repository/tmdb_api_repository.dart';
 import 'package:domain/repository/trakt_api_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import '../interceptor/tmdb_interceptor.dart';
 import '../repository/tmdb_repository.dart';
 import '../repository/trakt_repository.dart';
 import '../service/api_base_service.dart';
@@ -17,20 +18,37 @@ void initDataInjector() {
 
 void _initApiModule() {
   GetIt.I.registerSingleton<Dio>(
-    _buildDio([
-      GetIt.I.get<ApiKeyInterceptor>(),
+    _buildTraktApiDio([
+      GetIt.I.get<TraktApiKeyInterceptor>(),
       GetIt.I.get<LogInterceptor>(),
     ]),
+    instanceName: 'Trakt',
+  );
+
+  GetIt.I.registerSingleton<Dio>(
+    _buildTMDBApiDio([
+      GetIt.I.get<TMDBApiKeyInterceptor>(),
+      GetIt.I.get<LogInterceptor>(),
+    ]),
+    instanceName: 'TMDB',
   );
 
   GetIt.I.registerSingleton<ApiBaseService<ServicePayload>>(
-    ApiServiceImpl(GetIt.I.get<Dio>()),
-  );
+      ApiServiceImpl(GetIt.I.get<Dio>(instanceName: 'Trakt')),
+      instanceName: 'TraktService');
+
+  GetIt.I.registerSingleton<ApiBaseService<ServicePayload>>(
+      ApiServiceImpl(GetIt.I.get<Dio>(instanceName: 'TMDB')),
+      instanceName: 'TMDBService');
 }
 
 void _initInterceptorModule() {
-  GetIt.I.registerSingleton<ApiKeyInterceptor>(
-    ApiKeyInterceptor(),
+  GetIt.I.registerSingleton<TraktApiKeyInterceptor>(
+    TraktApiKeyInterceptor(),
+  );
+
+  GetIt.I.registerSingleton<TMDBApiKeyInterceptor>(
+    TMDBApiKeyInterceptor(),
   );
 
   GetIt.I.registerSingleton<LogInterceptor>(
@@ -41,24 +59,37 @@ void _initInterceptorModule() {
 void _initRepositoryModule() {
   GetIt.I.registerSingleton<TraktAPIRepository>(
     TraktAPIRepositoryImpl(
-      GetIt.I.get<ApiBaseService>(),
+      GetIt.I.get<ApiBaseService>(instanceName: 'TraktService'),
     ),
   );
 
   GetIt.I.registerSingleton<TmdbAPIRepository>(
     TmdbAPIRepositoryImpl(
-      GetIt.I.get<ApiBaseService>(),
+      GetIt.I.get<ApiBaseService>(instanceName: 'TMDBService'),
     ),
   );
 }
 
-Dio _buildDio(List<Interceptor> interceptors) {
+Dio _buildTraktApiDio(List<Interceptor> interceptors) {
   final options = BaseOptions(
     sendTimeout: Config.sendTimeout,
     receiveTimeout: Config.receiveTimeout,
     connectTimeout: Config.connectTimeout,
+    baseUrl: Config.traktBasePath,
   );
 
+  final dio = Dio(options);
+  dio.interceptors.addAll(interceptors);
+  return dio;
+}
+
+Dio _buildTMDBApiDio(List<Interceptor> interceptors) {
+  final options = BaseOptions(
+    sendTimeout: Config.sendTimeout,
+    receiveTimeout: Config.receiveTimeout,
+    connectTimeout: Config.connectTimeout,
+    baseUrl: Config.tmdbBasePath,
+  );
   final dio = Dio(options);
   dio.interceptors.addAll(interceptors);
   return dio;

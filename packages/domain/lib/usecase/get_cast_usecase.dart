@@ -1,26 +1,20 @@
 import 'package:domain/model/cast/cast_model.dart';
-import 'package:yaml/yaml.dart';
 import '../model/cast/tmdb_image.dart';
 import '../model/cast/cast.dart';
 import '../model/cast/cast_with_images.dart';
 import '../repository/tmdb_api_repository.dart';
 import '../repository/trakt_api_repository.dart';
-import '../utils/const.dart';
-import '../utils/getSecrets.dart';
 import 'usecase.dart';
 
 class GetCastUseCase
     implements UseCaseParams<int?, Future<List<CastAndImages>?>> {
   final TraktAPIRepository _traktAPIRepository;
   final TmdbAPIRepository _tmdbAPIRepository;
-  String apiKey = '';
 
   GetCastUseCase(
     this._traktAPIRepository,
     this._tmdbAPIRepository,
-  ) {
-    getAsyncApiKey();
-  }
+  );
 
   @override
   Future<List<CastAndImages>?> call(int? traktId) async {
@@ -31,10 +25,8 @@ class GetCastUseCase
 
     final List<Future<CastAndImages>>? castAndImagesFutureList =
         cast?.map((e) async {
-      final TmdbImage filePath = await _tmdbAPIRepository.getCastImageFilePath(
-        e.person?.ids?.tmdb ?? 0,
-        apiKey,
-      );
+      final TmdbImage filePath = await _tmdbAPIRepository
+          .getCastImageFilePath(e.person?.ids?.tmdb ?? 0);
 
       final String? url = filePath.profiles?.isNotEmpty == true
           ? 'https://image.tmdb.org/t/p/w185${filePath.profiles![0].filePath?.toString()}'
@@ -51,10 +43,5 @@ class GetCastUseCase
       castAndImagesList.add(await e);
     }
     return castAndImagesList;
-  }
-
-  void getAsyncApiKey() async {
-    YamlMap secrets = await getSecrets();
-    apiKey = secrets[Config.tmdbApiKey];
   }
 }

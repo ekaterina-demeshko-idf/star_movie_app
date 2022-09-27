@@ -3,10 +3,10 @@ import "package:yaml/yaml.dart";
 import 'package:data/utils/const.dart';
 import 'package:domain/utils/getSecrets.dart';
 
-class ApiKeyInterceptor extends Interceptor {
+class TraktApiKeyInterceptor extends Interceptor {
   late YamlMap secrets;
 
-  ApiKeyInterceptor() {
+  TraktApiKeyInterceptor() {
     _getAsyncSecrets();
   }
 
