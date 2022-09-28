@@ -1,4 +1,5 @@
 import 'package:domain/model/cast/cast_model.dart';
+import 'package:domain/utils/apiPath.dart';
 import '../model/cast/tmdb_image.dart';
 import '../model/cast/cast.dart';
 import '../model/cast/cast_with_images.dart';
@@ -29,7 +30,7 @@ class GetCastUseCase
           .getCastImageFilePath(e.person?.ids?.tmdb ?? 0);
 
       final String? url = filePath.profiles?.isNotEmpty == true
-          ? 'https://image.tmdb.org/t/p/w185${filePath.profiles![0].filePath?.toString()}'
+          ? ApiPath.getCastImagePath(filePath.profiles![0].filePath?.toString())
           : null;
 
       return CastAndImages(
