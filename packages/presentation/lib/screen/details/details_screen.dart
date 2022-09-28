@@ -210,13 +210,13 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                 ),
                                 tabs: [
                                   Tab(
-                                    text: AppLocalizations.of(context).details,
+                                    text: AppLocalizations.of(context)!.details,
                                   ),
                                   Tab(
-                                    text: AppLocalizations.of(context).reviews,
+                                    text: AppLocalizations.of(context)!.reviews,
                                   ),
                                   Tab(
-                                    text: AppLocalizations.of(context).showtime,
+                                    text: AppLocalizations.of(context)!.showtime,
                                   ),
                                 ],
                               ),
@@ -225,7 +225,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               height: Dimens.size16,
                             ),
                             Text(
-                              AppLocalizations.of(context).synopsis,
+                              AppLocalizations.of(context)!.synopsis,
                               textAlign: TextAlign.left,
                               style: AppTextStyles.headerStyle(
                                   AppTextStyles.fontSize_20),
@@ -238,8 +238,8 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               trimLines: 4,
                               trimMode: TrimMode.Line,
                               colorClickableText: PrimaryColors.primaryLink,
-                              trimCollapsedText: AppLocalizations.of(context).showMore,
-                              trimExpandedText: AppLocalizations.of(context).showLess,
+                              trimCollapsedText: AppLocalizations.of(context)!.showMore,
+                              trimExpandedText: AppLocalizations.of(context)!.showLess,
                               style: AppTextStyles.descriptionStyle(
                                   AppTextStyles.fontSize_14,
                                   lineHeight: Dimens.size20),
@@ -251,13 +251,13 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context).castCrew,
+                                  AppLocalizations.of(context)!.castCrew,
                                   textAlign: TextAlign.left,
                                   style: AppTextStyles.headerStyle(
                                       AppTextStyles.fontSize_20),
                                 ),
                                 Text(
-                                  AppLocalizations.of(context).viewAll,
+                                  AppLocalizations.of(context)!.viewAll,
                                   style: AppTextStyles.headerStyle(
                                     AppTextStyles.fontSize_18,
                                   ),
