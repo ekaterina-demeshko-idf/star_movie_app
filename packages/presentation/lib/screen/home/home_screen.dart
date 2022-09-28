@@ -52,7 +52,7 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: const Color(PrimaryColors.primaryBackgroundColor),
+          backgroundColor: PrimaryColors.primaryBackgroundColor,
           elevation: 0,
           title: Text(
             'Star Movie',
@@ -70,7 +70,7 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
             ),
           ]),
       body: const HomeContent(),
-      backgroundColor: const Color(PrimaryColors.primaryBackgroundColor),
+      backgroundColor: PrimaryColors.primaryBackgroundColor,
     );
   }
 }

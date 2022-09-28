@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:presentation/utils/colors.dart';
 
 class AppFonts {
   AppFonts._();
@@ -53,6 +54,48 @@ class AppTextStyles {
       letterSpacing: letterSpacing,
       fontStyle: fontStyle,
       color: Colors.white,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      decoration: decoration,
+      height: (lineHeight ?? fontSize) / fontSize,
+    );
+  }
+
+  static TextStyle descriptionStyle(
+    double fontSize, {
+    String fontFamily = AppFonts.sfProText,
+    FontWeight fontWeight = AppFonts.regular,
+    TextDecoration decoration = TextDecoration.none,
+    double? lineHeight,
+    FontStyle fontStyle = FontStyle.normal,
+    double? letterSpacing,
+  }) {
+    return TextStyle(
+      fontFamily: fontFamily,
+      letterSpacing: letterSpacing,
+      fontStyle: fontStyle,
+      color: PrimaryColors.whiteWithOpacity70,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      decoration: decoration,
+      height: (lineHeight ?? fontSize) / fontSize,
+    );
+  }
+
+  static TextStyle linkStyle(
+    double fontSize, {
+    String fontFamily = AppFonts.sfProText,
+    FontWeight fontWeight = AppFonts.regular,
+    TextDecoration decoration = TextDecoration.none,
+    double? lineHeight,
+    FontStyle fontStyle = FontStyle.normal,
+    double? letterSpacing,
+  }) {
+    return TextStyle(
+      fontFamily: fontFamily,
+      letterSpacing: letterSpacing,
+      fontStyle: fontStyle,
+      color: PrimaryColors.primaryLink,
       fontSize: fontSize,
       fontWeight: fontWeight,
       decoration: decoration,

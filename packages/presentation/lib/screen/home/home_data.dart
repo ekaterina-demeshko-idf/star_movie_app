@@ -1,5 +1,5 @@
 import 'package:presentation/enum/current_tab.dart';
-import 'package:presentation/screen/home/movie_model.dart';
+import 'package:presentation/models/movie_model.dart';
 
 class HomeData {
   CurrentTab? currentTab;

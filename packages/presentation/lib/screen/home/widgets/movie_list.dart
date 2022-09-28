@@ -5,9 +5,10 @@ import 'package:presentation/screen/home/widgets/movie_list_skelet.dart';
 import 'package:presentation/utils/images/paths.dart';
 import '../../../base/bloc_data.dart';
 import '../../../enum/current_tab.dart';
+import '../../../utils/text_styles.dart';
 import '../home_bloc.dart';
 import '../home_data.dart';
-import '../movie_model.dart';
+import '../../../models/movie_model.dart';
 import '../../../base/bloc_screen.dart';
 
 class MovieListWidget extends StatefulWidget {
@@ -42,6 +43,7 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
             final screenList = widget.currentTab == CurrentTab.anticipated
                 ? screenData?.movieAnticipated
                 : screenData?.movieTrending;
+
             return data.isLoading
                 ? const MovieListSkelet()
                 : GridView.builder(
@@ -54,12 +56,11 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                     ),
                     itemCount: screenList?.length,
                     itemBuilder: (BuildContext ctx, index) {
+                      MoviePresentation? currentMovie = screenList?[index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: GestureDetector(
                           onTap: () {
-                            MoviePresentation? currentMovie =
-                                screenList?[index];
                             if (currentMovie != null) {
                               bloc.openDetailsPage(currentMovie);
                             }
@@ -84,7 +85,7 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                 height: 15,
                               ),
                               RatingBar(
-                                initialRating: screenList?[index].rating ?? 0,
+                                initialRating: currentMovie?.rating ?? 0,
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 ignoreGestures: true,
@@ -102,11 +103,10 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                 height: 8,
                               ),
                               Text(
-                                screenList?[index].title ?? '',
+                                currentMovie?.title ?? '',
                                 textAlign: TextAlign.start,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                                style: AppTextStyles.headerStyle(
+                                  AppTextStyles.fontSize_16,
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -115,8 +115,9 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                 height: 4,
                               ),
                               Text(
-                                '${screenList?[index].genre} · ${screenList?[index].runtime} | ${screenList?[index].certification}',
-                                style: const TextStyle(color: Colors.grey),
+                                '${currentMovie?.genre} · ${currentMovie?.runtime} | ${currentMovie?.certification}',
+                                style: AppTextStyles.descriptionStyle(
+                                    AppTextStyles.fontSize_14),
                               ),
                             ],
                           ),

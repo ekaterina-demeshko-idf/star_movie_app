@@ -29,3 +29,4 @@ flutter:
     - resources/images/
     - secrets.yaml
   uses-material-design: true
+  generate: true

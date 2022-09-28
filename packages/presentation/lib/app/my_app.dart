@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/utils/colors.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'app_bloc.dart';
 import 'data/app_data.dart';
 import '../base/bloc_data.dart';
@@ -19,10 +21,20 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en', ''),
+        Locale('be', ''),
+      ],
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
-        canvasColor: const Color(PrimaryColors.primaryBackgroundColor),
+        canvasColor: PrimaryColors.primaryBackgroundColor,
       ),
       home: StreamBuilder<BlocData>(
         stream: bloc.dataStream,
@@ -45,62 +57,57 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                         border: Border(
                           top: BorderSide(
                             width: 0.5,
-                            color: Color(PrimaryColors.primaryUnselected),
+                            color: PrimaryColors.primaryUnselected,
                           ),
                         ),
                       ),
                       child: BottomNavigationBar(
                         showSelectedLabels: false,
                         showUnselectedLabels: false,
-                        backgroundColor:
-                            const Color(PrimaryColors.primaryBackgroundColor),
+                        backgroundColor: PrimaryColors.primaryBackgroundColor,
                         elevation: 0,
                         items: <BottomNavigationBarItem>[
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
                               ImagesPath.movieIcon,
-                              color:
-                                  const Color(PrimaryColors.whiteWithOpacity),
+                              color: PrimaryColors.whiteWithOpacity80,
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.movieIcon,
-                              color: const Color(PrimaryColors.primarySelected),
+                              color: PrimaryColors.primarySelected,
                             ),
                             label: 'Home',
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
                               ImagesPath.tickerIcon,
-                              color:
-                                  const Color(PrimaryColors.whiteWithOpacity),
+                              color: PrimaryColors.whiteWithOpacity80,
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.tickerIcon,
-                              color: const Color(PrimaryColors.primarySelected),
+                              color: PrimaryColors.primarySelected,
                             ),
                             label: 'Business',
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
                               ImagesPath.alarmIcon,
-                              color:
-                                  const Color(PrimaryColors.whiteWithOpacity),
+                              color: PrimaryColors.whiteWithOpacity80,
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.alarmIcon,
-                              color: const Color(PrimaryColors.primarySelected),
+                              color: PrimaryColors.primarySelected,
                             ),
                             label: 'School',
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
                               ImagesPath.personIcon,
-                              color:
-                                  const Color(PrimaryColors.whiteWithOpacity),
+                              color: PrimaryColors.whiteWithOpacity80,
                             ),
                             activeIcon: SvgPicture.asset(
                               ImagesPath.personIcon,
-                              color: const Color(PrimaryColors.primarySelected),
+                              color: PrimaryColors.primarySelected,
                             ),
                             label: 'School',
                           ),

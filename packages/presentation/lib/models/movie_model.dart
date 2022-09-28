@@ -4,7 +4,11 @@ class MoviePresentation {
   final String runtime;
   final double rating;
   final String? genre;
+  final String? genres;
   final String? certification;
+  final String? overview;
+  final int? traktId;
+  final int? tmdbId;
 
   MoviePresentation(
     this.title,
@@ -12,6 +16,10 @@ class MoviePresentation {
     this.runtime,
     this.rating,
     this.genre,
+    this.genres,
     this.certification,
+    this.overview,
+    this.traktId,
+    this.tmdbId,
   );
 }

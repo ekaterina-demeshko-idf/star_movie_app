@@ -33,8 +33,8 @@ class _SplashScreenState extends BlocScreenState<SplashScreen, SplashBloc> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color(PrimaryColors.primaryColor),
-                Color(PrimaryColors.primaryGradientBottom),
+                PrimaryColors.primaryColor,
+                PrimaryColors.primaryGradientBottom,
               ],
             ),
           ),
