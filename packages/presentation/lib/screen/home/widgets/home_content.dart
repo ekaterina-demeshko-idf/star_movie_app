@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../enum/current_tab.dart';
 import '../../../utils/colors.dart';
 import 'movie_list.dart';
@@ -45,15 +46,15 @@ class HomeContent extends StatelessWidget {
                       Tab(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                             Icon(Icons.play_circle_fill_rounded),
                             SizedBox(width: 8),
-                            Text('Now Showing'),
+                            Text(AppLocalizations.of(context)!.nowShowing),
                           ],
                         ),
                       ),
-                      const Tab(
-                        text: 'Coming Soon',
+                      Tab(
+                        text: AppLocalizations.of(context)!.comingSoon,
                       ),
                     ],
                   ),
