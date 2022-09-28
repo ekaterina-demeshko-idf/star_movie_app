@@ -258,7 +258,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                 ),
                                 Text(
                                   AppLocalizations.of(context)!.viewAll,
-                                  style: AppTextStyles.headerStyle(
+                                  style: AppTextStyles.linkStyle(
                                     AppTextStyles.fontSize_18,
                                   ),
                                 ),
