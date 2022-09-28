@@ -17,10 +17,4 @@ class TmdbAPIRepositoryImpl implements TmdbAPIRepository {
     );
     return TmdbImage.fromJson(response.data);
   }
-
-  Map<String, Object> setApiKey(String apiKey) {
-    return {
-      'api_key': apiKey,
-    };
-  }
 }
