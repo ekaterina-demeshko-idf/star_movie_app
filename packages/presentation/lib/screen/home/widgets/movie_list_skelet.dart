@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:presentation/utils/colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/dimens.dart';
@@ -11,8 +12,8 @@ class MovieListSkelet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.blueGrey,
-      highlightColor: Colors.grey,
+      baseColor: PrimaryColors.shimmer,
+      highlightColor: PrimaryColors.whiteWithOpacity45,
       enabled: true,
       child: GridView.builder(
         shrinkWrap: true,
@@ -32,7 +33,7 @@ class MovieListSkelet extends StatelessWidget {
                   child: Container(
                     width: Dimens.size200,
                     height: Dimens.size400,
-                    color: Colors.grey,
+                    color: PrimaryColors.whiteWithOpacity45,
                   ),
                 ),
                 Row(
@@ -40,29 +41,29 @@ class MovieListSkelet extends StatelessWidget {
                   children: const [
                     Icon(
                       Icons.star_border,
-                      color: Colors.yellow,
+                      color: PrimaryColors.ratingYellow,
                     ),
                     Icon(
                       Icons.star_border,
-                      color: Colors.yellow,
+                      color: PrimaryColors.ratingYellow,
                     ),
                     Icon(
                       Icons.star_border,
-                      color: Colors.yellow,
+                      color: PrimaryColors.ratingYellow,
                     ),
                     Icon(
                       Icons.star_border,
-                      color: Colors.yellow,
+                      color: PrimaryColors.ratingYellow,
                     ),
                     Icon(
                       Icons.star_border,
-                      color: Colors.yellow,
+                      color: PrimaryColors.ratingYellow,
                     ),
                   ],
                 ),
                 Container(
                   height: Dimens.size18,
-                  color: Colors.white,
+                  color: PrimaryColors.white,
                 ),
                 const SizedBox(
                   height: 5,
@@ -73,17 +74,17 @@ class MovieListSkelet extends StatelessWidget {
                     Container(
                       height: Dimens.size8,
                       width: Dimens.size24,
-                      color: Colors.white,
+                      color: PrimaryColors.white,
                     ),
                     const Icon(
                       Icons.circle,
                       size: Dimens.size6,
-                      color: Colors.grey,
+                      color: PrimaryColors.whiteWithOpacity45,
                     ),
                     Container(
                       height: Dimens.size8,
                       width: Dimens.size44,
-                      color: Colors.white,
+                      color: PrimaryColors.white,
                     ),
                     const SizedBox(
                       width: Dimens.size10,
@@ -91,7 +92,7 @@ class MovieListSkelet extends StatelessWidget {
                     Container(
                       height: Dimens.size8,
                       width: Dimens.size24,
-                      color: Colors.white,
+                      color: PrimaryColors.white,
                     ),
                   ],
                 )

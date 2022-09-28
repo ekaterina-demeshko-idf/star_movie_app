@@ -64,7 +64,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                       IconButton(
                         onPressed: () => {},
                         icon: SvgPicture.asset(ImagesPath.shareIcon),
-                        color: Colors.white,
+                        color: PrimaryColors.white,
                       ),
                     ]),
                 body: SingleChildScrollView(
@@ -107,7 +107,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                     ]),
                                 child: const Icon(
                                   Icons.play_circle_fill_rounded,
-                                  color: Colors.white,
+                                  color: PrimaryColors.white,
                                   shadows: [],
                                   size: Dimens.size50,
                                 )),
@@ -115,7 +115,8 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               height: Dimens.size12,
                             ),
                             Center(
-                              child: Image.network('${screenData?.movie?.image}'),
+                              child:
+                                  Image.network('${screenData?.movie?.image}'),
                             ),
                             const SizedBox(
                               height: Dimens.size18,
@@ -200,7 +201,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               child: TabBar(
                                 unselectedLabelColor:
                                     PrimaryColors.whiteWithOpacity80,
-                                labelColor: Colors.white,
+                                labelColor: PrimaryColors.white,
                                 indicatorColor:
                                     PrimaryColors.whiteWithOpacity80,
                                 indicator: BoxDecoration(
@@ -216,7 +217,8 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                     text: AppLocalizations.of(context)!.reviews,
                                   ),
                                   Tab(
-                                    text: AppLocalizations.of(context)!.showtime,
+                                    text:
+                                        AppLocalizations.of(context)!.showtime,
                                   ),
                                 ],
                               ),
@@ -238,8 +240,10 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               trimLines: 4,
                               trimMode: TrimMode.Line,
                               colorClickableText: PrimaryColors.primaryLink,
-                              trimCollapsedText: AppLocalizations.of(context)!.showMore,
-                              trimExpandedText: AppLocalizations.of(context)!.showLess,
+                              trimCollapsedText:
+                                  AppLocalizations.of(context)!.showMore,
+                              trimExpandedText:
+                                  AppLocalizations.of(context)!.showLess,
                               style: AppTextStyles.descriptionStyle(
                                   AppTextStyles.fontSize_14,
                                   lineHeight: Dimens.size20),
@@ -320,7 +324,7 @@ class CastList extends StatelessWidget {
                           Container(
                         height: Dimens.size50,
                         width: Dimens.size50,
-                        color: Colors.grey,
+                        color: PrimaryColors.whiteWithOpacity45,
                       ),
                     ),
                   ),

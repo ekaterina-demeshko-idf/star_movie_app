@@ -14,4 +14,7 @@ class PrimaryColors {
   static const primarySelected = Color(0xFF47CFFF);
   static const primaryLink = Color(0xFF47CFFF);
   static const transparent = Color(0x00000000);
+  static const ratingYellow = Color(0xFFFFC045);
+  static const white = Color(0xFFFFFFFF);
+  static const shimmer = Color(0x607D8BFF);
 }

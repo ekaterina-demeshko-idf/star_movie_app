@@ -67,7 +67,7 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
             IconButton(
               onPressed: () => {},
               icon: SvgPicture.asset(ImagesPath.searchIcon),
-              color: Colors.white,
+              color: PrimaryColors.white,
             ),
           ]),
       body: const HomeContent(),

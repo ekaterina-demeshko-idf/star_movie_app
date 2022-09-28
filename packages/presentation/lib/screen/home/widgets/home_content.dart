@@ -37,7 +37,7 @@ class HomeContent extends StatelessWidget {
                   ),
                   child: TabBar(
                     unselectedLabelColor: PrimaryColors.whiteWithOpacity80,
-                    labelColor: Colors.white,
+                    labelColor: PrimaryColors.white,
                     indicatorColor: PrimaryColors.whiteWithOpacity80,
                     indicator: BoxDecoration(
                       color: PrimaryColors.primaryColor,
