@@ -31,6 +31,7 @@ class GetCastUseCase
       final String? url = filePath.profiles?.isNotEmpty == true
           ? 'https://image.tmdb.org/t/p/w185${filePath.profiles![0].filePath?.toString()}'
           : null;
+
       return CastAndImages(
         e.person?.name,
         url,
@@ -38,10 +39,9 @@ class GetCastUseCase
       );
     }).toList();
 
-    final List<CastAndImages> castAndImagesList = [];
-    for (var e in castAndImagesFutureList!) {
-      castAndImagesList.add(await e);
-    }
+    final List<CastAndImages> castAndImagesList =
+        await Future.wait(castAndImagesFutureList ?? []);
+
     return castAndImagesList;
   }
 }
