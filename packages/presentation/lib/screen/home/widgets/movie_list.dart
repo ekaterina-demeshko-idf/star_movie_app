@@ -5,6 +5,7 @@ import 'package:presentation/screen/home/widgets/movie_list_skelet.dart';
 import 'package:presentation/utils/images/paths.dart';
 import '../../../base/bloc_data.dart';
 import '../../../enum/current_tab.dart';
+import '../../../utils/dimens.dart';
 import '../../../utils/text_styles.dart';
 import '../home_bloc.dart';
 import '../home_data.dart';
@@ -52,13 +53,14 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: (.16 / .25),
                       crossAxisCount: 2,
-                      mainAxisSpacing: 30,
+                      mainAxisSpacing: Dimens.size30,
                     ),
                     itemCount: screenList?.length,
                     itemBuilder: (BuildContext ctx, index) {
                       MoviePresentation? currentMovie = screenList?[index];
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: Dimens.size20),
                         child: GestureDetector(
                           onTap: () {
                             if (currentMovie != null) {
@@ -82,7 +84,7 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 15,
+                                height: Dimens.size16,
                               ),
                               RatingBar(
                                 initialRating: currentMovie?.rating ?? 0,
@@ -90,13 +92,14 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                 allowHalfRating: true,
                                 ignoreGestures: true,
                                 itemCount: 5,
-                                itemSize: 17,
+                                itemSize: Dimens.size16,
                                 ratingWidget: RatingWidget(
                                   full: SvgPicture.asset(ImagesPath.starFull),
                                   half: SvgPicture.asset(ImagesPath.starHalf),
                                   empty: SvgPicture.asset(ImagesPath.starEmpty),
                                 ),
-                                itemPadding: const EdgeInsets.only(right: 1.0),
+                                itemPadding:
+                                    const EdgeInsets.only(right: Dimens.size2),
                                 onRatingUpdate: (rating) {},
                               ),
                               const SizedBox(
@@ -112,7 +115,7 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(
-                                height: 4,
+                                height: Dimens.size4,
                               ),
                               Text(
                                 '${currentMovie?.genre} · ${currentMovie?.runtime} | ${currentMovie?.certification}',

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../utils/dimens.dart';
+
 class MovieListSkelet extends StatelessWidget {
   const MovieListSkelet({
     Key? key,
@@ -17,19 +19,19 @@ class MovieListSkelet extends StatelessWidget {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: (.16 / .25),
           crossAxisCount: 2,
-          mainAxisSpacing: 30,
+          mainAxisSpacing: Dimens.size30,
         ),
         itemCount: 6,
         itemBuilder: (BuildContext ctx, index) {
           return Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.all(Dimens.size6),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Container(
-                    width: 200,
-                    height: 400,
+                    width: Dimens.size200,
+                    height: Dimens.size400,
                     color: Colors.grey,
                   ),
                 ),
@@ -59,7 +61,7 @@ class MovieListSkelet extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  height: 18,
+                  height: Dimens.size18,
                   color: Colors.white,
                 ),
                 const SizedBox(
@@ -69,26 +71,26 @@ class MovieListSkelet extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      height: 8,
-                      width: 24,
+                      height: Dimens.size8,
+                      width: Dimens.size24,
                       color: Colors.white,
                     ),
                     const Icon(
                       Icons.circle,
-                      size: 6,
+                      size: Dimens.size6,
                       color: Colors.grey,
                     ),
                     Container(
-                      height: 8,
-                      width: 44,
+                      height: Dimens.size8,
+                      width: Dimens.size44,
                       color: Colors.white,
                     ),
                     const SizedBox(
-                      width: 10,
+                      width: Dimens.size10,
                     ),
                     Container(
-                      height: 8,
-                      width: 24,
+                      height: Dimens.size8,
+                      width: Dimens.size24,
                       color: Colors.white,
                     ),
                   ],

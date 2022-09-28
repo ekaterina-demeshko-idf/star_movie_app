@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../enum/current_tab.dart';
 import '../../../utils/colors.dart';
+import '../../../utils/dimens.dart';
 import 'movie_list.dart';
 
 class HomeContent extends StatelessWidget {
@@ -19,20 +20,20 @@ class HomeContent extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Container(
-                  height: 40,
+                  height: Dimens.size40,
                   margin: const EdgeInsets.only(
-                    top: 10,
-                    right: 18,
-                    left: 18,
-                    bottom: 24,
+                    top: Dimens.size10,
+                    right: Dimens.size18,
+                    left: Dimens.size18,
+                    bottom: Dimens.size24,
                   ),
-                  padding: const EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(Dimens.size4),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: PrimaryColors.primaryBorderColor,
-                      width: 1,
+                      width: Dimens.size2,
                     ),
-                    borderRadius: BorderRadius.circular(35),
+                    borderRadius: BorderRadius.circular(Dimens.size36),
                   ),
                   child: TabBar(
                     unselectedLabelColor: PrimaryColors.whiteWithOpacity80,
@@ -40,15 +41,15 @@ class HomeContent extends StatelessWidget {
                     indicatorColor: PrimaryColors.whiteWithOpacity80,
                     indicator: BoxDecoration(
                       color: PrimaryColors.primaryColor,
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(Dimens.size26),
                     ),
                     tabs: [
                       Tab(
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.play_circle_fill_rounded),
-                            SizedBox(width: 8),
+                            const Icon(Icons.play_circle_fill_rounded),
+                            const SizedBox(width: Dimens.size8),
                             Text(AppLocalizations.of(context)!.nowShowing),
                           ],
                         ),
