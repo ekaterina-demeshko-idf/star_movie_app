@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:presentation/screen/details/widgets/cast_list_skelet.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:readmore/readmore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -207,15 +208,15 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                   borderRadius:
                                       BorderRadius.circular(Dimens.size24),
                                 ),
-                                tabs: const [
+                                tabs: [
                                   Tab(
-                                    text: 'Details',
+                                    text: AppLocalizations.of(context)!.details,
                                   ),
                                   Tab(
-                                    text: 'Reviews',
+                                    text: AppLocalizations.of(context)!.reviews,
                                   ),
                                   Tab(
-                                    text: 'Showtime',
+                                    text: AppLocalizations.of(context)!.showtime,
                                   ),
                                 ],
                               ),
@@ -224,7 +225,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               height: Dimens.size16,
                             ),
                             Text(
-                              'Synopsis',
+                              AppLocalizations.of(context)!.synopsis,
                               textAlign: TextAlign.left,
                               style: AppTextStyles.headerStyle(
                                   AppTextStyles.fontSize_20),
@@ -237,8 +238,8 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               trimLines: 4,
                               trimMode: TrimMode.Line,
                               colorClickableText: PrimaryColors.primaryLink,
-                              trimCollapsedText: 'Show more',
-                              trimExpandedText: 'Show less',
+                              trimCollapsedText: AppLocalizations.of(context)!.showMore,
+                              trimExpandedText: AppLocalizations.of(context)!.showLess,
                               style: AppTextStyles.descriptionStyle(
                                   AppTextStyles.fontSize_14,
                                   lineHeight: Dimens.size20),
@@ -250,13 +251,13 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Cast & Crew',
+                                  AppLocalizations.of(context)!.castCrew,
                                   textAlign: TextAlign.left,
                                   style: AppTextStyles.headerStyle(
                                       AppTextStyles.fontSize_20),
                                 ),
                                 Text(
-                                  'View All',
+                                  AppLocalizations.of(context)!.viewAll,
                                   style: AppTextStyles.headerStyle(
                                     AppTextStyles.fontSize_18,
                                   ),

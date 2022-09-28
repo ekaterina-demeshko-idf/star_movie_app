@@ -12,6 +12,9 @@ dependencies:
   dio: ^4.0.6
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
   domain:
     path: ../domain
   collection: ^1.16.0
@@ -26,4 +29,4 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
-
+  generate: true
