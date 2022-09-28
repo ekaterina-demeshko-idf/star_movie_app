@@ -53,7 +53,7 @@ class AppTextStyles {
       fontFamily: fontFamily,
       letterSpacing: letterSpacing,
       fontStyle: fontStyle,
-      color: Colors.white,
+      color: PrimaryColors.white,
       fontSize: fontSize,
       fontWeight: fontWeight,
       decoration: decoration,
