@@ -34,12 +34,14 @@ void _initApiModule() {
   );
 
   GetIt.I.registerSingleton<ApiBaseService<ServicePayload>>(
-      ApiServiceImpl(GetIt.I.get<Dio>(instanceName: 'Trakt')),
-      instanceName: 'TraktService');
+    ApiServiceImpl(GetIt.I.get<Dio>(instanceName: 'Trakt')),
+    instanceName: 'TraktService',
+  );
 
   GetIt.I.registerSingleton<ApiBaseService<ServicePayload>>(
-      ApiServiceImpl(GetIt.I.get<Dio>(instanceName: 'TMDB')),
-      instanceName: 'TMDBService');
+    ApiServiceImpl(GetIt.I.get<Dio>(instanceName: 'TMDB')),
+    instanceName: 'TMDBService',
+  );
 }
 
 void _initInterceptorModule() {
