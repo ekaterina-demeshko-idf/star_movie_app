@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:presentation/utils/colors.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/dimens.dart';
@@ -12,8 +13,8 @@ class CastListSkelet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.blueGrey,
-      highlightColor: Colors.grey,
+      baseColor: PrimaryColors.shimmer,
+      highlightColor: PrimaryColors.whiteWithOpacity45,
       enabled: true,
       child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -34,7 +35,7 @@ class CastListSkelet extends StatelessWidget {
                       child: Container(
                         height: Dimens.size50,
                         width: Dimens.size50,
-                        color: Colors.grey,
+                        color: PrimaryColors.whiteWithOpacity45,
                       ),
                     ),
                   ),
@@ -44,7 +45,7 @@ class CastListSkelet extends StatelessWidget {
                   Container(
                     height: Dimens.size12,
                     width: Dimens.size50,
-                    color: Colors.grey,
+                    color: PrimaryColors.whiteWithOpacity45,
                   ),
                   const SizedBox(
                     width: Dimens.size16,
@@ -64,7 +65,7 @@ class CastListSkelet extends StatelessWidget {
                     child: Container(
                       height: Dimens.size12,
                       width: Dimens.size50,
-                      color: Colors.grey,
+                      color: PrimaryColors.whiteWithOpacity45,
                     ),
                   )
                 ],

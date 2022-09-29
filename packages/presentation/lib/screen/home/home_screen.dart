@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:presentation/utils/colors.dart';
 import '../../base/bloc_screen.dart';
 import '../../navigation/base_arguments.dart';
@@ -55,7 +56,7 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
           backgroundColor: PrimaryColors.primaryBackgroundColor,
           elevation: 0,
           title: Text(
-            'Star Movie',
+            AppLocalizations.of(context)!.title,
             style: AppTextStyles.headerStyle(
               AppTextStyles.header,
               fontWeight: AppFonts.bold,
@@ -66,7 +67,7 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
             IconButton(
               onPressed: () => {},
               icon: SvgPicture.asset(ImagesPath.searchIcon),
-              color: Colors.white,
+              color: PrimaryColors.white,
             ),
           ]),
       body: const HomeContent(),
