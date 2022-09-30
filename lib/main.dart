@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:movie/flavor_config.dart';
+import 'package:movie/flavors/env_enum.dart';
 import 'package:presentation/app/my_app.dart';
-import 'config.dart';
-import 'config_data.dart';
-import 'config_presentation.dart';
+import 'flavors/config_data.dart';
+import 'flavors/config_presentation.dart';
 import 'di/app_injector.dart';
 
 void mainCommon({Environment env = Environment.production}) async {

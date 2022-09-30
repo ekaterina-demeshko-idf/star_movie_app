@@ -1,4 +1,4 @@
-import 'flavor_config.dart';
+import 'flavors/env_enum.dart';
 import 'main.dart';
 
 void main() {
