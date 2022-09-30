@@ -10,7 +10,8 @@ import '../base/bloc_screen.dart';
 import '../../utils/images/paths.dart';
 
 class MyApp extends StatefulWidget {
-  const MyApp(String appTitle, {Key? key}) : super(key: key);
+  final String appTitle;
+  const MyApp(this.appTitle, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
@@ -18,11 +19,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Trakt',//appTitle,//AppConfig.of(context).appTitle,
+      title: 'whu',//widget.appTitle,//AppConfig.of(context).appTitle,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
