@@ -5,5 +5,4 @@ class ConfigPresentation {
 
   ConfigPresentation.fromJson(Map<String, dynamic> json)
       : appTitle = json['appTitle'];
-
 }

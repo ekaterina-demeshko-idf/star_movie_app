@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import "package:yaml/yaml.dart";
 import 'package:domain/utils/getSecrets.dart';
 
+import '../utils/const.dart';
+
 class TMDBApiKeyInterceptor extends Interceptor {
   late YamlMap secrets;
 
@@ -19,7 +21,7 @@ class TMDBApiKeyInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     options.queryParameters.addAll({
-      'api_key': secrets["TMDB_API_KEY"], //AppConfig.of(context).appTitle, // at upper layer!!
+      'api_key': secrets[Config.tmdbApiKey],
     });
     return handler.next(options);
   }

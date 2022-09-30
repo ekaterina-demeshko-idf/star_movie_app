@@ -8,7 +8,7 @@ class TraktApiKeyInterceptor extends Interceptor {
   late String apiKey = '';
 
   TraktApiKeyInterceptor(String apiKeyGet) {
-    _getAsyncSecrets();
+   _getAsyncSecrets();
     apiKey = apiKeyGet;
   }
 
@@ -21,7 +21,7 @@ class TraktApiKeyInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    options.headers[Config.traktApiKey] = apiKey;//secrets["API_KEY"];
+    options.headers[Config.traktApiKey] = secrets[apiKey];
     return handler.next(options);
   }
 }
