@@ -17,6 +17,8 @@ dependencies:
   intl: ^0.17.0
   domain:
     path: ../domain
+#  root:
+#    path: ../../../movie
   collection: ^1.16.0
   flutter_svg: ^1.1.4
   shimmer: ^2.0.0

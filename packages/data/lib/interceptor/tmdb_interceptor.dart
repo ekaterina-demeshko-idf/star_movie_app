@@ -19,7 +19,7 @@ class TMDBApiKeyInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     options.queryParameters.addAll({
-      'api_key': secrets["TMDB_API_KEY"],
+      'api_key': secrets["TMDB_API_KEY"], //AppConfig.of(context).appTitle, // at upper layer!!
     });
     return handler.next(options);
   }

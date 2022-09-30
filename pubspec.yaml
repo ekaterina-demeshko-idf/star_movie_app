@@ -27,6 +27,7 @@ dev_dependencies:
 flutter:
   assets:
     - resources/images/
+    - resources/flavors_config/
     - secrets.yaml
   uses-material-design: true
   generate: true

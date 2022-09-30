@@ -1,0 +1,5 @@
+{
+  "appTitle" : "Trakt-sandbox",
+  "apiKey" : "843c9784483ae3b13a3cc22489b077250d67c8da5281e701d896cda8d559e970",
+  "baseUrl": "https://api-staging.trakt.tv"
+}

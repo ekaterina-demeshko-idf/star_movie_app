@@ -56,7 +56,7 @@ class _HomeScreenState extends BlocScreenState<HomeScreen, HomeBloc>
           backgroundColor: PrimaryColors.primaryBackgroundColor,
           elevation: 0,
           title: Text(
-            AppLocalizations.of(context)!.title,
+            AppLocalizations.of(context)!.title, //AppConfig.of(context).appTitle
             style: AppTextStyles.headerStyle(
               AppTextStyles.header,
               fontWeight: AppFonts.bold,
