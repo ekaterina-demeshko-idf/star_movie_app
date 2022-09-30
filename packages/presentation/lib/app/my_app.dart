@@ -14,15 +14,15 @@ class MyApp extends StatefulWidget {
   const MyApp(this.appTitle, {Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
+class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'whu',//widget.appTitle,//AppConfig.of(context).appTitle,
+      title: widget.appTitle,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
