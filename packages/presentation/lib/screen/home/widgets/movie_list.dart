@@ -91,9 +91,7 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: Dimens.size16,
-                                  ),
+                                  const SizedBox(height: Dimens.size16),
                                   RatingBar(
                                     initialRating: currentMovie.rating ?? 0,
                                     direction: Axis.horizontal,
@@ -113,9 +111,7 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                         right: Dimens.size2),
                                     onRatingUpdate: (rating) {},
                                   ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
+                                  const SizedBox(height: Dimens.size8),
                                   Text(
                                     currentMovie.title ?? '',
                                     textAlign: TextAlign.start,
@@ -125,13 +121,12 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  const SizedBox(
-                                    height: Dimens.size4,
-                                  ),
+                                  const SizedBox(height: Dimens.size4),
                                   Text(
                                     '${currentMovie.genre} · ${currentMovie.runtime} | ${currentMovie.certification}',
                                     style: AppTextStyles.descriptionStyle(
-                                        AppTextStyles.fontSize_14),
+                                      AppTextStyles.fontSize_14,
+                                    ),
                                   ),
                                 ],
                               ),
