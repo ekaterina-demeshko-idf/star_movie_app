@@ -9,9 +9,7 @@ import 'di/app_injector.dart';
 
 void mainCommon({Environment env = Environment.production}) async {
   WidgetsFlutterBinding.ensureInitialized();
-  final currentEnv = env == Environment.production
-      ? Environment.production.name
-      : Environment.sandbox.name;
+  final currentEnv = env.name;
   final jsonConfig = await readJson(currentEnv);
   final ConfigData configData = ConfigData.fromJson(jsonConfig);
   final ConfigPresentation configPresentation =
