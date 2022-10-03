@@ -1,7 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:collection/collection.dart';
+import 'package:presentation/screen/splash/splash_screen.dart';
 import '../base/bloc.dart';
 import '../navigation/base_page.dart';
+import '../screen/home/home_screen.dart';
+import '../screen/login/login_screen.dart';
 import 'data/app_data.dart';
 
 abstract class AppBloc extends Bloc {
@@ -47,6 +50,13 @@ class _AppBloc extends BlocImpl implements AppBloc {
   @override
   void onItemTapped(int index) {
     selectedIndex = index;
+    switch (selectedIndex) {
+      case 0:
+        _popAllAndPush(HomeScreen.page(HomeScreenArguments()));
+        break;
+      case 3:
+        _popAllAndPush(LoginScreen.page(LoginScreenArguments()));
+    }
     _updateData();
   }
 

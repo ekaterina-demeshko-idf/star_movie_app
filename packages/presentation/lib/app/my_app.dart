@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:presentation/utils/colors.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:presentation/utils/dimens.dart';
 import '../models/config_presentation.dart';
 import 'app_bloc.dart';
 import 'data/app_data.dart';
@@ -55,11 +56,11 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
               bottomNavigationBar: appData.hideNavBar
                   ? const SizedBox.shrink()
                   : Container(
-                      padding: const EdgeInsets.only(bottom: 15),
+                      padding: const EdgeInsets.only(bottom: Dimens.size14),
                       decoration: const BoxDecoration(
                         border: Border(
                           top: BorderSide(
-                            width: 0.5,
+                            width: Dimens.size05,
                             color: PrimaryColors.primaryUnselected,
                           ),
                         ),
@@ -115,8 +116,10 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                             label: 'School',
                           ),
                         ],
-                        currentIndex: appData.selectedIndex,
-                        onTap: bloc.onItemTapped,
+                        currentIndex: 1, //todo pass current index
+                        onTap:  (index) {
+                            bloc.onItemTapped(index);
+                        },
                       ),
                     ),
             );

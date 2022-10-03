@@ -8,12 +8,14 @@ import '../app/app_bloc.dart';
 import '../navigation/app_navigator.dart';
 import '../mappers/presentation_view_mapper.dart';
 import '../screen/details/details_bloc.dart';
+import '../screen/login/login_bloc.dart';
 
 void initPresentationInjector() {
   _initSplashScreenModule();
   _initAppModule();
   _initHomeScreenModule();
   _initDetailsScreenModule();
+  _initLoginScreenModule();
 }
 
 void _initSplashScreenModule() {
@@ -41,6 +43,12 @@ void _initDetailsScreenModule() {
     () => DetailsBloc(
       GetIt.I.get<GetCastUseCase>(),
     ),
+  );
+}
+
+void _initLoginScreenModule() {
+  GetIt.I.registerFactory<LoginBloc>(
+    () => LoginBloc(),
   );
 }
 

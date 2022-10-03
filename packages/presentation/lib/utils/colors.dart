@@ -17,4 +17,5 @@ class PrimaryColors {
   static const ratingYellow = Color(0xFFFFC045);
   static const white = Color(0xFFFFFFFF);
   static const shimmer = Color(0x607D8BFF);
+  static const backgroundTextField = Color(0xFF2B3543);
 }
