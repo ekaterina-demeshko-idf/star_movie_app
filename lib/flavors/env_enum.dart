@@ -1,1 +1,1 @@
-enum Environment { production, sandbox }
+enum Environment { prod, sandbox }

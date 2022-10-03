@@ -7,7 +7,7 @@ import 'package:presentation/models/config_presentation.dart';
 import 'package:data/flavors_config/config_data.dart';
 import 'di/app_injector.dart';
 
-void mainCommon({Environment env = Environment.production}) async {
+void mainCommon({Environment env = Environment.prod}) async {
   WidgetsFlutterBinding.ensureInitialized();
   final currentEnv = env.name;
   final jsonConfig = await readJson(currentEnv);
