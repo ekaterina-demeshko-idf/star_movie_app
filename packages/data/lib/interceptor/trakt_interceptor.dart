@@ -5,9 +5,11 @@ import 'package:domain/utils/getSecrets.dart';
 
 class TraktApiKeyInterceptor extends Interceptor {
   late YamlMap secrets;
+  late String apiKey = '';
 
-  TraktApiKeyInterceptor() {
-    _getAsyncSecrets();
+  TraktApiKeyInterceptor(String apiKeyGet) {
+   _getAsyncSecrets();
+    apiKey = apiKeyGet;
   }
 
   void _getAsyncSecrets() async {
@@ -19,7 +21,7 @@ class TraktApiKeyInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    options.headers[Config.traktApiKey] = secrets["API_KEY"];
+    options.headers[Config.traktApiKey] = secrets[apiKey];
     return handler.next(options);
   }
 }

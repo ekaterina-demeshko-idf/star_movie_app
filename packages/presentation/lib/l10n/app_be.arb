@@ -9,5 +9,6 @@
   "viewAll" : "Прагледзець усе",
   "synopsis": "Агляд",
   "showMore" : "Больш",
-  "showLess": "Меньш"
+  "showLess": "Меньш",
+  "noData": "Нічога няма"
 }

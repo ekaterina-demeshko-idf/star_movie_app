@@ -9,5 +9,6 @@
   "viewAll" : "View All",
   "synopsis": "Synopsis",
   "showMore" : "Show More",
-  "showLess": "Show Less"
+  "showLess": "Show Less",
+  "noData": "No Data, try again later"
 }

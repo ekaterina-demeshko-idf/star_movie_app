@@ -1,0 +1,5 @@
+{
+  "appTitle" : "Trakt-sandbox",
+  "apiKey" : "SANDBOX_API_KEY",
+  "baseUrl": "https://api-staging.trakt.tv"
+}

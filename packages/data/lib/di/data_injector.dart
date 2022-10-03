@@ -3,6 +3,7 @@ import 'package:domain/repository/tmdb_api_repository.dart';
 import 'package:domain/repository/trakt_api_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import '../flavors_config/config_data.dart';
 import '../interceptor/tmdb_interceptor.dart';
 import '../repository/tmdb_repository.dart';
 import '../repository/trakt_repository.dart';
@@ -10,18 +11,18 @@ import '../service/api_base_service.dart';
 import '../service/service_payload.dart';
 import '../utils/const.dart';
 
-void initDataInjector() {
-  _initInterceptorModule();
-  _initApiModule();
+void initDataInjector(ConfigData configData) {
+  _initInterceptorModule(configData.apiKey);
+  _initApiModule(configData.baseUrl);
   _initRepositoryModule();
 }
 
-void _initApiModule() {
+void _initApiModule(String baseUrl) {
   GetIt.I.registerSingleton<Dio>(
     _buildTraktApiDio([
       GetIt.I.get<TraktApiKeyInterceptor>(),
       GetIt.I.get<LogInterceptor>(),
-    ]),
+    ], baseUrl),
     instanceName: 'Trakt',
   );
 
@@ -44,9 +45,9 @@ void _initApiModule() {
   );
 }
 
-void _initInterceptorModule() {
+void _initInterceptorModule(String apiKey) {
   GetIt.I.registerSingleton<TraktApiKeyInterceptor>(
-    TraktApiKeyInterceptor(),
+    TraktApiKeyInterceptor(apiKey),
   );
 
   GetIt.I.registerSingleton<TMDBApiKeyInterceptor>(
@@ -72,12 +73,12 @@ void _initRepositoryModule() {
   );
 }
 
-Dio _buildTraktApiDio(List<Interceptor> interceptors) {
+Dio _buildTraktApiDio(List<Interceptor> interceptors, String baseUrl) {
   final options = BaseOptions(
     sendTimeout: Config.sendTimeout,
     receiveTimeout: Config.receiveTimeout,
     connectTimeout: Config.connectTimeout,
-    baseUrl: Config.traktBasePath,
+    baseUrl: baseUrl,
   );
 
   final dio = Dio(options);
