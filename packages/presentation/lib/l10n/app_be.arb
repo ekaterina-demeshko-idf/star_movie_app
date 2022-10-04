@@ -10,5 +10,10 @@
   "synopsis": "Агляд",
   "showMore" : "Больш",
   "showLess": "Меньш",
-  "noData": "Нічога няма"
+  "noData": "Нічога няма",
+  "titleProfile": "Профіль",
+  "signUp": "Зарэгістравацца",
+  "username": "ІМЯ КАРЫСТАЛЬНІКА",
+  "password": "ПАРОЛЬ",
+  "login": "Увайсці"
 }
