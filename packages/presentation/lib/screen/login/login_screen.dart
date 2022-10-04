@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:presentation/utils/colors.dart';
 import 'package:presentation/utils/text_styles.dart';
 import '../../base/bloc_data.dart';
 import '../../base/bloc_screen.dart';
 import '../../navigation/base_arguments.dart';
 import '../../navigation/base_page.dart';
+import '../../utils/images/paths.dart';
 import 'login_bloc.dart';
 import 'login_data.dart';
 
@@ -96,6 +98,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                           ),
                           const SizedBox(height: 10),
                           TextField(
+                            obscureText: true,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4),
@@ -141,28 +144,13 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                         children: [
                           IconButton(
                             onPressed: () {},
-                            icon: Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Colors.lightBlue,
-                              ),
-                              child: Icon(Icons.color_lens_rounded),
-                            ),
+                            icon: SvgPicture.asset(ImagesPath.googleBtn),
                           ),
+                          const SizedBox(width: 30),
                           IconButton(
                             onPressed: () {},
-                            icon: Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Colors.lightBlue,
-                              ),
-                              child: Icon(Icons.color_lens_rounded),
-                            ),
-                          )
+                            icon: SvgPicture.asset(ImagesPath.facebookBtn),
+                          ),
                         ],
                       )
                     ],

@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "310807887827",
+    "project_id": "star-movie-app-10102",
+    "storage_bucket": "star-movie-app-10102.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310807887827:android:50a1b81f40e019b8e1f926",
+        "android_client_info": {
+          "package_name": "com.example.movie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310807887827-ama1ep30vmkpkhl35v3lrf69620b1his.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxPm7r2vq_ZJ9Uu_8inezSyIxb7K72Fxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310807887827-ama1ep30vmkpkhl35v3lrf69620b1his.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "310807887827-e8l0og261pnmfp0uo2l62r45dtcu4tih.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.movie.prod"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310807887827:android:494e7a847f00e6d6e1f926",
+        "android_client_info": {
+          "package_name": "com.example.movie.prod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310807887827-ama1ep30vmkpkhl35v3lrf69620b1his.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxPm7r2vq_ZJ9Uu_8inezSyIxb7K72Fxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310807887827-ama1ep30vmkpkhl35v3lrf69620b1his.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "310807887827-e8l0og261pnmfp0uo2l62r45dtcu4tih.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.movie.prod"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
