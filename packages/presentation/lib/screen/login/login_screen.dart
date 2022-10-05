@@ -81,6 +81,8 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                             const SizedBox(height: Dimens.size10),
                             TextField(
                               controller: bloc.emailController,
+                              style:
+                                  AppTextStyles.descriptionStyle(Dimens.size16),
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius:
@@ -105,6 +107,8 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                             const SizedBox(height: Dimens.size10),
                             TextField(
                               controller: bloc.passwordController,
+                              style:
+                                  AppTextStyles.descriptionStyle(Dimens.size16),
                               obscureText: true,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
@@ -145,14 +149,22 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            IconButton(
-                              onPressed: bloc.authByGoogle,
-                              icon: SvgPicture.asset(ImagesPath.googleBtn),
+                            InkWell(
+                              onTap: bloc.authByGoogle,
+                              child: SvgPicture.asset(
+                                ImagesPath.googleBtn,
+                                height: Dimens.size60,
+                                width: Dimens.size60,
+                              ),
                             ),
                             const SizedBox(width: Dimens.size30),
-                            IconButton(
-                              onPressed: bloc.authByFacebook,
-                              icon: SvgPicture.asset(ImagesPath.facebookBtn),
+                            InkWell(
+                              onTap: bloc.authByFacebook,
+                              child: SvgPicture.asset(
+                                ImagesPath.facebookBtn,
+                                height: Dimens.size60,
+                                width: Dimens.size60,
+                              ),
                             ),
                           ],
                         )
