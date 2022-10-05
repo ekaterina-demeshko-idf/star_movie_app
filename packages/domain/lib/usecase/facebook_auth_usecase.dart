@@ -3,12 +3,12 @@ import 'package:domain/usecase/usecase.dart';
 import '../repository/auth_repository.dart';
 
 class FacebookAuthUseCase implements UseCase<Future<UserModel?>> {
-  final AuthRepository _authService;
+  final AuthRepository _authRepository;
 
-  FacebookAuthUseCase(this._authService);
+  FacebookAuthUseCase(this._authRepository);
 
   @override
   Future<UserModel?> call() async {
-    return await _authService.authWithFacebook();
+    return await _authRepository.authWithFacebook();
   }
 }

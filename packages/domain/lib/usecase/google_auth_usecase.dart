@@ -3,12 +3,12 @@ import 'package:domain/usecase/usecase.dart';
 import '../repository/auth_repository.dart';
 
 class GoogleAuthUseCase implements UseCase<Future<UserModel?>> {
-  final AuthRepository _authService;
+  final AuthRepository _authRepository;
 
-  GoogleAuthUseCase(this._authService);
+  GoogleAuthUseCase(this._authRepository);
 
   @override
   Future<UserModel?> call() async {
-    return await _authService.authWithGoogle();
+    return await _authRepository.authWithGoogle();
   }
 }
