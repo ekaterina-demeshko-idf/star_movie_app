@@ -79,28 +79,24 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     String password = _passwordController.text.trim();
     UserModel user = UserModel(email, password);
     final bool isSuccess = await _checkUserUseCase(user);
-    if (isSuccess) {
-      appNavigator.push(
-        ProfileScreen.page(),
-      );
-    }
+    pushSuccessScreen(isSuccess);
   }
 
   @override
   Future<void> authByGoogle() async {
     await _analyticsUseCase('auth_by_google');
     final bool isSuccess = await _googleAuthUseCase();
-    if (isSuccess) {
-      appNavigator.push(
-        ProfileScreen.page(),
-      );
-    }
+    pushSuccessScreen(isSuccess);
   }
 
   @override
   Future<void> authByFacebook() async {
     await _analyticsUseCase('auth_by_fb');
     final bool isSuccess = await _facebookAuthUseCase();
+    pushSuccessScreen(isSuccess);
+  }
+
+  void pushSuccessScreen(bool isSuccess) {
     if (isSuccess) {
       appNavigator.push(
         ProfileScreen.page(),
