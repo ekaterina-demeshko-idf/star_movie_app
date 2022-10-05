@@ -1,9 +1,11 @@
 import 'package:domain/model/user/user_model.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:domain/usecase/check_user_usecase.dart';
 import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/facebook_auth_usecase.dart';
+import 'package:domain/usecase/analytics_usecase.dart';
 import '../profile/profile_screen.dart';
 import 'login_data.dart';
 import 'login_screen.dart';
@@ -13,8 +15,14 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
     CheckUserUseCase checkUserUseCase,
     GoogleAuthUseCase googleAuthUseCase,
     FacebookAuthUseCase facebookAuthUseCase,
+    AnalyticsUseCase analyticsUseCase,
   ) =>
-      _LoginBloc(checkUserUseCase, googleAuthUseCase, facebookAuthUseCase);
+      _LoginBloc(
+        checkUserUseCase,
+        googleAuthUseCase,
+        facebookAuthUseCase,
+        analyticsUseCase,
+      );
 
   TextEditingController get emailController;
 
@@ -38,11 +46,13 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   final CheckUserUseCase _checkUserUseCase;
   final GoogleAuthUseCase _googleAuthUseCase;
   final FacebookAuthUseCase _facebookAuthUseCase;
+  final AnalyticsUseCase _analyticsUseCase;
 
   _LoginBloc(
     this._checkUserUseCase,
     this._googleAuthUseCase,
     this._facebookAuthUseCase,
+    this._analyticsUseCase,
   );
 
   @override
@@ -64,6 +74,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
 
   @override
   Future<void> onLogin() async {
+    await _analyticsUseCase('auth_by_login');
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
     UserModel user = UserModel(email, password);
@@ -77,6 +88,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
 
   @override
   Future<void> authByGoogle() async {
+    await _analyticsUseCase('auth_by_google');
     final bool isSuccess = await _googleAuthUseCase();
     if (isSuccess) {
       appNavigator.push(
@@ -87,6 +99,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
 
   @override
   Future<void> authByFacebook() async {
+    await _analyticsUseCase('auth_by_fb');
     final bool isSuccess = await _facebookAuthUseCase();
     if (isSuccess) {
       appNavigator.push(

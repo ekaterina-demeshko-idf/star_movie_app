@@ -2,6 +2,7 @@ import 'package:domain/model/user/user_model.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:domain/repository/auth_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl();
@@ -33,10 +34,14 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserModel?> authWithFacebook() async {
     final userData = await loginFacebook();
     if (userData != null) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('email', userData['email']);
+      await prefs.setString('password', userData['id']);
       return UserModel(
         userData['email'],
         userData['id'],
       );
+
     }
     return null;
   }
@@ -45,6 +50,9 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserModel?> authWithGoogle() async {
     final userData = await loginGoogle();
     if (userData != null) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('email', userData['email']);
+      await prefs.setString('password', userData['password']);
       return UserModel(
         userData['email'],
         userData['password'],

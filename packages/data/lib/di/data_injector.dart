@@ -4,6 +4,8 @@ import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/firestore_repository.dart';
 import 'package:domain/repository/tmdb_api_repository.dart';
 import 'package:domain/repository/trakt_api_repository.dart';
+import 'package:domain/services/analytics_service.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import '../flavors_config/config_data.dart';
@@ -12,6 +14,7 @@ import '../repository/auth_repository.dart';
 import '../repository/tmdb_repository.dart';
 import '../repository/trakt_repository.dart';
 import '../service/api_base_service.dart';
+import '../service/firebase_analytics.dart';
 import '../service/service_payload.dart';
 import '../utils/const.dart';
 
@@ -47,6 +50,8 @@ void _initApiModule(String baseUrl) {
     ApiServiceImpl(GetIt.I.get<Dio>(instanceName: 'TMDB')),
     instanceName: 'TMDBService',
   );
+
+  GetIt.I.registerSingleton<FirebaseAnalytics>(FirebaseAnalytics.instance);
 }
 
 void _initInterceptorModule(String apiKey) {
@@ -82,6 +87,12 @@ void _initRepositoryModule() {
 
   GetIt.I.registerSingleton<AuthRepository>(
     AuthRepositoryImpl(),
+  );
+
+  GetIt.I.registerSingleton<AnalyticsService>(
+    AnalyticsServiceImpl(
+      GetIt.I.get<FirebaseAnalytics>(),
+    ),
   );
 }
 

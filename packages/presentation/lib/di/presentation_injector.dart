@@ -1,3 +1,4 @@
+import 'package:domain/usecase/analytics_usecase.dart';
 import 'package:domain/usecase/check_user_usecase.dart';
 import 'package:domain/usecase/facebook_auth_usecase.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
@@ -55,6 +56,7 @@ void _initLoginScreenModule() {
       GetIt.I.get<CheckUserUseCase>(),
       GetIt.I.get<GoogleAuthUseCase>(),
       GetIt.I.get<FacebookAuthUseCase>(),
+      GetIt.I.get<AnalyticsUseCase>(),
     ),
   );
 }
