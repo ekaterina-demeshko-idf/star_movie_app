@@ -31,19 +31,13 @@ void _initUseCaseModule() {
     ),
   );
   GetIt.I.registerFactory<GoogleAuthUseCase>(
-    () => GoogleAuthUseCase(
-      GetIt.I.get<AuthRepository>(),
-      GetIt.I.get<FirestoreRepository>(),
-    ),
+    () => GoogleAuthUseCase(GetIt.I.get<AuthRepository>()),
   );
   GetIt.I.registerFactory<FacebookAuthUseCase>(
-    () => FacebookAuthUseCase(
-      GetIt.I.get<AuthRepository>(),
-      GetIt.I.get<FirestoreRepository>(),
-    ),
+    () => FacebookAuthUseCase(GetIt.I.get<AuthRepository>()),
   );
   GetIt.I.registerFactory<AnalyticsUseCase>(
-        () => AnalyticsUseCase(
+    () => AnalyticsUseCase(
       GetIt.I.get<AnalyticsService>(),
     ),
   );

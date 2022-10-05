@@ -74,9 +74,9 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   @override
   Future<void> onLogin() async {
     await _analyticsUseCase('auth_by_login');
-    String email = _emailController.text.trim();
-    String password = _passwordController.text.trim();
-    UserModel user = UserModel(email, password);
+    final String email = _emailController.text.trim();
+    final String password = _passwordController.text.trim();
+    final UserModel user = UserModel(email, password);
     final bool isSuccess = await _checkUserUseCase(user);
     pushSuccessScreen(isSuccess);
   }
@@ -84,24 +84,28 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   @override
   Future<void> authByGoogle() async {
     await _analyticsUseCase('auth_by_google');
-    final Map responseMap = await _googleAuthUseCase();
-    final String email = responseMap['email'];
-    final String password = responseMap['password'];
-    _emailController.text = email;
-    _passwordController.text = password;
-    final bool isSuccess = responseMap['isSuccess'];
+    final UserModel? user = await _googleAuthUseCase();
+    _emailController.text = user?.email ?? '';
+    _passwordController.text = user?.password ?? '';
+    UserModel userModel = UserModel(
+      user?.email ?? '',
+      user?.password ?? '',
+    );
+    final bool isSuccess = await _checkUserUseCase(userModel);
     pushSuccessScreen(isSuccess);
   }
 
   @override
   Future<void> authByFacebook() async {
     await _analyticsUseCase('auth_by_fb');
-    final Map responseMap = await _facebookAuthUseCase();
-    final String email = responseMap['email'];
-    final String password = responseMap['password'];
-    _emailController.text = email;
-    _passwordController.text = password;
-    final bool isSuccess = responseMap['isSuccess'];
+    final UserModel? user = await _facebookAuthUseCase();
+    _emailController.text = user?.email ?? '';
+    _passwordController.text = user?.password ?? '';
+    UserModel userModel = UserModel(
+      user?.email ?? '',
+      user?.password ?? '',
+    );
+    final bool isSuccess = await _checkUserUseCase(userModel);
     pushSuccessScreen(isSuccess);
   }
 
