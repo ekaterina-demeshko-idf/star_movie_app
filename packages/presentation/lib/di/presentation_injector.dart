@@ -1,5 +1,7 @@
 import 'package:domain/usecase/check_user_usecase.dart';
+import 'package:domain/usecase/facebook_auth_usecase.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
+import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
 import 'package:domain/usecase/get_movie_list_usecase.dart';
 import 'package:get_it/get_it.dart';
@@ -51,6 +53,8 @@ void _initLoginScreenModule() {
   GetIt.I.registerFactory<LoginBloc>(
     () => LoginBloc(
       GetIt.I.get<CheckUserUseCase>(),
+      GetIt.I.get<GoogleAuthUseCase>(),
+      GetIt.I.get<FacebookAuthUseCase>(),
     ),
   );
 }

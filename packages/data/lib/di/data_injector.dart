@@ -1,5 +1,6 @@
 import 'package:data/interceptor/trakt_interceptor.dart';
 import 'package:data/repository/firestore_repository.dart';
+import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/firestore_repository.dart';
 import 'package:domain/repository/tmdb_api_repository.dart';
 import 'package:domain/repository/trakt_api_repository.dart';
@@ -7,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import '../flavors_config/config_data.dart';
 import '../interceptor/tmdb_interceptor.dart';
+import '../repository/auth_repository.dart';
 import '../repository/tmdb_repository.dart';
 import '../repository/trakt_repository.dart';
 import '../service/api_base_service.dart';
@@ -73,8 +75,13 @@ void _initRepositoryModule() {
       GetIt.I.get<ApiBaseService>(instanceName: 'TMDBService'),
     ),
   );
+
   GetIt.I.registerSingleton<FirestoreRepository>(
     FirestoreRepositoryImpl(),
+  );
+
+  GetIt.I.registerSingleton<AuthRepository>(
+    AuthRepositoryImpl(),
   );
 }
 

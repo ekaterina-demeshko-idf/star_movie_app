@@ -7,12 +7,12 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
   @override
   Future<bool> checkUser(
     String collection,
-    Map<String, dynamic> queryMap,
+    Map<String, dynamic>? queryMap,
   ) async {
     final collectionRef = _firestore.collection(collection);
     Query<Map<String, dynamic>>? query;
 
-    queryMap.forEach((key, value) {
+    queryMap?.forEach((key, value) {
       query = query == null
           ? collectionRef.where(
               key,

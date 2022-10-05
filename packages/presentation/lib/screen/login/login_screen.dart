@@ -146,12 +146,12 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: bloc.authByGoogle,
                               icon: SvgPicture.asset(ImagesPath.googleBtn),
                             ),
                             const SizedBox(width: Dimens.size30),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: bloc.authByFacebook,
                               icon: SvgPicture.asset(ImagesPath.facebookBtn),
                             ),
                           ],
