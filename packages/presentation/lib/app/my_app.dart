@@ -116,9 +116,9 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                             label: 'School',
                           ),
                         ],
-                        currentIndex: 1, //todo pass current index
-                        onTap:  (index) {
-                            bloc.onItemTapped(index);
+                        currentIndex: bloc.selectedIndex,
+                        onTap: (index) {
+                          bloc.onItemTapped(index);
                         },
                       ),
                     ),

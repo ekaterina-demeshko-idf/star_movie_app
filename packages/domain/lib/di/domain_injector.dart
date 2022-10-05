@@ -1,8 +1,10 @@
+import 'package:domain/repository/firestore_repository.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
 import 'package:get_it/get_it.dart';
 import '../repository/tmdb_api_repository.dart';
 import '../repository/trakt_api_repository.dart';
+import '../usecase/check_user_usecase.dart';
 import '../usecase/get_movie_list_usecase.dart';
 
 void initDomainInjector() {
@@ -16,6 +18,11 @@ void _initUseCaseModule() {
   GetIt.I.registerFactory<GetMovieListUseCase>(
     () => GetMovieListUseCase(
       GetIt.I.get<TraktAPIRepository>(),
+    ),
+  );
+  GetIt.I.registerFactory<CheckUserUseCase>(
+    () => CheckUserUseCase(
+      GetIt.I.get<FirestoreRepository>(),
     ),
   );
 

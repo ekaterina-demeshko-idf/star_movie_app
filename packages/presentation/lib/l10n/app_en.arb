@@ -15,5 +15,6 @@
   "signUp": "SignUp",
   "username": "Username",
   "password": "Password",
-  "login": "Login"
+  "login": "Login",
+  "success": "Success Login"
 }

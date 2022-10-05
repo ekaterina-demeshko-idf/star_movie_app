@@ -50,7 +50,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                 centerTitle: false,
                 title: Text(
                   AppLocalizations.of(context)!.titleProfile,
-                  style: AppTextStyles.headerStyle(23),
+                  style: AppTextStyles.headerStyle(Dimens.size24),
                   textAlign: TextAlign.left,
                 ),
                 actions: [
@@ -58,98 +58,106 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                       onPressed: () {},
                       child: Text(
                         AppLocalizations.of(context)!.signUp,
-                        style: AppTextStyles.linkStyle(15),
+                        style: AppTextStyles.linkStyle(Dimens.size16),
                       ))
                 ],
               ),
-              body: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(Dimens.size20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.username,
-                            style: AppTextStyles.descriptionStyle(12),
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(height: Dimens.size10),
-                          TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(Dimens.size4),
-                                borderSide: BorderSide.none,
+              body: SingleChildScrollView(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(Dimens.size20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.username,
+                              style:
+                                  AppTextStyles.descriptionStyle(Dimens.size12),
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(height: Dimens.size10),
+                            TextField(
+                              controller: bloc.emailController,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(Dimens.size4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.person_outline,
+                                  color: PrimaryColors.whiteWithOpacity45,
+                                ),
+                                filled: true,
+                                fillColor: PrimaryColors.backgroundTextField,
                               ),
-                              prefixIcon: const Icon(
-                                Icons.person_outline,
-                                color: PrimaryColors.whiteWithOpacity45,
+                            ),
+                            const SizedBox(height: Dimens.size20),
+                            Text(
+                              AppLocalizations.of(context)!.password,
+                              style:
+                                  AppTextStyles.descriptionStyle(Dimens.size12),
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(height: Dimens.size10),
+                            TextField(
+                              controller: bloc.passwordController,
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(Dimens.size4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.lock_outlined,
+                                  color: PrimaryColors.whiteWithOpacity45,
+                                ),
+                                filled: true,
+                                fillColor: PrimaryColors.backgroundTextField,
                               ),
-                              filled: true,
-                              fillColor: PrimaryColors.backgroundTextField,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: Dimens.size24,
+                        ),
+                        ElevatedButton(
+                          onPressed: bloc.onLogin,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: PrimaryColors.primaryColor,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: Dimens.size145,
+                              vertical: Dimens.size18,
                             ),
                           ),
-                          const SizedBox(height: Dimens.size20),
-                          Text(
-                            AppLocalizations.of(context)!.password,
-                            style: AppTextStyles.descriptionStyle(12),
-                            textAlign: TextAlign.left,
+                          child: Text(
+                            AppLocalizations.of(context)!.login,
+                            style: AppTextStyles.headerStyle(Dimens.size16),
                           ),
-                          const SizedBox(height: Dimens.size10),
-                          TextField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(Dimens.size4),
-                                borderSide: BorderSide.none,
-                              ),
-                              prefixIcon: const Icon(
-                                Icons.lock_outlined,
-                                color: PrimaryColors.whiteWithOpacity45,
-                              ),
-                              filled: true,
-                              fillColor: PrimaryColors.backgroundTextField,
+                        ),
+                        const SizedBox(
+                          height: Dimens.size100,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: () {},
+                              icon: SvgPicture.asset(ImagesPath.googleBtn),
                             ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: Dimens.size24,
-                      ),
-                      ElevatedButton(
-                        onPressed: bloc.onLogin,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: PrimaryColors.primaryColor,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: Dimens.size145,
-                            vertical: Dimens.size18,
-                          ),
-                        ),
-                        child: Text(
-                          AppLocalizations.of(context)!.login,
-                          style: AppTextStyles.headerStyle(16),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: Dimens.size100,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset(ImagesPath.googleBtn),
-                          ),
-                          const SizedBox(width: Dimens.size30),
-                          IconButton(
-                            onPressed: () {},
-                            icon: SvgPicture.asset(ImagesPath.facebookBtn),
-                          ),
-                        ],
-                      )
-                    ],
+                            const SizedBox(width: Dimens.size30),
+                            IconButton(
+                              onPressed: () {},
+                              icon: SvgPicture.asset(ImagesPath.facebookBtn),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -160,8 +168,5 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
             );
           }
         });
-
-
   }
 }
-

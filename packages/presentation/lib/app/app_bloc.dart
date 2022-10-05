@@ -13,11 +13,16 @@ abstract class AppBloc extends Bloc {
   void handleRemoveRouteSettings(RouteSettings value);
 
   void onItemTapped(int index);
+
+  int get selectedIndex;
 }
 
 class _AppBloc extends BlocImpl implements AppBloc {
   final _appData = AppData.init();
-  int? selectedIndex = 0;
+  int _selectedIndex = 0;
+
+  @override
+  int get selectedIndex => _selectedIndex;
 
   @override
   void initState() {
@@ -49,8 +54,8 @@ class _AppBloc extends BlocImpl implements AppBloc {
 
   @override
   void onItemTapped(int index) {
-    selectedIndex = index;
-    switch (selectedIndex) {
+    _selectedIndex = index;
+    switch (index) {
       case 0:
         _popAllAndPush(HomeScreen.page(HomeScreenArguments()));
         break;

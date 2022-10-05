@@ -1,3 +1,4 @@
+import 'package:domain/usecase/check_user_usecase.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
 import 'package:domain/usecase/get_movie_list_usecase.dart';
@@ -48,7 +49,9 @@ void _initDetailsScreenModule() {
 
 void _initLoginScreenModule() {
   GetIt.I.registerFactory<LoginBloc>(
-    () => LoginBloc(),
+    () => LoginBloc(
+      GetIt.I.get<CheckUserUseCase>(),
+    ),
   );
 }
 

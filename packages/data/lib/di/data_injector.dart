@@ -1,4 +1,6 @@
 import 'package:data/interceptor/trakt_interceptor.dart';
+import 'package:data/repository/firestore_repository.dart';
+import 'package:domain/repository/firestore_repository.dart';
 import 'package:domain/repository/tmdb_api_repository.dart';
 import 'package:domain/repository/trakt_api_repository.dart';
 import 'package:get_it/get_it.dart';
@@ -70,6 +72,9 @@ void _initRepositoryModule() {
     TmdbAPIRepositoryImpl(
       GetIt.I.get<ApiBaseService>(instanceName: 'TMDBService'),
     ),
+  );
+  GetIt.I.registerSingleton<FirestoreRepository>(
+    FirestoreRepositoryImpl(),
   );
 }
 
