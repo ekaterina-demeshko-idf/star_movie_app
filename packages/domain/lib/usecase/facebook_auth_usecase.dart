@@ -4,19 +4,25 @@ import 'package:domain/usecase/usecase.dart';
 import '../repository/auth_repository.dart';
 import '../repository/firestore_repository.dart';
 
-class FacebookAuthUseCase implements UseCase<Future<bool>> {
+class FacebookAuthUseCase implements UseCase<Future<Map<String, dynamic>>> {
   final AuthRepository _authService;
   final FirestoreRepository _firestoreRepository;
+
   FacebookAuthUseCase(this._authService, this._firestoreRepository);
 
   @override
-  Future<bool> call() async {
+  Future<Map<String, dynamic>> call() async {
     final UserModel? user = await _authService.authWithFacebook();
     const String collectionName = 'users';
     final Map<String, dynamic>? userMap = user?.toJson();
-    return await _firestoreRepository.checkUser(
+    final bool isSuccess = await _firestoreRepository.checkUser(
       collectionName,
       userMap,
     );
+    return {
+      'isSuccess': isSuccess,
+      'email': user?.email,
+      'password': user?.password,
+    };
   }
 }

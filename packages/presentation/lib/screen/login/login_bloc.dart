@@ -1,5 +1,4 @@
 import 'package:domain/model/user/user_model.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:domain/usecase/check_user_usecase.dart';
@@ -85,14 +84,24 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   @override
   Future<void> authByGoogle() async {
     await _analyticsUseCase('auth_by_google');
-    final bool isSuccess = await _googleAuthUseCase();
+    final Map responseMap = await _googleAuthUseCase();
+    final String email = responseMap['email'];
+    final String password = responseMap['password'];
+    _emailController.text = email;
+    _passwordController.text = password;
+    final bool isSuccess = responseMap['isSuccess'];
     pushSuccessScreen(isSuccess);
   }
 
   @override
   Future<void> authByFacebook() async {
     await _analyticsUseCase('auth_by_fb');
-    final bool isSuccess = await _facebookAuthUseCase();
+    final Map responseMap = await _facebookAuthUseCase();
+    final String email = responseMap['email'];
+    final String password = responseMap['password'];
+    _emailController.text = email;
+    _passwordController.text = password;
+    final bool isSuccess = responseMap['isSuccess'];
     pushSuccessScreen(isSuccess);
   }
 
