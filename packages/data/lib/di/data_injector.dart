@@ -7,8 +7,10 @@ import 'package:domain/repository/tmdb_api_repository.dart';
 import 'package:domain/repository/trakt_api_repository.dart';
 import 'package:domain/services/analytics_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../flavors_config/config_data.dart';
 import '../interceptor/tmdb_interceptor.dart';
@@ -95,8 +97,15 @@ Future<void> _initRepositoryModule() async {
     () async => await SharedPreferences.getInstance(),
   );
 
+  GetIt.I.registerSingleton<GoogleSignIn>(GoogleSignIn());
+  GetIt.I.registerSingleton<FacebookAuth>(FacebookAuth.instance);
+
   GetIt.I.registerSingleton<AuthRepository>(
-    AuthRepositoryImpl(await GetIt.I.getAsync<SharedPreferences>()),
+    AuthRepositoryImpl(
+      await GetIt.I.getAsync<SharedPreferences>(),
+      GetIt.I.get<GoogleSignIn>(),
+      GetIt.I.get<FacebookAuth>(),
+    ),
   );
 
   GetIt.I.registerSingleton<AnalyticsService>(

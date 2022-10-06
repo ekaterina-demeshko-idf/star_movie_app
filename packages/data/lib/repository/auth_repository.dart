@@ -1,4 +1,5 @@
 import 'package:domain/model/user/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:domain/repository/auth_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -6,11 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final SharedPreferences _preferences;
+  final GoogleSignIn _authGoogleProvider;
+  final FacebookAuth _authFBProvider;
 
-  AuthRepositoryImpl(this._preferences);
-
-  final _authFBProvider = FacebookAuth.instance;
-  final _authGoogleProvider = GoogleSignIn();
+  AuthRepositoryImpl(
+    this._preferences,
+    this._authGoogleProvider,
+    this._authFBProvider,
+  );
 
   Future<Map<String, dynamic>?> loginFacebook() async {
     final loginResult = await _authFBProvider.login();
@@ -42,7 +46,6 @@ class AuthRepositoryImpl implements AuthRepository {
         userData['email'],
         userData['id'],
       );
-
     }
     return null;
   }
