@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data/interceptor/trakt_interceptor.dart';
 import 'package:data/repository/firestore_repository.dart';
 import 'package:domain/repository/auth_repository.dart';
@@ -8,6 +9,7 @@ import 'package:domain/services/analytics_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../flavors_config/config_data.dart';
 import '../interceptor/tmdb_interceptor.dart';
 import '../repository/auth_repository.dart';
@@ -68,7 +70,7 @@ void _initInterceptorModule(String apiKey) {
   );
 }
 
-void _initRepositoryModule() {
+Future<void> _initRepositoryModule() async {
   GetIt.I.registerSingleton<TraktAPIRepository>(
     TraktAPIRepositoryImpl(
       GetIt.I.get<ApiBaseService>(instanceName: 'TraktService'),
@@ -81,12 +83,20 @@ void _initRepositoryModule() {
     ),
   );
 
+  GetIt.I.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
   GetIt.I.registerSingleton<FirestoreRepository>(
-    FirestoreRepositoryImpl(),
+    FirestoreRepositoryImpl(
+      GetIt.I.get<FirebaseFirestore>(),
+      await GetIt.I.getAsync<SharedPreferences>(),
+    ),
+  );
+
+  GetIt.I.registerSingletonAsync<SharedPreferences>(
+    () async => await SharedPreferences.getInstance(),
   );
 
   GetIt.I.registerSingleton<AuthRepository>(
-    AuthRepositoryImpl(),
+    AuthRepositoryImpl(await GetIt.I.getAsync<SharedPreferences>()),
   );
 
   GetIt.I.registerSingleton<AnalyticsService>(

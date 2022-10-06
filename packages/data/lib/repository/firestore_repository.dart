@@ -3,8 +3,10 @@ import 'package:domain/repository/firestore_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirestoreRepositoryImpl implements FirestoreRepository {
-  final _firestore = FirebaseFirestore.instance;
+  final  FirebaseFirestore _firestore;
+  final SharedPreferences _preferences;
 
+  FirestoreRepositoryImpl(this._firestore, this._preferences);
   @override
   Future<bool> checkUser(
     String collection,
@@ -27,12 +29,11 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
     final QuerySnapshot<Map<String, dynamic>>? document = await query?.get();
     final bool hasData = document == null ? false : document.docs.isNotEmpty;
     if (hasData) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
+      await _preferences.setString(
         'email',
         queryMap?['email'],
       );
-      await prefs.setString(
+      await _preferences.setString(
         'password',
         queryMap?['password'],
       );
