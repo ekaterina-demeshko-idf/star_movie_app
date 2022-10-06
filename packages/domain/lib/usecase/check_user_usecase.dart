@@ -1,6 +1,5 @@
 import 'package:domain/repository/firestore_repository.dart';
 import 'package:domain/usecase/usecase.dart';
-
 import '../model/user/user_model.dart';
 
 class CheckUserUseCase implements UseCaseParams<UserModel, Future<bool>> {

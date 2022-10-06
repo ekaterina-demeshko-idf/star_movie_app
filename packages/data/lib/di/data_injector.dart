@@ -85,6 +85,12 @@ Future<void> _initRepositoryModule() async {
     ),
   );
 
+  GetIt.I.registerSingletonAsync<SharedPreferences>(
+        () async => await SharedPreferences.getInstance(),
+  );
+  GetIt.I.registerSingleton<GoogleSignIn>(GoogleSignIn());
+  GetIt.I.registerSingleton<FacebookAuth>(FacebookAuth.instance);
+
   GetIt.I.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
   GetIt.I.registerSingleton<FirestoreRepository>(
     FirestoreRepositoryImpl(
@@ -93,12 +99,6 @@ Future<void> _initRepositoryModule() async {
     ),
   );
 
-  GetIt.I.registerSingletonAsync<SharedPreferences>(
-    () async => await SharedPreferences.getInstance(),
-  );
-
-  GetIt.I.registerSingleton<GoogleSignIn>(GoogleSignIn());
-  GetIt.I.registerSingleton<FacebookAuth>(FacebookAuth.instance);
 
   GetIt.I.registerSingleton<AuthRepository>(
     AuthRepositoryImpl(
