@@ -42,10 +42,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (userData != null) {
       await _preferences.setString('email', userData['email']);
       await _preferences.setString('password', userData['id']);
-      return UserModel(
-        userData['email'],
-        userData['id'],
-      );
+      return UserModel.fromFacebookJson(userData);
     }
     return null;
   }
@@ -56,10 +53,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (userData != null) {
       await _preferences.setString('email', userData['email']);
       await _preferences.setString('password', userData['password']);
-      return UserModel(
-        userData['email'],
-        userData['password'],
-      );
+      return UserModel.fromJson(userData);
     }
     return null;
   }
