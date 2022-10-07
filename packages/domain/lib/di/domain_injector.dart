@@ -36,8 +36,8 @@ void _initUseCaseModule() {
   GetIt.I.registerFactory<FacebookAuthUseCase>(
     () => FacebookAuthUseCase(GetIt.I.get<AuthRepository>()),
   );
-  GetIt.I.registerFactory<AnalyticsUseCase>(
-    () => AnalyticsUseCase(
+  GetIt.I.registerFactory<LogAnalyticsEventUseCase>(
+    () => LogAnalyticsEventUseCase(
       GetIt.I.get<AnalyticsService>(),
     ),
   );

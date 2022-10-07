@@ -56,7 +56,7 @@ void _initLoginScreenModule() {
       GetIt.I.get<CheckUserUseCase>(),
       GetIt.I.get<GoogleAuthUseCase>(),
       GetIt.I.get<FacebookAuthUseCase>(),
-      GetIt.I.get<AnalyticsUseCase>(),
+      GetIt.I.get<LogAnalyticsEventUseCase>(),
     ),
   );
 }

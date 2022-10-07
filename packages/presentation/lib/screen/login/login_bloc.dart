@@ -14,13 +14,13 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
     CheckUserUseCase checkUserUseCase,
     GoogleAuthUseCase googleAuthUseCase,
     FacebookAuthUseCase facebookAuthUseCase,
-    AnalyticsUseCase analyticsUseCase,
+      LogAnalyticsEventUseCase logAnalyticsEventUseCase,
   ) =>
       _LoginBloc(
         checkUserUseCase,
         googleAuthUseCase,
         facebookAuthUseCase,
-        analyticsUseCase,
+        logAnalyticsEventUseCase,
       );
 
   TextEditingController get emailController;
@@ -45,13 +45,13 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   final CheckUserUseCase _checkUserUseCase;
   final GoogleAuthUseCase _googleAuthUseCase;
   final FacebookAuthUseCase _facebookAuthUseCase;
-  final AnalyticsUseCase _analyticsUseCase;
+  final LogAnalyticsEventUseCase _logAnalyticsEventUseCase;
 
   _LoginBloc(
     this._checkUserUseCase,
     this._googleAuthUseCase,
     this._facebookAuthUseCase,
-    this._analyticsUseCase,
+    this._logAnalyticsEventUseCase,
   );
 
   @override
@@ -73,7 +73,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
 
   @override
   Future<void> onLogin() async {
-    await _analyticsUseCase('auth_by_login');
+    await _logAnalyticsEventUseCase('auth_by_login');
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
     final UserModel user = UserModel(email, password);
@@ -83,7 +83,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
 
   @override
   Future<void> authByGoogle() async {
-    await _analyticsUseCase('auth_by_google');
+    await _logAnalyticsEventUseCase('auth_by_google');
     final UserModel? user = await _googleAuthUseCase();
     _emailController.text = user?.email ?? '';
     _passwordController.text = user?.password ?? '';
@@ -97,7 +97,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
 
   @override
   Future<void> authByFacebook() async {
-    await _analyticsUseCase('auth_by_fb');
+    await _logAnalyticsEventUseCase('auth_by_fb');
     final UserModel? user = await _facebookAuthUseCase();
     _emailController.text = user?.email ?? '';
     _passwordController.text = user?.password ?? '';

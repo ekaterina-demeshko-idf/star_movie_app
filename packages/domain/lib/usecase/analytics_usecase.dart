@@ -1,11 +1,11 @@
 import 'package:domain/services/analytics_service.dart';
 import 'package:domain/usecase/usecase.dart';
 
-class AnalyticsUseCase
+class LogAnalyticsEventUseCase
     implements UseCaseParams<String, Future<void>> {
   final AnalyticsService _analyticsService;
 
-  AnalyticsUseCase(this._analyticsService);
+  LogAnalyticsEventUseCase(this._analyticsService);
 
   @override
   Future<void> call(String params) async {

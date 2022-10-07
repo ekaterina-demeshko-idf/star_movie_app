@@ -11,7 +11,7 @@ class CheckUserUseCase implements UseCaseParams<UserModel, Future<bool>> {
   Future<bool> call(UserModel user) async {
     const String collectionName = 'users';
     final Map<String, dynamic> userMap = user.toJson();
-    return await _firestoreRepository.checkUser(
+    return await _firestoreRepository.checkUserExist(
       collectionName,
       userMap,
     );

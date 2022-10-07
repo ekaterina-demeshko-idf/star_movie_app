@@ -8,7 +8,7 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
 
   FirestoreRepositoryImpl(this._firestore, this._preferences);
   @override
-  Future<bool> checkUser(
+  Future<bool> checkUserExist(
     String collection,
     Map<String, dynamic>? queryMap,
   ) async {
