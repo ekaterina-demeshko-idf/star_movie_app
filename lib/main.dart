@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movie/flavors/env_enum.dart';
@@ -11,9 +10,7 @@ import 'di/app_injector.dart';
 
 void mainCommon({Environment env = Environment.prod}) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
   final currentEnv = env.name;
   final jsonConfig = await readJson(currentEnv);
   final ConfigData configData = ConfigData.fromJson(jsonConfig);
