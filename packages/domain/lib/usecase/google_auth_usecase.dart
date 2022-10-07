@@ -8,7 +8,5 @@ class GoogleAuthUseCase implements UseCase<Future<UserModel?>> {
   GoogleAuthUseCase(this._authRepository);
 
   @override
-  Future<UserModel?> call() async {
-    return await _authRepository.authWithGoogle();
-  }
+  Future<UserModel?> call() async => await _authRepository.authWithGoogle();
 }

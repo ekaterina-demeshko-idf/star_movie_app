@@ -8,7 +8,5 @@ class FacebookAuthUseCase implements UseCase<Future<UserModel?>> {
   FacebookAuthUseCase(this._authRepository);
 
   @override
-  Future<UserModel?> call() async {
-    return await _authRepository.authWithFacebook();
-  }
+  Future<UserModel?> call() async => await _authRepository.authWithFacebook();
 }
