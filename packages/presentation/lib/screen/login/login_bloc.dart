@@ -1,4 +1,5 @@
 import 'package:domain/model/user/user_model.dart';
+import 'package:domain/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:domain/usecase/check_user_usecase.dart';
@@ -36,10 +37,6 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
 
 class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     implements LoginBloc {
-  LoginData _screenData = LoginData(
-    '',
-    '',
-  );
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final CheckUserUseCase _checkUserUseCase;
@@ -55,23 +52,6 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   );
 
   @override
-  void initArgs(LoginScreenArguments arguments) {
-    super.initArgs(arguments);
-    _screenData = LoginData(
-      '',
-      '',
-    );
-    _updateData();
-  }
-
-  _updateData({bool? isLoading}) {
-    handleData(
-      data: _screenData,
-      isLoading: isLoading,
-    );
-  }
-
-  @override
   Future<void> onLogin() async {
     await _logAnalyticsEventUseCase('auth_by_login');
     final String email = _emailController.text.trim();
@@ -84,12 +64,12 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   @override
   Future<void> authByGoogle() async {
     await _logAnalyticsEventUseCase('auth_by_google');
-    final UserModel? user = await _googleAuthUseCase();
-    _emailController.text = user?.email ?? '';
-    _passwordController.text = user?.password ?? '';
+    final UserModel user = await _googleAuthUseCase();
+    _emailController.text = user.email.orEmpty;
+    _passwordController.text = user.password.orEmpty;
     UserModel userModel = UserModel(
-      user?.email ?? '',
-      user?.password ?? '',
+      user.email.orEmpty,
+      user.password.orEmpty,
     );
     final bool isSuccess = await _checkUserUseCase(userModel);
     pushSuccessScreen(isSuccess);
@@ -98,12 +78,12 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   @override
   Future<void> authByFacebook() async {
     await _logAnalyticsEventUseCase('auth_by_fb');
-    final UserModel? user = await _facebookAuthUseCase();
-    _emailController.text = user?.email ?? '';
-    _passwordController.text = user?.password ?? '';
+    final UserModel user = await _facebookAuthUseCase();
+    _emailController.text = user.email.orEmpty;
+    _passwordController.text = user.password.orEmpty;
     UserModel userModel = UserModel(
-      user?.email ?? '',
-      user?.password ?? '',
+      user.email.orEmpty,
+      user.password.orEmpty,
     );
     final bool isSuccess = await _checkUserUseCase(userModel);
     pushSuccessScreen(isSuccess);

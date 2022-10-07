@@ -8,16 +8,16 @@ class UserModel {
   );
 
   factory UserModel.fromJson(
-      Map<String, dynamic> json,
-      ) =>
+    Map<String, dynamic> json,
+  ) =>
       UserModel(
         json['email'],
         json['password'],
       );
 
   factory UserModel.fromFacebookJson(
-      Map<String, dynamic> json,
-      ) =>
+    Map<String, dynamic> json,
+  ) =>
       UserModel(
         json['email'],
         json['id'],

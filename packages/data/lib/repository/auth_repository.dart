@@ -1,5 +1,4 @@
 import 'package:domain/model/user/user_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:domain/repository/auth_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -21,7 +20,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (loginResult.status == LoginStatus.success) {
       return await _authFBProvider.getUserData();
     }
-    return null;
+    throw Exception('Not authorized');
   }
 
   Future<Map<String, dynamic>?> loginGoogle() async {
@@ -33,28 +32,28 @@ class AuthRepositoryImpl implements AuthRepository {
       };
       return userData;
     }
-    return null;
+    throw Exception('Not authorized');
   }
 
   @override
-  Future<UserModel?> authWithFacebook() async {
+  Future<UserModel> authWithFacebook() async {
     final userData = await loginFacebook();
     if (userData != null) {
       await _preferences.setString('email', userData['email']);
       await _preferences.setString('password', userData['id']);
       return UserModel.fromFacebookJson(userData);
     }
-    return null;
+    throw Exception('Not authorized');
   }
 
   @override
-  Future<UserModel?> authWithGoogle() async {
+  Future<UserModel> authWithGoogle() async {
     final userData = await loginGoogle();
     if (userData != null) {
       await _preferences.setString('email', userData['email']);
       await _preferences.setString('password', userData['password']);
       return UserModel.fromJson(userData);
     }
-    return null;
+    throw Exception('Not authorized');
   }
 }

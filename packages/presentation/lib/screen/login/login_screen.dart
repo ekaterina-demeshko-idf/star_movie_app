@@ -41,144 +41,137 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
     return StreamBuilder<BlocData<LoginData?>>(
         stream: bloc.dataStream,
         builder: (context, snapshot) {
-          final data = snapshot.data;
-          if (data != null) {
-            return Scaffold(
+          return Scaffold(
+            backgroundColor: PrimaryColors.primaryBackgroundColor,
+            appBar: AppBar(
               backgroundColor: PrimaryColors.primaryBackgroundColor,
-              appBar: AppBar(
-                backgroundColor: PrimaryColors.primaryBackgroundColor,
-                centerTitle: false,
-                title: Text(
-                  AppLocalizations.of(context)!.titleProfile,
-                  style: AppTextStyles.headerStyle(Dimens.size24),
-                  textAlign: TextAlign.left,
-                ),
-                actions: [
-                  TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        AppLocalizations.of(context)!.signUp,
-                        style: AppTextStyles.linkStyle(Dimens.size16),
-                      ))
-                ],
+              centerTitle: false,
+              title: Text(
+                AppLocalizations.of(context)!.titleProfile,
+                style: AppTextStyles.headerStyle(Dimens.size24),
+                textAlign: TextAlign.left,
               ),
-              body: SingleChildScrollView(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(Dimens.size20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.username,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size12),
-                              textAlign: TextAlign.left,
-                            ),
-                            const SizedBox(height: Dimens.size10),
-                            TextField(
-                              controller: bloc.emailController,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size16),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(Dimens.size4),
-                                  borderSide: BorderSide.none,
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.person_outline,
-                                  color: PrimaryColors.whiteWithOpacity45,
-                                ),
-                                filled: true,
-                                fillColor: PrimaryColors.backgroundTextField,
+              actions: [
+                TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      AppLocalizations.of(context)!.signUp,
+                      style: AppTextStyles.linkStyle(Dimens.size16),
+                    ))
+              ],
+            ),
+            body: SingleChildScrollView(
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(Dimens.size20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.username,
+                            style:
+                                AppTextStyles.descriptionStyle(Dimens.size12),
+                            textAlign: TextAlign.left,
+                          ),
+                          const SizedBox(height: Dimens.size10),
+                          TextField(
+                            controller: bloc.emailController,
+                            style:
+                                AppTextStyles.descriptionStyle(Dimens.size16),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(Dimens.size4),
+                                borderSide: BorderSide.none,
                               ),
-                            ),
-                            const SizedBox(height: Dimens.size20),
-                            Text(
-                              AppLocalizations.of(context)!.password,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size12),
-                              textAlign: TextAlign.left,
-                            ),
-                            const SizedBox(height: Dimens.size10),
-                            TextField(
-                              controller: bloc.passwordController,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size16),
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(Dimens.size4),
-                                  borderSide: BorderSide.none,
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.lock_outlined,
-                                  color: PrimaryColors.whiteWithOpacity45,
-                                ),
-                                filled: true,
-                                fillColor: PrimaryColors.backgroundTextField,
+                              prefixIcon: const Icon(
+                                Icons.person_outline,
+                                color: PrimaryColors.whiteWithOpacity45,
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: Dimens.size24,
-                        ),
-                        ElevatedButton(
-                          onPressed: bloc.onLogin,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: PrimaryColors.primaryColor,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: Dimens.size145,
-                              vertical: Dimens.size18,
+                              filled: true,
+                              fillColor: PrimaryColors.backgroundTextField,
                             ),
                           ),
-                          child: Text(
-                            AppLocalizations.of(context)!.login,
-                            style: AppTextStyles.headerStyle(Dimens.size16),
+                          const SizedBox(height: Dimens.size20),
+                          Text(
+                            AppLocalizations.of(context)!.password,
+                            style:
+                                AppTextStyles.descriptionStyle(Dimens.size12),
+                            textAlign: TextAlign.left,
+                          ),
+                          const SizedBox(height: Dimens.size10),
+                          TextField(
+                            controller: bloc.passwordController,
+                            style:
+                                AppTextStyles.descriptionStyle(Dimens.size16),
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(Dimens.size4),
+                                borderSide: BorderSide.none,
+                              ),
+                              prefixIcon: const Icon(
+                                Icons.lock_outlined,
+                                color: PrimaryColors.whiteWithOpacity45,
+                              ),
+                              filled: true,
+                              fillColor: PrimaryColors.backgroundTextField,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: Dimens.size24,
+                      ),
+                      ElevatedButton(
+                        onPressed: bloc.onLogin,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PrimaryColors.primaryColor,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Dimens.size145,
+                            vertical: Dimens.size18,
                           ),
                         ),
-                        const SizedBox(
-                          height: Dimens.size100,
+                        child: Text(
+                          AppLocalizations.of(context)!.login,
+                          style: AppTextStyles.headerStyle(Dimens.size16),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: bloc.authByGoogle,
-                              child: SvgPicture.asset(
-                                ImagesPath.googleBtn,
-                                height: Dimens.size60,
-                                width: Dimens.size60,
-                              ),
+                      ),
+                      const SizedBox(
+                        height: Dimens.size100,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: bloc.authByGoogle,
+                            child: SvgPicture.asset(
+                              ImagesPath.googleBtn,
+                              height: Dimens.size60,
+                              width: Dimens.size60,
                             ),
-                            const SizedBox(width: Dimens.size30),
-                            InkWell(
-                              onTap: bloc.authByFacebook,
-                              child: SvgPicture.asset(
-                                ImagesPath.facebookBtn,
-                                height: Dimens.size60,
-                                width: Dimens.size60,
-                              ),
+                          ),
+                          const SizedBox(width: Dimens.size30),
+                          InkWell(
+                            onTap: bloc.authByFacebook,
+                            child: SvgPicture.asset(
+                              ImagesPath.facebookBtn,
+                              height: Dimens.size60,
+                              width: Dimens.size60,
                             ),
-                          ],
-                        )
-                      ],
-                    ),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
               ),
-            );
-          } else {
-            return Scaffold(
-              body: Container(),
-            );
-          }
+            ),
+          );
         });
   }
 }

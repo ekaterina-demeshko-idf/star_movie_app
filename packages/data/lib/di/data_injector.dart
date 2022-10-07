@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data/interceptor/trakt_interceptor.dart';
 import 'package:data/repository/firestore_repository.dart';
 import 'package:domain/repository/auth_repository.dart';
-import 'package:domain/repository/firestore_repository.dart';
+import 'package:domain/repository/remote_db_repository.dart';
 import 'package:domain/repository/tmdb_api_repository.dart';
 import 'package:domain/repository/trakt_api_repository.dart';
 import 'package:domain/services/analytics_service.dart';
@@ -92,7 +92,7 @@ Future<void> _initRepositoryModule() async {
   GetIt.I.registerSingleton<FacebookAuth>(FacebookAuth.instance);
 
   GetIt.I.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
-  GetIt.I.registerSingleton<FirestoreRepository>(
+  GetIt.I.registerSingleton<RemoteDBRepository>(
     FirestoreRepositoryImpl(
       GetIt.I.get<FirebaseFirestore>(),
       await GetIt.I.getAsync<SharedPreferences>(),

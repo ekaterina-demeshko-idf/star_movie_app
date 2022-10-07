@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:domain/model/user/user_model.dart';
-import 'package:domain/repository/firestore_repository.dart';
+import 'package:domain/repository/remote_db_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/const.dart';
 
-class FirestoreRepositoryImpl implements FirestoreRepository {
+class FirestoreRepositoryImpl implements RemoteDBRepository {
   final FirebaseFirestore _firestore;
   final SharedPreferences _preferences;
 
@@ -26,7 +26,7 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
         )
         .get();
 
-    final bool hasData = document == null ? false : document.docs.isNotEmpty;
+    final bool hasData = document?.docs?.isNotEmpty == true;
 
     if (hasData) {
       await _preferences.setString(

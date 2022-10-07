@@ -1,4 +1,4 @@
-import 'package:domain/repository/firestore_repository.dart';
+import 'package:domain/repository/remote_db_repository.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
 import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
@@ -27,7 +27,7 @@ void _initUseCaseModule() {
   );
   GetIt.I.registerFactory<CheckUserUseCase>(
     () => CheckUserUseCase(
-      GetIt.I.get<FirestoreRepository>(),
+      GetIt.I.get<RemoteDBRepository>(),
     ),
   );
   GetIt.I.registerFactory<GoogleAuthUseCase>(
