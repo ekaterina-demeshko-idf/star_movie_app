@@ -1,6 +1,5 @@
+import 'package:domain/model/user/user_model.dart';
+
 abstract class FirestoreRepository {
-  Future<bool> checkUserExist(
-    String collection,
-    Map<String, dynamic>? queryMap,
-  );
+  Future<bool> checkUserExist(UserModel user);
 }

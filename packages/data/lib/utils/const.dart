@@ -12,4 +12,5 @@ class Config {
   static const peoplesEndpoint = '/people';
   static const tmdbBasePath = 'https://api.themoviedb.org';
   static const tmdbPersonPath = '/3/person';
+  static const userFirestoreCollection = 'users';
 }

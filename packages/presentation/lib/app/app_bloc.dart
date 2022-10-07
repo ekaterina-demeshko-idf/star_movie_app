@@ -61,6 +61,7 @@ class _AppBloc extends BlocImpl implements AppBloc {
         break;
       case 3:
         _popAllAndPush(LoginScreen.page(LoginScreenArguments()));
+        break;
     }
     _updateData();
   }
