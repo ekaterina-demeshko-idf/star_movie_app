@@ -1,7 +1,9 @@
+import 'package:domain/repository/local_storage_repository.dart';
 import 'package:domain/repository/remote_db_repository.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
 import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
+import 'package:domain/usecase/save_credentials_usecase.dart';
 import 'package:get_it/get_it.dart';
 import '../repository/auth_repository.dart';
 import '../repository/tmdb_api_repository.dart';
@@ -39,6 +41,11 @@ void _initUseCaseModule() {
   GetIt.I.registerFactory<LogAnalyticsEventUseCase>(
     () => LogAnalyticsEventUseCase(
       GetIt.I.get<AnalyticsService>(),
+    ),
+  );
+  GetIt.I.registerFactory<SaveCredentialsUseCase>(
+    () => SaveCredentialsUseCase(
+      GetIt.I.get<LocalStorageRepository>(),
     ),
   );
   GetIt.I.registerFactory<GetCastUseCase>(

@@ -6,6 +6,7 @@ import 'package:domain/usecase/check_user_usecase.dart';
 import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/facebook_auth_usecase.dart';
 import 'package:domain/usecase/analytics_usecase.dart';
+import 'package:domain/usecase/save_credentials_usecase.dart';
 import '../profile/profile_screen.dart';
 import 'login_data.dart';
 import 'login_screen.dart';
@@ -15,13 +16,15 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
     CheckUserUseCase checkUserUseCase,
     GoogleAuthUseCase googleAuthUseCase,
     FacebookAuthUseCase facebookAuthUseCase,
-      LogAnalyticsEventUseCase logAnalyticsEventUseCase,
+    LogAnalyticsEventUseCase logAnalyticsEventUseCase,
+    SaveCredentialsUseCase saveCredentialsUseCase,
   ) =>
       _LoginBloc(
         checkUserUseCase,
         googleAuthUseCase,
         facebookAuthUseCase,
         logAnalyticsEventUseCase,
+        saveCredentialsUseCase,
       );
 
   TextEditingController get emailController;
@@ -43,12 +46,14 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   final GoogleAuthUseCase _googleAuthUseCase;
   final FacebookAuthUseCase _facebookAuthUseCase;
   final LogAnalyticsEventUseCase _logAnalyticsEventUseCase;
+  final SaveCredentialsUseCase _saveCredentialsUseCase;
 
   _LoginBloc(
     this._checkUserUseCase,
     this._googleAuthUseCase,
     this._facebookAuthUseCase,
     this._logAnalyticsEventUseCase,
+    this._saveCredentialsUseCase,
   );
 
   @override
@@ -57,8 +62,8 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
     final UserModel user = UserModel(email, password);
-    final bool isSuccess = await _checkUserUseCase(user);
-    pushSuccessScreen(isSuccess);
+    await _saveCredentialsUseCase(user);
+    pushSuccessScreen(await _checkUserUseCase(user));
   }
 
   @override
@@ -71,8 +76,8 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       user.email.orEmpty,
       user.password.orEmpty,
     );
-    final bool isSuccess = await _checkUserUseCase(userModel);
-    pushSuccessScreen(isSuccess);
+    await _saveCredentialsUseCase(userModel);
+    pushSuccessScreen(await _checkUserUseCase(userModel));
   }
 
   @override
@@ -85,8 +90,8 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       user.email.orEmpty,
       user.password.orEmpty,
     );
-    final bool isSuccess = await _checkUserUseCase(userModel);
-    pushSuccessScreen(isSuccess);
+    await _saveCredentialsUseCase(userModel);
+    pushSuccessScreen(await _checkUserUseCase(userModel));
   }
 
   void pushSuccessScreen(bool isSuccess) {

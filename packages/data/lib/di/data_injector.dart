@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data/interceptor/trakt_interceptor.dart';
 import 'package:data/repository/firestore_repository.dart';
+import 'package:data/repository/local_storage_repository.dart';
 import 'package:domain/repository/auth_repository.dart';
+import 'package:domain/repository/local_storage_repository.dart';
 import 'package:domain/repository/remote_db_repository.dart';
 import 'package:domain/repository/tmdb_api_repository.dart';
 import 'package:domain/repository/trakt_api_repository.dart';
@@ -86,7 +88,10 @@ Future<void> _initRepositoryModule() async {
   );
 
   GetIt.I.registerSingletonAsync<SharedPreferences>(
-        () async => await SharedPreferences.getInstance(),
+    () async => await SharedPreferences.getInstance(),
+  );
+  GetIt.I.registerSingleton<LocalStorageRepository>(
+    LocalStorageRepositoryImpl(await GetIt.I.getAsync<SharedPreferences>()),
   );
   GetIt.I.registerSingleton<GoogleSignIn>(GoogleSignIn());
   GetIt.I.registerSingleton<FacebookAuth>(FacebookAuth.instance);
@@ -95,14 +100,11 @@ Future<void> _initRepositoryModule() async {
   GetIt.I.registerSingleton<RemoteDBRepository>(
     FirestoreRepositoryImpl(
       GetIt.I.get<FirebaseFirestore>(),
-      await GetIt.I.getAsync<SharedPreferences>(),
     ),
   );
 
-
   GetIt.I.registerSingleton<AuthRepository>(
     AuthRepositoryImpl(
-      await GetIt.I.getAsync<SharedPreferences>(),
       GetIt.I.get<GoogleSignIn>(),
       GetIt.I.get<FacebookAuth>(),
     ),
