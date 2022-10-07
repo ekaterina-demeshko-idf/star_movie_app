@@ -22,6 +22,7 @@ import '../repository/trakt_repository.dart';
 import '../service/api_base_service.dart';
 import '../service/firebase_analytics.dart';
 import '../service/service_payload.dart';
+import '../utils/apiPath.dart';
 import '../utils/const.dart';
 
 void initDataInjector(ConfigData configData) {
@@ -135,7 +136,7 @@ Dio _buildTMDBApiDio(List<Interceptor> interceptors) {
     sendTimeout: Config.sendTimeout,
     receiveTimeout: Config.receiveTimeout,
     connectTimeout: Config.connectTimeout,
-    baseUrl: Config.tmdbBasePath,
+    baseUrl: ApiPath.tmdbBasePath,
   );
   final dio = Dio(options);
   dio.interceptors.addAll(interceptors);
