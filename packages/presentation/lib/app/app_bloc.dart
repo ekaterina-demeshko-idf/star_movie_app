@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:collection/collection.dart';
 import 'package:presentation/screen/splash/splash_screen.dart';
 import '../base/bloc.dart';
+import '../enum/bottom_nav_bar_item.dart';
 import '../navigation/base_page.dart';
 import '../screen/home/home_screen.dart';
 import '../screen/login/login_screen.dart';
@@ -55,11 +56,12 @@ class _AppBloc extends BlocImpl implements AppBloc {
   @override
   void onItemTapped(int index) {
     _selectedIndex = index;
-    switch (index) {
-      case 0:
+    final type = BottomNavBarItem.values[index];
+    switch (type) {
+      case BottomNavBarItem.home:
         _popAllAndPush(HomeScreen.page(HomeScreenArguments()));
         break;
-      case 3:
+      case BottomNavBarItem.profile:
         _popAllAndPush(LoginScreen.page(LoginScreenArguments()));
         break;
     }

@@ -63,7 +63,10 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     final String password = _passwordController.text.trim();
     final UserModel user = UserModel(email, password);
     await _saveCredentialsUseCase(user);
-    pushSuccessScreen(await _checkUserUseCase(user));
+    bool isSuccess = await _checkUserUseCase(user);
+    if (isSuccess) {
+      pushSuccessScreen();
+    }
   }
 
   @override
@@ -77,7 +80,10 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       user.password.orEmpty,
     );
     await _saveCredentialsUseCase(userModel);
-    pushSuccessScreen(await _checkUserUseCase(userModel));
+    bool isSuccess = await _checkUserUseCase(userModel);
+    if (isSuccess) {
+      pushSuccessScreen();
+    }
   }
 
   @override
@@ -90,16 +96,16 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       user.email.orEmpty,
       user.password.orEmpty,
     );
-    await _saveCredentialsUseCase(userModel);
-    pushSuccessScreen(await _checkUserUseCase(userModel));
+    bool isSuccess = await _checkUserUseCase(userModel);
+    if (isSuccess) {
+      pushSuccessScreen();
+    }
   }
 
-  void pushSuccessScreen(bool isSuccess) {
-    if (isSuccess) {
-      appNavigator.push(
-        ProfileScreen.page(),
-      );
-    }
+  void pushSuccessScreen() {
+    appNavigator.push(
+      ProfileScreen.page(),
+    );
   }
 
   @override

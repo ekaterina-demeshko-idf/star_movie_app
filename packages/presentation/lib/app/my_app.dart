@@ -91,7 +91,7 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                               ImagesPath.tickerIcon,
                               color: PrimaryColors.primarySelected,
                             ),
-                            label: 'Business',
+                            label: 'Ticket',
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
@@ -102,7 +102,7 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                               ImagesPath.alarmIcon,
                               color: PrimaryColors.primarySelected,
                             ),
-                            label: 'School',
+                            label: 'Notifications',
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
@@ -113,7 +113,7 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                               ImagesPath.personIcon,
                               color: PrimaryColors.primarySelected,
                             ),
-                            label: 'School',
+                            label: 'Profile',
                           ),
                         ],
                         currentIndex: bloc.selectedIndex,
