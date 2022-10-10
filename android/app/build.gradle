@@ -1,6 +1,10 @@
+import org.yaml.snakeyaml.DumperOptions
+import org.yaml.snakeyaml.Yaml
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
-def secrets = rootProject.file('../secrets.yaml')
+def cfg = new org.yaml.snakeyaml.Yaml().load(new File("../secrets.yaml").newInputStream())
+
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
@@ -8,9 +12,9 @@ if (localPropertiesFile.exists()) {
 }
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
-def facebookAppId = localProperties.getProperty('facebook_app_id')
-def fbLoginProtocolScheme = localProperties.getProperty('fb_login_protocol_scheme')
-def facebookClientToken = localProperties.getProperty('facebook_client_token')
+def facebookAppId = cfg.facebook_app_id
+def fbLoginProtocolScheme = cfg.fb_login_protocol_scheme
+def facebookClientToken = cfg.facebook_client_token
 if (flutterRoot == null) {
     throw new FileNotFoundException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
@@ -95,5 +99,6 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.4.1')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+    implementation 'com.facebook.android:facebook-android-sdk:15.0.1'
+    implementation 'org.yaml:snakeyaml:1.33'
 }
