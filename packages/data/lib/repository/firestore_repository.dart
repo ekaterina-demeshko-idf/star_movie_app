@@ -10,7 +10,8 @@ class FirestoreRepositoryImpl implements RemoteDBRepository {
 
   @override
   Future<bool> checkUserExist(UserModel user) async {
-    final collectionRef = _firestore.collection(Firestore.userFirestoreCollection);
+    final collectionRef =
+        _firestore.collection(Firestore.userFirestoreCollection);
 
     final document = await collectionRef
         .where(
@@ -23,7 +24,6 @@ class FirestoreRepositoryImpl implements RemoteDBRepository {
         )
         .get();
 
-    final bool hasData = document?.docs?.isNotEmpty == true;
-    return hasData;
+    return document?.docs?.isNotEmpty == true;
   }
 }

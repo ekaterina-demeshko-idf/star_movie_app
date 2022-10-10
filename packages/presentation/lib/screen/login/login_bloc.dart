@@ -65,7 +65,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     await _saveCredentialsUseCase(user);
     bool isSuccess = await _checkUserUseCase(user);
     if (isSuccess) {
-      pushSuccessScreen();
+      _pushSuccessScreen();
     }
   }
 
@@ -82,7 +82,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     await _saveCredentialsUseCase(userModel);
     bool isSuccess = await _checkUserUseCase(userModel);
     if (isSuccess) {
-      pushSuccessScreen();
+      _pushSuccessScreen();
     }
   }
 
@@ -98,11 +98,11 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     );
     bool isSuccess = await _checkUserUseCase(userModel);
     if (isSuccess) {
-      pushSuccessScreen();
+      _pushSuccessScreen();
     }
   }
 
-  void pushSuccessScreen() {
+  void _pushSuccessScreen() {
     appNavigator.push(
       ProfileScreen.page(),
     );

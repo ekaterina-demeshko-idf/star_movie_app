@@ -13,42 +13,30 @@ class AuthRepositoryImpl implements AuthRepository {
     this._authFBProvider,
   );
 
-  Future<UserFacebookModel> loginFacebook() async {
+  @override
+  Future<UserModel> authWithFacebook() async {
     final loginResult = await _authFBProvider.login();
     if (loginResult.status == LoginStatus.success) {
       final UserFacebookModel userFacebookModel =
           UserFacebookModel.fromJson(await _authFBProvider.getUserData());
-      return userFacebookModel;
-    }
-    throw Exception('Not authorized');
-  }
-
-  Future<Map<String, dynamic>?> loginGoogle() async {
-    final loginResult = await _authGoogleProvider.signIn();
-    if (loginResult != null) {
-      final userData = {
-        'email': loginResult.email,
-        'password': loginResult.id,
-      };
-      return userData;
-    }
-    throw Exception('Not authorized');
-  }
-
-  @override
-  Future<UserModel> authWithFacebook() async {
-    final UserFacebookModel userData = await loginFacebook();
-    if (userData != null) {
-      return UserModel.fromFacebook(userData);
+      if (userFacebookModel != null) {
+        return UserModel.fromFacebook(userFacebookModel);
+      }
     }
     throw Exception('Not authorized');
   }
 
   @override
   Future<UserModel> authWithGoogle() async {
-    final userData = await loginGoogle();
-    if (userData != null) {
-      return UserModel.fromJson(userData);
+    final loginResult = await _authGoogleProvider.signIn();
+    if (loginResult != null) {
+      final userData = {
+        'email': loginResult.email,
+        'password': loginResult.id,
+      };
+      if (userData != null) {
+        return UserModel.fromJson(userData);
+      }
     }
     throw Exception('Not authorized');
   }
