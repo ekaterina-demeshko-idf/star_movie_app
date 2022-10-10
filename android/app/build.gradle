@@ -1,5 +1,10 @@
+import org.yaml.snakeyaml.DumperOptions
+import org.yaml.snakeyaml.Yaml
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
+def cfg = new org.yaml.snakeyaml.Yaml().load(new File("../secrets.yaml").newInputStream())
+
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
@@ -7,6 +12,9 @@ if (localPropertiesFile.exists()) {
 }
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
+def facebookAppId = cfg.facebook_app_id
+def fbLoginProtocolScheme = cfg.fb_login_protocol_scheme
+def facebookClientToken = cfg.facebook_client_token
 if (flutterRoot == null) {
     throw new FileNotFoundException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
@@ -22,6 +30,7 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -43,7 +52,6 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.movie"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
@@ -51,6 +59,10 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
+        resValue("string", "facebook_app_id", facebookAppId)
+        resValue("string", "fb_login_protocol_scheme", fbLoginProtocolScheme)
+        resValue("string", "facebook_client_token", facebookClientToken)
     }
 
     flavorDimensions "app"
@@ -84,5 +96,9 @@ flutter {
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:30.4.1')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.facebook.android:facebook-android-sdk:15.0.1'
+    implementation 'org.yaml:snakeyaml:1.33'
 }

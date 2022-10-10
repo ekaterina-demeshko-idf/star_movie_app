@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:presentation/utils/colors.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:presentation/utils/dimens.dart';
 import '../models/config_presentation.dart';
 import 'app_bloc.dart';
 import 'data/app_data.dart';
@@ -55,11 +56,11 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
               bottomNavigationBar: appData.hideNavBar
                   ? const SizedBox.shrink()
                   : Container(
-                      padding: const EdgeInsets.only(bottom: 15),
+                      padding: const EdgeInsets.only(bottom: Dimens.size14),
                       decoration: const BoxDecoration(
                         border: Border(
                           top: BorderSide(
-                            width: 0.5,
+                            width: Dimens.size05,
                             color: PrimaryColors.primaryUnselected,
                           ),
                         ),
@@ -90,7 +91,7 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                               ImagesPath.tickerIcon,
                               color: PrimaryColors.primarySelected,
                             ),
-                            label: 'Business',
+                            label: 'Ticket',
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
@@ -101,7 +102,7 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                               ImagesPath.alarmIcon,
                               color: PrimaryColors.primarySelected,
                             ),
-                            label: 'School',
+                            label: 'Notifications',
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(
@@ -112,11 +113,13 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                               ImagesPath.personIcon,
                               color: PrimaryColors.primarySelected,
                             ),
-                            label: 'School',
+                            label: 'Profile',
                           ),
                         ],
-                        currentIndex: appData.selectedIndex,
-                        onTap: bloc.onItemTapped,
+                        currentIndex: bloc.selectedIndex,
+                        onTap: (index) {
+                          bloc.onItemTapped(index);
+                        },
                       ),
                     ),
             );

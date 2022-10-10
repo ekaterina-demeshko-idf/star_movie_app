@@ -16,7 +16,7 @@ class TraktAPIRepositoryImpl implements TraktAPIRepository {
   Future<GetMovieDataResponse> getMovieTrendingData(
       {int itemCount = 10}) async {
     final response = await _movieApiService.get(
-      Config.apiTrendingPath,
+      ApiPath.apiTrendingPath,
       queryParameters: setItemLimit(itemCount),
     );
 
@@ -32,7 +32,7 @@ class TraktAPIRepositoryImpl implements TraktAPIRepository {
   Future<GetMovieDataResponse> getMovieAnticipatedData(
       {int itemCount = 10}) async {
     final response = await _movieApiService.get(
-      Config.apiAnticipatedPath,
+      ApiPath.apiAnticipatedPath,
       queryParameters: setItemLimit(itemCount),
     );
 

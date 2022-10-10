@@ -6,12 +6,23 @@ class HomeData {
   List<MoviePresentation>? movieTrending;
   List<MoviePresentation>? movieAnticipated;
 
-  HomeData({this.movieTrending, this.movieAnticipated, this.currentTab});
+  HomeData({
+    this.movieTrending,
+    this.movieAnticipated,
+    this.currentTab,
+  });
 
-  factory HomeData.init() => HomeData(movieTrending: [], movieAnticipated: [], currentTab: CurrentTab.trending);
+  factory HomeData.init() => HomeData(
+        movieTrending: [],
+        movieAnticipated: [],
+        currentTab: CurrentTab.trending,
+      );
 
   HomeData copy() => HomeData(
-      movieTrending: movieTrending, movieAnticipated: movieAnticipated, currentTab: currentTab);
+        movieTrending: movieTrending,
+        movieAnticipated: movieAnticipated,
+        currentTab: currentTab,
+      );
 
   HomeData copyWith({
     List<MoviePresentation>? movieTrending,
@@ -22,6 +33,5 @@ class HomeData {
         movieTrending: movieTrending ?? this.movieTrending,
         movieAnticipated: movieAnticipated ?? this.movieAnticipated,
         currentTab: currentTab ?? this.currentTab,
-
       );
 }

@@ -1,7 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:collection/collection.dart';
+import 'package:presentation/screen/splash/splash_screen.dart';
 import '../base/bloc.dart';
+import '../enum/bottom_nav_bar_item.dart';
 import '../navigation/base_page.dart';
+import '../screen/home/home_screen.dart';
+import '../screen/login/login_screen.dart';
 import 'data/app_data.dart';
 
 abstract class AppBloc extends Bloc {
@@ -10,11 +14,16 @@ abstract class AppBloc extends Bloc {
   void handleRemoveRouteSettings(RouteSettings value);
 
   void onItemTapped(int index);
+
+  int get selectedIndex;
 }
 
 class _AppBloc extends BlocImpl implements AppBloc {
   final _appData = AppData.init();
-  int? selectedIndex = 0;
+  int _selectedIndex = 0;
+
+  @override
+  int get selectedIndex => _selectedIndex;
 
   @override
   void initState() {
@@ -46,7 +55,16 @@ class _AppBloc extends BlocImpl implements AppBloc {
 
   @override
   void onItemTapped(int index) {
-    selectedIndex = index;
+    _selectedIndex = index;
+    final type = BottomNavBarItem.values[index];
+    switch (type) {
+      case BottomNavBarItem.home:
+        _popAllAndPush(HomeScreen.page(HomeScreenArguments()));
+        break;
+      case BottomNavBarItem.profile:
+        _popAllAndPush(LoginScreen.page(LoginScreenArguments()));
+        break;
+    }
     _updateData();
   }
 

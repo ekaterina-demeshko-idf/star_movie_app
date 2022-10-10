@@ -10,4 +10,6 @@ class ImagesPath {
   static const starHalf = 'resources/images/star-half.svg';
   static const starEmpty = 'resources/images/star-empty.svg';
   static const shareIcon = 'resources/images/Share.svg';
+  static const facebookBtn = 'resources/images/facebookBtn.svg';
+  static const googleBtn = 'resources/images/googleBtn.svg';
 }

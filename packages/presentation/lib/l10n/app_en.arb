@@ -10,5 +10,11 @@
   "synopsis": "Synopsis",
   "showMore" : "Show More",
   "showLess": "Show Less",
-  "noData": "No Data, try again later"
+  "noData": "No Data, try again later",
+  "titleProfile": "Profile",
+  "signUp": "SignUp",
+  "username": "Username",
+  "password": "Password",
+  "login": "Login",
+  "success": "Success Login"
 }
