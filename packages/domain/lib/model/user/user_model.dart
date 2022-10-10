@@ -1,3 +1,5 @@
+import 'package:domain/model/user/user_facebook_model.dart';
+
 class UserModel {
   final String email;
   final String password;
@@ -15,12 +17,12 @@ class UserModel {
         json['password'],
       );
 
-  factory UserModel.fromFacebookJson(
-    Map<String, dynamic> json,
+  factory UserModel.fromFacebook(
+    UserFacebookModel user,
   ) =>
       UserModel(
-        json['email'],
-        json['id'],
+        user.email,
+        user.id,
       );
 
   Map<String, dynamic> toJson() => <String, String>{

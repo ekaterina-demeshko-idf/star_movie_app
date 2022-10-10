@@ -1,4 +1,5 @@
 import 'package:domain/model/user/user_model.dart';
+import 'package:domain/model/user/user_facebook_model.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:domain/repository/auth_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -12,10 +13,12 @@ class AuthRepositoryImpl implements AuthRepository {
     this._authFBProvider,
   );
 
-  Future<Map<String, dynamic>?> loginFacebook() async {
+  Future<UserFacebookModel> loginFacebook() async {
     final loginResult = await _authFBProvider.login();
     if (loginResult.status == LoginStatus.success) {
-      return await _authFBProvider.getUserData();
+      final UserFacebookModel userFacebookModel =
+          UserFacebookModel.fromJson(await _authFBProvider.getUserData());
+      return userFacebookModel;
     }
     throw Exception('Not authorized');
   }
@@ -34,9 +37,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<UserModel> authWithFacebook() async {
-    final userData = await loginFacebook();
+    final UserFacebookModel userData = await loginFacebook();
     if (userData != null) {
-      return UserModel.fromFacebookJson(userData);
+      return UserModel.fromFacebook(userData);
     }
     throw Exception('Not authorized');
   }
