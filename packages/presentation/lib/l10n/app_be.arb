@@ -16,5 +16,13 @@
   "username": "ІМЯ КАРЫСТАЛЬНІКА",
   "password": "ПАРОЛЬ",
   "login": "Увайсці",
-  "success": "Віншую"
+  "success": "Віншую",
+  "share": "Глядзі, які фільм я знайшоў! \nhttps://www.themoviedb.org/movie/{id}?language=be",
+  "@share": {
+      "placeholders": {
+          "id": {
+              "type": "int"
+          }
+      }
+  }
 }

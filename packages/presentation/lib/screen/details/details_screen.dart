@@ -62,7 +62,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                     elevation: 0,
                     actions: [
                       IconButton(
-                        onPressed: () => {},
+                        onPressed: () => bloc.shareMovie(context),
                         icon: SvgPicture.asset(ImagesPath.shareIcon),
                         color: PrimaryColors.white,
                       ),

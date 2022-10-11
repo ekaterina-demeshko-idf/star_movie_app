@@ -80,7 +80,7 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                 children: [
                                   Expanded(
                                     child: Image.network(
-                                      screenList[index].image ?? '',
+                                      screenList[index].image,
                                       errorBuilder:
                                           (context, exception, stackTrace) {
                                         return Image.asset(
@@ -93,7 +93,7 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                   ),
                                   const SizedBox(height: Dimens.size16),
                                   RatingBar(
-                                    initialRating: currentMovie.rating ?? 0,
+                                    initialRating: currentMovie.rating,
                                     direction: Axis.horizontal,
                                     allowHalfRating: true,
                                     ignoreGestures: true,
@@ -113,7 +113,7 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                                   ),
                                   const SizedBox(height: Dimens.size8),
                                   Text(
-                                    currentMovie.title ?? '',
+                                    currentMovie.title,
                                     textAlign: TextAlign.start,
                                     style: AppTextStyles.headerStyle(
                                       AppTextStyles.fontSize_16,
