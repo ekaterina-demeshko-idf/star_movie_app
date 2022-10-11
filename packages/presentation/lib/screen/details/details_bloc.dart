@@ -13,8 +13,7 @@ abstract class DetailsBloc extends Bloc<DetailsScreenArguments, DetailsData> {
   ) =>
       _DetailsBloc(getCastUseCase);
 
-  Future<void> shareMovie(BuildContext context);
-
+  Future<void> shareMovie(String message);
 }
 
 class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
@@ -27,7 +26,6 @@ class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
 
   _DetailsBloc(this._getCastUseCase);
 
-
   @override
   void initArgs(DetailsScreenArguments arguments) {
     super.initArgs(arguments);
@@ -37,9 +35,7 @@ class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
   }
 
   @override
-  Future<void> shareMovie(BuildContext context) async {
-    final traktId = _screenData.movie?.traktId ?? 0;
-    final message = AppLocalizations.of(context)!.share(traktId);
+  Future<void> shareMovie(String message) async {
     await _simpleShareNativePlugin.shareMessage(message);
   }
 
