@@ -13,7 +13,7 @@ abstract class DetailsBloc extends Bloc<DetailsScreenArguments, DetailsData> {
   ) =>
       _DetailsBloc(getCastUseCase);
 
-  Future<void> shareMovie(String message);
+  Future<void> onShareButtonPressed(String message);
 }
 
 class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
@@ -35,7 +35,7 @@ class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
   }
 
   @override
-  Future<void> shareMovie(String message) async {
+  Future<void> onShareButtonPressed(String message) async {
     await _simpleShareNativePlugin.shareMessage(message);
   }
 
