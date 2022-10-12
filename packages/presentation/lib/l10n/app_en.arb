@@ -16,5 +16,13 @@
   "username": "Username",
   "password": "Password",
   "login": "Login",
-  "success": "Success Login"
+  "success": "Success Login",
+  "share": "Look, what movie I found! \nhttps://www.themoviedb.org/movie/{id}?language=eng",
+  "@share": {
+      "placeholders": {
+          "id": {
+              "type": "int"
+          }
+      }
+  }
 }

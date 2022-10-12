@@ -51,6 +51,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
         builder: (context, snapshot) {
           final data = snapshot.data;
           final screenData = data?.data;
+          final l10n = AppLocalizations.of(context)!;
           if (data != null) {
             return DefaultTabController(
               length: 3,
@@ -62,7 +63,9 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                     elevation: 0,
                     actions: [
                       IconButton(
-                        onPressed: () => {},
+                        onPressed: () => bloc.onShareButtonPressed(
+                          l10n.share(screenData?.movie?.traktId ?? 0),
+                        ),
                         icon: SvgPicture.asset(ImagesPath.shareIcon),
                         color: PrimaryColors.white,
                       ),
@@ -211,14 +214,13 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                 ),
                                 tabs: [
                                   Tab(
-                                    text: AppLocalizations.of(context)!.details,
+                                    text: l10n.details,
                                   ),
                                   Tab(
-                                    text: AppLocalizations.of(context)!.reviews,
+                                    text: l10n.reviews,
                                   ),
                                   Tab(
-                                    text:
-                                        AppLocalizations.of(context)!.showtime,
+                                    text: l10n.showtime,
                                   ),
                                 ],
                               ),
@@ -227,7 +229,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               height: Dimens.size16,
                             ),
                             Text(
-                              AppLocalizations.of(context)!.synopsis,
+                              l10n.synopsis,
                               textAlign: TextAlign.left,
                               style: AppTextStyles.headerStyle(
                                   AppTextStyles.fontSize_20),
@@ -240,10 +242,8 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               trimLines: 4,
                               trimMode: TrimMode.Line,
                               colorClickableText: PrimaryColors.primaryLink,
-                              trimCollapsedText:
-                                  AppLocalizations.of(context)!.showMore,
-                              trimExpandedText:
-                                  AppLocalizations.of(context)!.showLess,
+                              trimCollapsedText: l10n.showMore,
+                              trimExpandedText: l10n.showLess,
                               style: AppTextStyles.descriptionStyle(
                                   AppTextStyles.fontSize_14,
                                   lineHeight: Dimens.size20),
@@ -255,13 +255,13 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)!.castCrew,
+                                  l10n.castCrew,
                                   textAlign: TextAlign.left,
                                   style: AppTextStyles.headerStyle(
                                       AppTextStyles.fontSize_20),
                                 ),
                                 Text(
-                                  AppLocalizations.of(context)!.viewAll,
+                                  l10n.viewAll,
                                   style: AppTextStyles.linkStyle(
                                     AppTextStyles.fontSize_18,
                                   ),

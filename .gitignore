@@ -47,6 +47,4 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 secrets.yaml
-google-services.json
-GoogleService-Info.plist
 Podfile.lock
