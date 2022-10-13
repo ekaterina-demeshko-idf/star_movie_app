@@ -76,18 +76,21 @@ void _initInterceptorModule(String apiKey) {
 }
 
 Future<void> _initRepositoryModule() async {
+  GetIt.I.registerSingleton<AnalyticsService>(
+    AnalyticsServiceImpl(
+      GetIt.I.get<FirebaseAnalytics>(),
+    ),
+  );
   GetIt.I.registerSingleton<TraktAPIRepository>(
     TraktAPIRepositoryImpl(
       GetIt.I.get<ApiBaseService>(instanceName: 'TraktService'),
     ),
   );
-
   GetIt.I.registerSingleton<TmdbAPIRepository>(
     TmdbAPIRepositoryImpl(
       GetIt.I.get<ApiBaseService>(instanceName: 'TMDBService'),
     ),
   );
-
   GetIt.I.registerSingletonAsync<SharedPreferences>(
     () async => await SharedPreferences.getInstance(),
   );
@@ -96,24 +99,16 @@ Future<void> _initRepositoryModule() async {
   );
   GetIt.I.registerSingleton<GoogleSignIn>(GoogleSignIn());
   GetIt.I.registerSingleton<FacebookAuth>(FacebookAuth.instance);
-
   GetIt.I.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
   GetIt.I.registerSingleton<RemoteDBRepository>(
     FirestoreRepositoryImpl(
       GetIt.I.get<FirebaseFirestore>(),
     ),
   );
-
   GetIt.I.registerSingleton<AuthRepository>(
     AuthRepositoryImpl(
       GetIt.I.get<GoogleSignIn>(),
       GetIt.I.get<FacebookAuth>(),
-    ),
-  );
-
-  GetIt.I.registerSingleton<AnalyticsService>(
-    AnalyticsServiceImpl(
-      GetIt.I.get<FirebaseAnalytics>(),
     ),
   );
 }

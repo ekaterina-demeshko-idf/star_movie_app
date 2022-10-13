@@ -1,4 +1,5 @@
 import 'package:domain/enum/movie_type.dart';
+import 'package:domain/usecase/analytics_event_usecase.dart';
 import 'package:domain/usecase/get_movie_list_usecase.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/screen/home/home_screen.dart';
@@ -11,10 +12,12 @@ import '../../mappers/presentation_view_mapper.dart';
 abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
   factory HomeBloc(
     GetMovieListUseCase getMovieListUseCase,
-      HomeViewMapper viewMapper,
+    LogAnalyticsEventUseCase logAnalyticsEventUseCase,
+    HomeViewMapper viewMapper,
   ) =>
       _HomeBloc(
         getMovieListUseCase,
+        logAnalyticsEventUseCase,
         viewMapper,
       );
 
@@ -27,11 +30,12 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     implements HomeBloc {
   var _screenData = HomeData.init();
   final HomeViewMapper _viewMapper;
-
   final GetMovieListUseCase _getMovieListUseCase;
+  final LogAnalyticsEventUseCase _logAnalyticsEventUseCase;
 
   _HomeBloc(
     this._getMovieListUseCase,
+    this._logAnalyticsEventUseCase,
     this._viewMapper,
   );
 
@@ -43,6 +47,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   void getTrendingData() async {
     _updateData(isLoading: true);
+    _logAnalyticsEventUseCase('trending_tab');
     final responseTrending = await _getMovieListUseCase(MovieType.trending);
     final List<MoviePresentation> moviesTrending =
         await _viewMapper.mapMovieDataToRequest(responseTrending);
@@ -52,6 +57,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   void getAnticipatedData() async {
     _updateData(isLoading: true);
+    _logAnalyticsEventUseCase('anticipated_tab');
     final responseAnticipated =
         await _getMovieListUseCase(MovieType.anticipated);
     final List<MoviePresentation> moviesAnticipated =
@@ -78,6 +84,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   @override
   void openDetailsPage(MoviePresentation movie) {
+    _logAnalyticsEventUseCase('on_movie_tap');
     appNavigator.push(
       DetailsScreen.page(
         DetailsScreenArguments(movie: movie),
