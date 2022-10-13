@@ -1,4 +1,3 @@
-
 class AnalyticsEventType {
   AnalyticsEventType._();
 
@@ -9,5 +8,4 @@ class AnalyticsEventType {
   static const trendingTab = 'trending_tab';
   static const anticipatedTab = 'anticipated_tab';
   static const onMovieTap = 'on_movie_tap';
-
 }
