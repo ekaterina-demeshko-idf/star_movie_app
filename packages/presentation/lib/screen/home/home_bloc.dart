@@ -1,5 +1,4 @@
 import 'package:domain/enum/movie_type.dart';
-import 'package:domain/usecase/analytics_event_usecase.dart';
 import 'package:domain/usecase/get_movie_list_usecase.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/screen/home/home_screen.dart';
@@ -13,12 +12,10 @@ import '../../mappers/presentation_view_mapper.dart';
 abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
   factory HomeBloc(
     GetMovieListUseCase getMovieListUseCase,
-    LogAnalyticsEventUseCase logAnalyticsEventUseCase,
     HomeViewMapper viewMapper,
   ) =>
       _HomeBloc(
         getMovieListUseCase,
-        logAnalyticsEventUseCase,
         viewMapper,
       );
 
@@ -32,11 +29,9 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
   var _screenData = HomeData.init();
   final HomeViewMapper _viewMapper;
   final GetMovieListUseCase _getMovieListUseCase;
-  final LogAnalyticsEventUseCase _logAnalyticsEventUseCase;
 
   _HomeBloc(
     this._getMovieListUseCase,
-    this._logAnalyticsEventUseCase,
     this._viewMapper,
   );
 
@@ -48,7 +43,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   void getTrendingData() async {
     _updateData(isLoading: true);
-    _logAnalyticsEventUseCase(AnalyticsEventType.trendingTab);
+    logAnalyticsEventUseCase(AnalyticsEventType.trendingTab);
     final responseTrending = await _getMovieListUseCase(MovieType.trending);
     final List<MoviePresentation> moviesTrending =
         await _viewMapper.mapMovieDataToRequest(responseTrending);
@@ -58,7 +53,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   void getAnticipatedData() async {
     _updateData(isLoading: true);
-    _logAnalyticsEventUseCase(AnalyticsEventType.anticipatedTab);
+    logAnalyticsEventUseCase(AnalyticsEventType.anticipatedTab);
     final responseAnticipated =
         await _getMovieListUseCase(MovieType.anticipated);
     final List<MoviePresentation> moviesAnticipated =
@@ -85,7 +80,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   @override
   void openDetailsPage(MoviePresentation movie) {
-    _logAnalyticsEventUseCase(AnalyticsEventType.onMovieTap);
+    logAnalyticsEventUseCase(AnalyticsEventType.onMovieTap);
     appNavigator.push(
       DetailsScreen.page(
         DetailsScreenArguments(movie: movie),

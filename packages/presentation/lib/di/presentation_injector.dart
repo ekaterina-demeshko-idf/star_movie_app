@@ -39,7 +39,6 @@ void _initHomeScreenModule() {
   GetIt.I.registerFactory<HomeBloc>(
     () => HomeBloc(
       GetIt.I.get<GetMovieListUseCase>(),
-      GetIt.I.get<LogAnalyticsEventUseCase>(),
       GetIt.I.get<HomeViewMapper>(),
     ),
   );
@@ -47,10 +46,7 @@ void _initHomeScreenModule() {
 
 void _initDetailsScreenModule() {
   GetIt.I.registerFactory<DetailsBloc>(
-    () => DetailsBloc(
-      GetIt.I.get<GetCastUseCase>(),
-      GetIt.I.get<LogAnalyticsEventUseCase>(),
-    ),
+    () => DetailsBloc(GetIt.I.get<GetCastUseCase>()),
   );
 }
 
@@ -60,7 +56,6 @@ void _initLoginScreenModule() {
       GetIt.I.get<CheckUserUseCase>(),
       GetIt.I.get<GoogleAuthUseCase>(),
       GetIt.I.get<FacebookAuthUseCase>(),
-      GetIt.I.get<LogAnalyticsEventUseCase>(),
       GetIt.I.get<SaveCredentialsUseCase>(),
     ),
   );

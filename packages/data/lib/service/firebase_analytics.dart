@@ -8,8 +8,10 @@ class AnalyticsServiceImpl implements AnalyticsService {
   AnalyticsServiceImpl(this._analyticsProvider);
 
   @override
-  Future<void> logEvent(String eventName,
-      {Map<String, dynamic>? parameters}) async {
+  Future<void> logEvent(
+    String eventName, {
+    Map<String, dynamic>? parameters,
+  }) async {
     await _analyticsProvider.logEvent(
       name: eventName,
       parameters: parameters,

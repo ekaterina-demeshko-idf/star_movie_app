@@ -1,4 +1,3 @@
-import 'package:domain/usecase/analytics_event_usecase.dart';
 import 'package:presentation/utils/events.dart';
 import 'package:simple_share_native/simple_share_native.dart';
 import 'package:domain/model/cast/cast_with_images.dart';
@@ -8,14 +7,8 @@ import 'details_screen.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
 
 abstract class DetailsBloc extends Bloc<DetailsScreenArguments, DetailsData> {
-  factory DetailsBloc(
-    GetCastUseCase getCastUseCase,
-    LogAnalyticsEventUseCase logAnalyticsEventUseCase,
-  ) =>
-      _DetailsBloc(
-        getCastUseCase,
-        logAnalyticsEventUseCase,
-      );
+  factory DetailsBloc(GetCastUseCase getCastUseCase) =>
+      _DetailsBloc(getCastUseCase);
 
   Future<void> onShareButtonPressed(String message);
 }
@@ -25,13 +18,11 @@ class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
   DetailsData _screenData = DetailsData();
 
   final GetCastUseCase _getCastUseCase;
-  final LogAnalyticsEventUseCase _logAnalyticsEventUseCase;
 
   final _simpleShareNativePlugin = SimpleShareNative();
 
   _DetailsBloc(
     this._getCastUseCase,
-    this._logAnalyticsEventUseCase,
   );
 
   @override
@@ -44,7 +35,7 @@ class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
 
   @override
   Future<void> onShareButtonPressed(String message) async {
-    _logAnalyticsEventUseCase(AnalyticsEventType.shareButton);
+    logAnalyticsEventUseCase(AnalyticsEventType.shareButton);
     await _simpleShareNativePlugin.shareMessage(message);
   }
 
