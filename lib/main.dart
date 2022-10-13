@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movie/flavors/env_enum.dart';
@@ -11,6 +13,12 @@ import 'di/app_injector.dart';
 void mainCommon({Environment env = Environment.prod}) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  if (!kDebugMode) {
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  }
+  if(kDebugMode) {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  }
   final currentEnv = env.name;
   final jsonConfig = await readJson(currentEnv);
   final ConfigData configData = ConfigData.fromJson(jsonConfig);
@@ -26,4 +34,3 @@ Future<Map<String, dynamic>> readJson(String env) async {
   final Map<String, dynamic> data = await json.decode(response);
   return data;
 }
-
