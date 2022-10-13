@@ -4,6 +4,7 @@ import 'package:domain/usecase/get_movie_list_usecase.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/screen/home/home_screen.dart';
 import 'package:presentation/models/movie_model.dart';
+import 'package:presentation/utils/events.dart';
 import '../../enum/current_tab.dart';
 import '../details/details_screen.dart';
 import 'home_data.dart';
@@ -47,7 +48,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   void getTrendingData() async {
     _updateData(isLoading: true);
-    _logAnalyticsEventUseCase('trending_tab');
+    _logAnalyticsEventUseCase(AnalyticsEventType.trendingTab);
     final responseTrending = await _getMovieListUseCase(MovieType.trending);
     final List<MoviePresentation> moviesTrending =
         await _viewMapper.mapMovieDataToRequest(responseTrending);
@@ -57,7 +58,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   void getAnticipatedData() async {
     _updateData(isLoading: true);
-    _logAnalyticsEventUseCase('anticipated_tab');
+    _logAnalyticsEventUseCase(AnalyticsEventType.anticipatedTab);
     final responseAnticipated =
         await _getMovieListUseCase(MovieType.anticipated);
     final List<MoviePresentation> moviesAnticipated =
@@ -84,7 +85,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   @override
   void openDetailsPage(MoviePresentation movie) {
-    _logAnalyticsEventUseCase('on_movie_tap');
+    _logAnalyticsEventUseCase(AnalyticsEventType.onMovieTap);
     appNavigator.push(
       DetailsScreen.page(
         DetailsScreenArguments(movie: movie),
