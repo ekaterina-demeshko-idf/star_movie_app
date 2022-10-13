@@ -3,6 +3,7 @@ import 'package:domain/usecase/get_movie_list_usecase.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/screen/home/home_screen.dart';
 import 'package:presentation/models/movie_model.dart';
+import 'package:presentation/utils/events.dart';
 import '../../enum/current_tab.dart';
 import '../details/details_screen.dart';
 import 'home_data.dart';
@@ -11,7 +12,7 @@ import '../../mappers/presentation_view_mapper.dart';
 abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
   factory HomeBloc(
     GetMovieListUseCase getMovieListUseCase,
-      HomeViewMapper viewMapper,
+    HomeViewMapper viewMapper,
   ) =>
       _HomeBloc(
         getMovieListUseCase,
@@ -27,7 +28,6 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     implements HomeBloc {
   var _screenData = HomeData.init();
   final HomeViewMapper _viewMapper;
-
   final GetMovieListUseCase _getMovieListUseCase;
 
   _HomeBloc(
@@ -43,6 +43,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   void getTrendingData() async {
     _updateData(isLoading: true);
+    logAnalyticsEventUseCase(AnalyticsEventType.trendingTab);
     final responseTrending = await _getMovieListUseCase(MovieType.trending);
     final List<MoviePresentation> moviesTrending =
         await _viewMapper.mapMovieDataToRequest(responseTrending);
@@ -52,6 +53,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   void getAnticipatedData() async {
     _updateData(isLoading: true);
+    logAnalyticsEventUseCase(AnalyticsEventType.anticipatedTab);
     final responseAnticipated =
         await _getMovieListUseCase(MovieType.anticipated);
     final List<MoviePresentation> moviesAnticipated =
@@ -78,6 +80,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
 
   @override
   void openDetailsPage(MoviePresentation movie) {
+    logAnalyticsEventUseCase(AnalyticsEventType.onMovieTap);
     appNavigator.push(
       DetailsScreen.page(
         DetailsScreenArguments(movie: movie),

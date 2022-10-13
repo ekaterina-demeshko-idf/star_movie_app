@@ -1,16 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:presentation/utils/events.dart';
 import 'package:simple_share_native/simple_share_native.dart';
 import 'package:domain/model/cast/cast_with_images.dart';
 import 'package:presentation/base/bloc.dart';
 import 'details_data.dart';
 import 'details_screen.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 abstract class DetailsBloc extends Bloc<DetailsScreenArguments, DetailsData> {
-  factory DetailsBloc(
-    GetCastUseCase getCastUseCase,
-  ) =>
+  factory DetailsBloc(GetCastUseCase getCastUseCase) =>
       _DetailsBloc(getCastUseCase);
 
   Future<void> onShareButtonPressed(String message);
@@ -24,7 +21,9 @@ class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
 
   final _simpleShareNativePlugin = SimpleShareNative();
 
-  _DetailsBloc(this._getCastUseCase);
+  _DetailsBloc(
+    this._getCastUseCase,
+  );
 
   @override
   void initArgs(DetailsScreenArguments arguments) {
@@ -36,6 +35,7 @@ class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
 
   @override
   Future<void> onShareButtonPressed(String message) async {
+    logAnalyticsEventUseCase(AnalyticsEventType.shareButton);
     await _simpleShareNativePlugin.shareMessage(message);
   }
 

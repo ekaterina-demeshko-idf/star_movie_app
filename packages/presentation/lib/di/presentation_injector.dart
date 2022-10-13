@@ -1,4 +1,5 @@
-import 'package:domain/usecase/analytics_usecase.dart';
+import 'package:domain/usecase/analytics_event_usecase.dart';
+import 'package:domain/usecase/analytics_screen_usecase.dart';
 import 'package:domain/usecase/check_user_usecase.dart';
 import 'package:domain/usecase/facebook_auth_usecase.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
@@ -45,9 +46,7 @@ void _initHomeScreenModule() {
 
 void _initDetailsScreenModule() {
   GetIt.I.registerFactory<DetailsBloc>(
-    () => DetailsBloc(
-      GetIt.I.get<GetCastUseCase>(),
-    ),
+    () => DetailsBloc(GetIt.I.get<GetCastUseCase>()),
   );
 }
 
@@ -57,7 +56,6 @@ void _initLoginScreenModule() {
       GetIt.I.get<CheckUserUseCase>(),
       GetIt.I.get<GoogleAuthUseCase>(),
       GetIt.I.get<FacebookAuthUseCase>(),
-      GetIt.I.get<LogAnalyticsEventUseCase>(),
       GetIt.I.get<SaveCredentialsUseCase>(),
     ),
   );
@@ -65,7 +63,10 @@ void _initLoginScreenModule() {
 
 void _initAppModule() {
   GetIt.I.registerFactory<AppBloc>(
-    () => AppBloc(),
+    () => AppBloc(
+      GetIt.I.get<LogAnalyticsEventUseCase>(),
+      GetIt.I.get<LogAnalyticsScreenUseCase>(),
+    ),
   );
   GetIt.I.registerSingleton<AppNavigator>(
     AppNavigator(),

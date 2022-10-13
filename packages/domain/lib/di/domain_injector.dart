@@ -9,7 +9,8 @@ import '../repository/auth_repository.dart';
 import '../repository/tmdb_api_repository.dart';
 import '../repository/trakt_api_repository.dart';
 import '../services/analytics_service.dart';
-import '../usecase/analytics_usecase.dart';
+import '../usecase/analytics_event_usecase.dart';
+import '../usecase/analytics_screen_usecase.dart';
 import '../usecase/check_user_usecase.dart';
 import '../usecase/facebook_auth_usecase.dart';
 import '../usecase/get_movie_list_usecase.dart';
@@ -40,6 +41,11 @@ void _initUseCaseModule() {
   );
   GetIt.I.registerFactory<LogAnalyticsEventUseCase>(
     () => LogAnalyticsEventUseCase(
+      GetIt.I.get<AnalyticsService>(),
+    ),
+  );
+  GetIt.I.registerFactory<LogAnalyticsScreenUseCase>(
+    () => LogAnalyticsScreenUseCase(
       GetIt.I.get<AnalyticsService>(),
     ),
   );

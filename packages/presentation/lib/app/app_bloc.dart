@@ -1,6 +1,8 @@
+import 'package:domain/usecase/analytics_event_usecase.dart';
+import 'package:domain/usecase/analytics_screen_usecase.dart';
+import 'package:domain/utils/extensions/string_extension.dart';
 import 'package:flutter/widgets.dart';
 import 'package:collection/collection.dart';
-import 'package:presentation/screen/splash/splash_screen.dart';
 import '../base/bloc.dart';
 import '../enum/bottom_nav_bar_item.dart';
 import '../navigation/base_page.dart';
@@ -9,7 +11,14 @@ import '../screen/login/login_screen.dart';
 import 'data/app_data.dart';
 
 abstract class AppBloc extends Bloc {
-  factory AppBloc() => _AppBloc();
+  factory AppBloc(
+    LogAnalyticsEventUseCase logAnalyticsEventUseCase,
+    LogAnalyticsScreenUseCase logAnalyticsScreenUseCase,
+  ) =>
+      _AppBloc(
+        logAnalyticsEventUseCase,
+        logAnalyticsScreenUseCase,
+      );
 
   void handleRemoveRouteSettings(RouteSettings value);
 
@@ -19,8 +28,15 @@ abstract class AppBloc extends Bloc {
 }
 
 class _AppBloc extends BlocImpl implements AppBloc {
+  final LogAnalyticsEventUseCase _logAnalyticsEventUseCase;
+  final LogAnalyticsScreenUseCase _logAnalyticsScreenUseCase;
   final _appData = AppData.init();
   int _selectedIndex = 0;
+
+  _AppBloc(
+    this._logAnalyticsEventUseCase,
+    this._logAnalyticsScreenUseCase,
+  );
 
   @override
   int get selectedIndex => _selectedIndex;
@@ -29,6 +45,23 @@ class _AppBloc extends BlocImpl implements AppBloc {
   void initState() {
     super.initState();
     _initNavHandler();
+    _updateData();
+  }
+
+  @override
+  void onItemTapped(int index) {
+    _selectedIndex = index;
+    final type = BottomNavBarItem.values[index];
+    switch (type) {
+      case BottomNavBarItem.home:
+        _logAnalyticsEventUseCase('home_nav_bar');
+        _popAllAndPush(HomeScreen.page(HomeScreenArguments()));
+        break;
+      case BottomNavBarItem.profile:
+        _logAnalyticsEventUseCase('login_nav_bar');
+        _popAllAndPush(LoginScreen.page(LoginScreenArguments()));
+        break;
+    }
     _updateData();
   }
 
@@ -51,21 +84,6 @@ class _AppBloc extends BlocImpl implements AppBloc {
       popUntil: _popUntil,
       currentPage: _currentPage,
     );
-  }
-
-  @override
-  void onItemTapped(int index) {
-    _selectedIndex = index;
-    final type = BottomNavBarItem.values[index];
-    switch (type) {
-      case BottomNavBarItem.home:
-        _popAllAndPush(HomeScreen.page(HomeScreenArguments()));
-        break;
-      case BottomNavBarItem.profile:
-        _popAllAndPush(LoginScreen.page(LoginScreenArguments()));
-        break;
-    }
-    _updateData();
   }
 
   void _push(BasePage page) {
@@ -127,6 +145,9 @@ class _AppBloc extends BlocImpl implements AppBloc {
 
   void _updateData() {
     _appData.hideNavBar = _currentPage()!.hideNavBar;
+    if (_currentPage() != null) {
+      _logAnalyticsScreenUseCase(_currentPage()!.name.orEmpty);
+    }
     super.handleData(data: _appData);
   }
 }

@@ -17,6 +17,7 @@ dependencies:
   data:
     path: packages/data
   cupertino_icons: ^1.0.2
+  firebase_crashlytics: ^2.8.13
 
 dev_dependencies:
   flutter_test:
