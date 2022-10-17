@@ -38,6 +38,7 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
 
 class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     implements LoginBloc {
+  var _screenData = LoginData.init();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final CheckUserUseCase _checkUserUseCase;
@@ -53,13 +54,25 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   );
 
   @override
+  void initState() {
+    super.initState();
+    _updateData();
+  }
+
+  @override
   Future<void> onLogin() async {
     await logAnalyticsEventUseCase(AnalyticsEventType.authByLogin);
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
+    //if(valid) { //all the above} else {set login data valid to string(s)}
+    _screenData = _screenData.copyWith(
+        loginValidation: 'not implemented',
+        passwordValidation: 'not implemented');
     final UserModel user = UserModel(email, password);
     await _saveCredentialsUseCase(user);
+    print(_screenData.passwordValidation);
     bool isSuccess = await _checkUserUseCase(user);
+    _updateData();
     if (isSuccess) {
       _pushSuccessScreen();
     }
@@ -101,6 +114,13 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   void _pushSuccessScreen() {
     appNavigator.push(
       ProfileScreen.page(),
+    );
+  }
+
+  _updateData({bool? isLoading}) {
+    handleData(
+      data: _screenData,
+      isLoading: isLoading,
     );
   }
 

@@ -19,9 +19,7 @@ class MovieListWidget extends StatefulWidget {
   const MovieListWidget({
     Key? key,
     required this.currentTab,
-  }) : super(
-          key: key,
-        );
+  }) : super(key: key);
 
   @override
   State<MovieListWidget> createState() => _MovieListWidgetState();
