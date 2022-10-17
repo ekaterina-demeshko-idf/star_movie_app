@@ -1,5 +1,4 @@
 import 'package:domain/enum/validation_error_type.dart';
-import 'package:domain/model/login_model.dart';
 import 'package:domain/model/login_validation_model.dart';
 import 'package:domain/model/user/user_model.dart';
 import 'package:domain/utils/extensions/string_extension.dart';
@@ -37,6 +36,10 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
 
   TextEditingController get passwordController;
 
+  ValidationErrorType? get emailValidation;
+
+  ValidationErrorType? get passwordValidation;
+
   Future<void> onLogin();
 
   Future<void> authByGoogle();
@@ -46,9 +49,12 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
 
 class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     implements LoginBloc {
-  var _screenData = LoginData.init();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  @override
+  ValidationErrorType? emailValidation;
+  @override
+  ValidationErrorType? passwordValidation;
   final _formKey = GlobalKey<FormState>();
   final CheckUserUseCase _checkUserUseCase;
   final GoogleAuthUseCase _googleAuthUseCase;
@@ -65,29 +71,16 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   );
 
   @override
-  void initState() {
-    super.initState();
-    _updateData();
-  }
-
-  @override
   Future<void> onLogin() async {
     await logAnalyticsEventUseCase(AnalyticsEventType.authByLogin);
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
-    final LoginValidationModel? validationResponse =
-        _loginValidationUseCase(LoginModel(
-      email,
-      password,
-    ));
-    _screenData = _screenData.copyWith(
-      loginValidation: validationResponse?.emailValidation,
-      passwordValidation: validationResponse?.passwordValidation,
-    );
-    _updateData();
-    _formKey.currentState!.validate();
-    _updateData();
     final UserModel user = UserModel(email, password);
+    final LoginValidationModel? validationResponse =
+        _loginValidationUseCase(user);
+    emailValidation = validationResponse?.emailValidation;
+    passwordValidation = validationResponse?.passwordValidation;
+    _formKey.currentState!.validate();
     await _saveCredentialsUseCase(user);
     bool isSuccess = await _checkUserUseCase(user);
     if (isSuccess) {
@@ -131,13 +124,6 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   void _pushSuccessScreen() {
     appNavigator.push(
       ProfileScreen.page(),
-    );
-  }
-
-  _updateData({bool? isLoading}) {
-    handleData(
-      data: _screenData,
-      isLoading: isLoading,
     );
   }
 
