@@ -1,6 +1,8 @@
+import 'package:domain/enum/validation_error_type.dart';
+
 class LoginData {
-  String? loginValidation;
-  String? passwordValidation;
+  ValidationErrorType? loginValidation;
+  ValidationErrorType? passwordValidation;
 
   LoginData({
     this.loginValidation,
@@ -8,8 +10,8 @@ class LoginData {
   });
 
   factory LoginData.init() => LoginData(
-        loginValidation: 'no',
-        passwordValidation: 'no',
+        loginValidation: null,
+        passwordValidation: null,
       );
 
   LoginData copy() => LoginData(
@@ -18,8 +20,8 @@ class LoginData {
       );
 
   LoginData copyWith({
-    String? loginValidation,
-    String? passwordValidation,
+    ValidationErrorType? loginValidation,
+    ValidationErrorType? passwordValidation,
   }) =>
       LoginData(
         loginValidation: loginValidation ?? this.loginValidation,

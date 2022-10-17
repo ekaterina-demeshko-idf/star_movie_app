@@ -1,4 +1,4 @@
-import 'package:domain/utils/extensions/string_extension.dart';
+import 'package:domain/enum/validation_error_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:presentation/utils/colors.dart';
@@ -44,6 +44,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
         builder: (context, snapshot) {
           final data = snapshot.data;
           final screenData = data?.data;
+          final l10n = AppLocalizations.of(context)!;
           if (data != null) {
             return Scaffold(
               backgroundColor: PrimaryColors.primaryBackgroundColor,
@@ -51,7 +52,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                 backgroundColor: PrimaryColors.primaryBackgroundColor,
                 centerTitle: false,
                 title: Text(
-                  AppLocalizations.of(context)!.titleProfile,
+                  l10n.titleProfile,
                   style: AppTextStyles.headerStyle(Dimens.size24),
                   textAlign: TextAlign.left,
                 ),
@@ -59,7 +60,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                   TextButton(
                       onPressed: () {},
                       child: Text(
-                        AppLocalizations.of(context)!.signUp,
+                        l10n.signUp,
                         style: AppTextStyles.linkStyle(Dimens.size16),
                       ))
                 ],
@@ -71,73 +72,88 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.username,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size12),
-                              textAlign: TextAlign.left,
-                            ),
-                            const SizedBox(height: Dimens.size10),
-                            TextFormField(
-                              validator: (String? value) {
-                                return (value != null && value.contains('@'))
-                                    ? screenData?.loginValidation
-                                    : 'null';
-                              },
-                              controller: bloc.emailController,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size16),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(Dimens.size4),
-                                  borderSide: BorderSide.none,
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.person_outline,
-                                  color: PrimaryColors.whiteWithOpacity45,
-                                ),
-                                filled: true,
-                                fillColor: PrimaryColors.backgroundTextField,
+                        Form(
+                          key: bloc.formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                l10n.username,
+                                style: AppTextStyles.descriptionStyle(
+                                    Dimens.size12),
+                                textAlign: TextAlign.left,
                               ),
-                            ),
-                            const SizedBox(height: Dimens.size20),
-                            Text(
-                              AppLocalizations.of(context)!.password,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size12),
-                              textAlign: TextAlign.left,
-                            ),
-                            const SizedBox(height: Dimens.size10),
-                            TextFormField(
-                              validator: (String? value) {
-                                return (value != null && value.contains('@'))
-                                    ? screenData?.passwordValidation //AppLocaliz(context)!.passwordError
-                                    : null;
-                              },
-                              controller: bloc.passwordController,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size16),
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(Dimens.size4),
-                                  borderSide: BorderSide.none,
+                              const SizedBox(height: Dimens.size10),
+                              TextFormField(
+                                validator: (_) {
+                                  if (screenData?.loginValidation ==
+                                      ValidationErrorType.requiredTypeError) {
+                                    return l10n.emailRequired;
+                                  } else if (screenData?.loginValidation ==
+                                      ValidationErrorType.minLengthTypeError) {
+                                    return l10n.emailInvalid;
+                                  } else {
+                                    return '';
+                                  }
+                                },
+                                controller: bloc.emailController,
+                                style: AppTextStyles.descriptionStyle(
+                                    Dimens.size16),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(Dimens.size4),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  prefixIcon: const Icon(
+                                    Icons.person_outline,
+                                    color: PrimaryColors.whiteWithOpacity45,
+                                  ),
+                                  filled: true,
+                                  fillColor: PrimaryColors.backgroundTextField,
                                 ),
-                                prefixIcon: const Icon(
-                                  Icons.lock_outlined,
-                                  color: PrimaryColors.whiteWithOpacity45,
-                                ),
-                                filled: true,
-                                fillColor: PrimaryColors.backgroundTextField,
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: Dimens.size20),
+                              Text(
+                                l10n.password,
+                                style: AppTextStyles.descriptionStyle(
+                                    Dimens.size12),
+                                textAlign: TextAlign.left,
+                              ),
+                              const SizedBox(height: Dimens.size10),
+                              TextFormField(
+                                validator: (_) {
+                                  if (screenData?.passwordValidation ==
+                                      ValidationErrorType.requiredTypeError) {
+                                    return l10n.passwordRequired;
+                                  } else if (screenData?.passwordValidation ==
+                                      ValidationErrorType.regexTypeError) {
+                                    return l10n.passwordInvalid;
+                                  } else {
+                                    return '';
+                                  }
+                                },
+                                controller: bloc.passwordController,
+                                style: AppTextStyles.descriptionStyle(
+                                    Dimens.size16),
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(Dimens.size4),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  prefixIcon: const Icon(
+                                    Icons.lock_outlined,
+                                    color: PrimaryColors.whiteWithOpacity45,
+                                  ),
+                                  filled: true,
+                                  fillColor: PrimaryColors.backgroundTextField,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: Dimens.size24,
@@ -152,7 +168,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                             ),
                           ),
                           child: Text(
-                            AppLocalizations.of(context)!.login,
+                            l10n.login,
                             style: AppTextStyles.headerStyle(Dimens.size16),
                           ),
                         ),

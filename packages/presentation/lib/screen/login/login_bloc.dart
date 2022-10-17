@@ -1,3 +1,6 @@
+import 'package:domain/enum/validation_error_type.dart';
+import 'package:domain/model/login_model.dart';
+import 'package:domain/model/login_validation_model.dart';
 import 'package:domain/model/user/user_model.dart';
 import 'package:domain/utils/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +9,7 @@ import 'package:domain/usecase/check_user_usecase.dart';
 import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/facebook_auth_usecase.dart';
 import 'package:domain/usecase/save_credentials_usecase.dart';
+import 'package:domain/usecase/login_validation_usecase.dart';
 import '../../utils/events.dart';
 import '../profile/profile_screen.dart';
 import 'login_data.dart';
@@ -17,15 +21,19 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
     GoogleAuthUseCase googleAuthUseCase,
     FacebookAuthUseCase facebookAuthUseCase,
     SaveCredentialsUseCase saveCredentialsUseCase,
+    LoginValidationUseCase loginValidationUseCase,
   ) =>
       _LoginBloc(
         checkUserUseCase,
         googleAuthUseCase,
         facebookAuthUseCase,
         saveCredentialsUseCase,
+        loginValidationUseCase,
       );
 
   TextEditingController get emailController;
+
+  GlobalKey<FormState> get formKey;
 
   TextEditingController get passwordController;
 
@@ -41,16 +49,19 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   var _screenData = LoginData.init();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   final CheckUserUseCase _checkUserUseCase;
   final GoogleAuthUseCase _googleAuthUseCase;
   final FacebookAuthUseCase _facebookAuthUseCase;
   final SaveCredentialsUseCase _saveCredentialsUseCase;
+  final LoginValidationUseCase _loginValidationUseCase;
 
   _LoginBloc(
     this._checkUserUseCase,
     this._googleAuthUseCase,
     this._facebookAuthUseCase,
     this._saveCredentialsUseCase,
+    this._loginValidationUseCase,
   );
 
   @override
@@ -64,15 +75,21 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     await logAnalyticsEventUseCase(AnalyticsEventType.authByLogin);
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
-    //if(valid) { //all the above} else {set login data valid to string(s)}
+    final LoginValidationModel? validationResponse =
+        _loginValidationUseCase(LoginModel(
+      email,
+      password,
+    ));
     _screenData = _screenData.copyWith(
-        loginValidation: 'not implemented',
-        passwordValidation: 'not implemented');
+      loginValidation: validationResponse?.emailValidation,
+      passwordValidation: validationResponse?.passwordValidation,
+    );
+    _updateData();
+    _formKey.currentState!.validate();
+    _updateData();
     final UserModel user = UserModel(email, password);
     await _saveCredentialsUseCase(user);
-    print(_screenData.passwordValidation);
     bool isSuccess = await _checkUserUseCase(user);
-    _updateData();
     if (isSuccess) {
       _pushSuccessScreen();
     }
@@ -129,4 +146,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
 
   @override
   TextEditingController get passwordController => _passwordController;
+
+  @override
+  GlobalKey<FormState> get formKey => _formKey;
 }
