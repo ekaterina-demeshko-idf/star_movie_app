@@ -1,5 +1,6 @@
 import 'package:domain/validator/validator.dart';
 import 'package:domain/enum/validation_error_type.dart';
+
 abstract class UseCase<Output> {
   Output call();
 }
@@ -13,7 +14,7 @@ abstract class BaseValidationUseCase<Params, Output>
   @override
   Output call(Params params);
 
-  ValidationErrorType? getEnumByValidator(Validator v) {
+  ValidationErrorType? getEnumByValidator(Validator? v) {
     if (v is RequiredField) {
       return ValidationErrorType.requiredTypeError;
     }

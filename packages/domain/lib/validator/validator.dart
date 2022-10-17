@@ -6,7 +6,7 @@ class RequiredField implements Validator {
   @override
   bool? isValid(Object a) {
     if (a is String) {
-      a.isNotEmpty ? true : false;
+      return a.isNotEmpty ? true : false;
     }
     return null;
   }
@@ -20,7 +20,7 @@ class MinLength implements Validator {
   @override
   bool? isValid(Object a) {
     if (a is String) {
-      a.length >= minLength ? true : false;
+      return a.length >= minLength ? true : false;
     }
     return null;
   }

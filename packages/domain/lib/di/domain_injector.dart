@@ -3,6 +3,7 @@ import 'package:domain/repository/remote_db_repository.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
 import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
+import 'package:domain/usecase/login_validation_usecase.dart';
 import 'package:domain/usecase/save_credentials_usecase.dart';
 import 'package:get_it/get_it.dart';
 import '../repository/auth_repository.dart';
@@ -22,6 +23,9 @@ void initDomainInjector() {
 void _initUseCaseModule() {
   GetIt.I.registerFactory<ImitateApiCallUseCase>(
     () => ImitateApiCallUseCase(),
+  );
+  GetIt.I.registerFactory<LoginValidationUseCase>(
+    () => LoginValidationUseCase(),
   );
   GetIt.I.registerFactory<GetMovieListUseCase>(
     () => GetMovieListUseCase(
