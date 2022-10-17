@@ -1,18 +1,12 @@
-enum TypeError {
-  requiredTypeError,
-  minLengthTypeError,
-  regexTypeError,
-}
-
 abstract class Validator {
-  TypeError? isValid(Object a);
+  bool? isValid(Object a);
 }
 
 class RequiredField implements Validator {
   @override
-  TypeError? isValid(Object a) {
+  bool? isValid(Object a) {
     if (a is String) {
-      a.isNotEmpty ? null : TypeError.requiredTypeError;
+      a.isNotEmpty ? true : false;
     }
     return null;
   }
@@ -24,9 +18,9 @@ class MinLength implements Validator {
   MinLength(this.minLength);
 
   @override
-  TypeError? isValid(Object a) {
+  bool? isValid(Object a) {
     if (a is String) {
-      a.length >= minLength ? null : TypeError.minLengthTypeError;
+      a.length >= minLength ? true : false;
     }
     return null;
   }
@@ -38,11 +32,9 @@ class RegEx implements Validator {
   RegEx(this.regExPattern);
 
   @override
-  TypeError? isValid(Object a) {
+  bool? isValid(Object a) {
     if (a is String) {
-      return RegExp(regExPattern).allMatches(a).isNotEmpty
-          ? null
-          : TypeError.regexTypeError;
+      return RegExp(regExPattern).allMatches(a).isNotEmpty ? true : false;
     }
     return null;
   }
