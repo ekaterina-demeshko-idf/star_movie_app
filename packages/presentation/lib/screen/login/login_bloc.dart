@@ -108,8 +108,10 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
 
   @override
   void onChangedTextForm() {
-    validationModel?.password = null;
-    validationModel?.email = null;
+    validationModel = ValidationModel(
+      null,
+      null,
+    );
     formKey.currentState?.validate();
   }
 
