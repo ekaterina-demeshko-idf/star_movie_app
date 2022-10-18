@@ -19,7 +19,6 @@ import '../usecase/get_movie_list_usecase.dart';
 
 void initDomainInjector() {
   _initUseCaseModule();
-  // _initValidatorModule();
 }
 
 void _initUseCaseModule() {
@@ -27,7 +26,20 @@ void _initUseCaseModule() {
     () => ImitateApiCallUseCase(),
   );
   GetIt.I.registerFactory<LoginValidationUseCase>(
-    () => LoginValidationUseCase(),
+    () {
+      const String passwordValidationRegEx = '^[A-Za-z0-9]{7,}\$';
+      const int minLength = 8;
+      return LoginValidationUseCase(
+        [
+          RequiredField(),
+          MinLength(minLength),
+        ],
+        [
+          RequiredField(),
+          RegEx(passwordValidationRegEx),
+        ],
+      );
+    },
   );
   GetIt.I.registerFactory<GetMovieListUseCase>(
     () => GetMovieListUseCase(
@@ -67,10 +79,3 @@ void _initUseCaseModule() {
     ),
   );
 }
-
-// void _initValidatorModule() {
-//   //GetIt.I.registerFactory<Validator>(() => Validator());
-//   GetIt.I.registerFactory<RequiredField>(() => RequiredField());
-//   GetIt.I.registerFactory<MinLength>(() => MinLength());
-//   GetIt.I.registerFactory<RegEx>(() => RegEx());
-// }

@@ -7,22 +7,16 @@ import 'package:domain/enum/validation_error_type.dart';
 
 class LoginValidationUseCase
     extends BaseValidationUseCase<UserModel, Future<LoginValidationError?>?> {
- // final RequiredField _requiredField;
+  final List emailValidationArr;
+  final List passwordValidationArr;
+
+  LoginValidationUseCase(
+    this.emailValidationArr,
+    this.passwordValidationArr,
+  );
 
   @override
   Future<LoginValidationError?> call(UserModel params) async {
-    const String passwordValidationRegEx = '^[A-Za-z0-9]{7,}\$';
-    const int minLength = 8;
-
-    List emailValidationArr = [
-      RequiredField(),
-      MinLength(minLength),
-    ];
-
-    List passwordValidationArr = [
-      RequiredField(),
-      RegEx(passwordValidationRegEx),
-    ];
 
     final Validator? emailFailed = emailValidationArr
         .firstWhereOrNull((element) => !element.isValid(params.email));
