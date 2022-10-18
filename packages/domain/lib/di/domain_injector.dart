@@ -5,6 +5,7 @@ import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
 import 'package:domain/usecase/login_validation_usecase.dart';
 import 'package:domain/usecase/save_credentials_usecase.dart';
+import 'package:domain/validator/validator.dart';
 import 'package:get_it/get_it.dart';
 import '../repository/auth_repository.dart';
 import '../repository/tmdb_api_repository.dart';
@@ -18,6 +19,7 @@ import '../usecase/get_movie_list_usecase.dart';
 
 void initDomainInjector() {
   _initUseCaseModule();
+  // _initValidatorModule();
 }
 
 void _initUseCaseModule() {
@@ -65,3 +67,10 @@ void _initUseCaseModule() {
     ),
   );
 }
+
+// void _initValidatorModule() {
+//   //GetIt.I.registerFactory<Validator>(() => Validator());
+//   GetIt.I.registerFactory<RequiredField>(() => RequiredField());
+//   GetIt.I.registerFactory<MinLength>(() => MinLength());
+//   GetIt.I.registerFactory<RegEx>(() => RegEx());
+// }

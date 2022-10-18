@@ -5,9 +5,9 @@ import 'package:presentation/screen/home/home_screen.dart';
 import 'package:presentation/models/movie_model.dart';
 import 'package:presentation/utils/events.dart';
 import '../../enum/current_tab.dart';
+import '../../mappers/home_view_mapper.dart';
 import '../details/details_screen.dart';
 import 'home_data.dart';
-import '../../mappers/home_view_mapper.dart';
 
 abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
   factory HomeBloc(

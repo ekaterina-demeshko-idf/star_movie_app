@@ -7,6 +7,8 @@ import 'package:domain/enum/validation_error_type.dart';
 
 class LoginValidationUseCase
     extends BaseValidationUseCase<UserModel, Future<LoginValidationError?>?> {
+ // final RequiredField _requiredField;
+
   @override
   Future<LoginValidationError?> call(UserModel params) async {
     const String passwordValidationRegEx = '^[A-Za-z0-9]{7,}\$';

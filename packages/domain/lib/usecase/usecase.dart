@@ -11,9 +11,6 @@ abstract class UseCaseParams<Params, Output> {
 
 abstract class BaseValidationUseCase<Params, Output>
     implements UseCaseParams<Params, Output> {
-  @override
-  Output call(Params params);
-
   ValidationErrorType? getEnumByValidator(Validator? v) {
     if (v is RequiredField) {
       return ValidationErrorType.requiredTypeError;
