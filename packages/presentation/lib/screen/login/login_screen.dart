@@ -98,6 +98,9 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                                   return null;
                                 }
                               },
+                              onChanged: (_) {
+                                bloc.onChanged();
+                              },
                               controller: bloc.emailController,
                               style:
                                   AppTextStyles.descriptionStyle(Dimens.size16),
@@ -136,6 +139,9 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                                 } else {
                                   return null;
                                 }
+                              },
+                              onChanged: (_) {
+                                bloc.onChanged();
                               },
                               controller: bloc.passwordController,
                               style:

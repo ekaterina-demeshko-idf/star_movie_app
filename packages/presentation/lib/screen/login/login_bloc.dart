@@ -42,6 +42,8 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
 
   Future<void> onLogin();
 
+  void onChanged();
+
   Future<void> authByGoogle();
 
   Future<void> authByFacebook();
@@ -94,6 +96,13 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       await _saveCredentialsUseCase(user);
       _pushSuccessScreen();
     }
+  }
+
+  @override
+  void onChanged() {
+    passwordValidation = null;
+    emailValidation = null;
+    formKey.currentState?.validate();
   }
 
   @override
