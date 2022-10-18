@@ -85,18 +85,11 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                             const SizedBox(height: Dimens.size10),
                             TextFormField(
                               validator: (_) {
-                                if (bloc.emailValidation ==
-                                    ValidationErrorType.requiredTypeError) {
-                                  return l10n.emailRequired;
-                                } else if (bloc.emailValidation ==
-                                    ValidationErrorType.minLengthTypeError) {
-                                  return l10n.emailLength;
-                                } else if (bloc.emailValidation ==
-                                    ValidationErrorType.invalidValue) {
-                                  return l10n.emailInvalid;
-                                } else {
-                                  return null;
-                                }
+                                return bloc.errorViewMapper
+                                    .mapEmailErrorToMessage(
+                                  context,
+                                  bloc.emailValidation,
+                                );
                               },
                               onChanged: (_) {
                                 bloc.onChanged();
@@ -128,17 +121,11 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                             const SizedBox(height: Dimens.size10),
                             TextFormField(
                               validator: (_) {
-                                if (bloc.passwordValidation ==
-                                    ValidationErrorType.requiredTypeError) {
-                                  return l10n.passwordRequired;
-                                } else if (bloc.passwordValidation ==
-                                        ValidationErrorType.regexTypeError ||
-                                    bloc.passwordValidation ==
-                                        ValidationErrorType.invalidValue) {
-                                  return l10n.passwordInvalid;
-                                } else {
-                                  return null;
-                                }
+                                return bloc.errorViewMapper
+                                    .mapPasswordErrorToMessage(
+                                  context,
+                                  bloc.passwordValidation,
+                                );
                               },
                               onChanged: (_) {
                                 bloc.onChanged();

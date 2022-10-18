@@ -9,6 +9,7 @@ import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/facebook_auth_usecase.dart';
 import 'package:domain/usecase/save_credentials_usecase.dart';
 import 'package:domain/usecase/login_validation_usecase.dart';
+import 'package:presentation/mappers/error_view_mapper.dart';
 import '../../utils/events.dart';
 import '../profile/profile_screen.dart';
 import 'login_data.dart';
@@ -21,6 +22,7 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
     FacebookAuthUseCase facebookAuthUseCase,
     SaveCredentialsUseCase saveCredentialsUseCase,
     LoginValidationUseCase loginValidationUseCase,
+    ErrorViewMapper errorViewMapper,
   ) =>
       _LoginBloc(
         checkUserUseCase,
@@ -28,6 +30,7 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
         facebookAuthUseCase,
         saveCredentialsUseCase,
         loginValidationUseCase,
+        errorViewMapper,
       );
 
   TextEditingController get emailController;
@@ -47,6 +50,8 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
   Future<void> authByGoogle();
 
   Future<void> authByFacebook();
+
+  ErrorViewMapper get errorViewMapper;
 }
 
 class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
@@ -63,6 +68,9 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   final FacebookAuthUseCase _facebookAuthUseCase;
   final SaveCredentialsUseCase _saveCredentialsUseCase;
   final LoginValidationUseCase _loginValidationUseCase;
+  final ErrorViewMapper _errorViewMapper;
+  @override
+  ErrorViewMapper get errorViewMapper => _errorViewMapper;
 
   _LoginBloc(
     this._checkUserUseCase,
@@ -70,6 +78,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     this._facebookAuthUseCase,
     this._saveCredentialsUseCase,
     this._loginValidationUseCase,
+    this._errorViewMapper,
   );
 
   @override

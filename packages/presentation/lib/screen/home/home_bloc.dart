@@ -7,7 +7,7 @@ import 'package:presentation/utils/events.dart';
 import '../../enum/current_tab.dart';
 import '../details/details_screen.dart';
 import 'home_data.dart';
-import '../../mappers/presentation_view_mapper.dart';
+import '../../mappers/home_view_mapper.dart';
 
 abstract class HomeBloc extends Bloc<HomeScreenArguments, HomeData> {
   factory HomeBloc(
