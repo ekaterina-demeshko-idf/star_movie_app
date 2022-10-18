@@ -39,3 +39,16 @@ class RegEx implements Validator {
     return null;
   }
 }
+
+class UserExist implements Validator {
+  bool isExist;
+
+  UserExist(this.isExist);
+
+  @override
+  bool? isValid(Object a) {
+    return isExist;
+  }
+}
+
+

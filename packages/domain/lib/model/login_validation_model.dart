@@ -1,10 +1,10 @@
 import '../enum/validation_error_type.dart';
 
-class LoginValidationModel {
+class LoginValidationError {
   final ValidationErrorType? emailValidation;
   final ValidationErrorType? passwordValidation;
 
-  LoginValidationModel(
+  LoginValidationError(
     this.emailValidation,
     this.passwordValidation,
   );
