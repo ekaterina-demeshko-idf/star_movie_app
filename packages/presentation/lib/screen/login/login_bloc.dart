@@ -71,19 +71,27 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   );
 
   @override
+  TextEditingController get emailController => _emailController;
+
+  @override
+  TextEditingController get passwordController => _passwordController;
+
+  @override
+  GlobalKey<FormState> get formKey => _formKey;
+
+  @override
   Future<void> onLogin() async {
     await logAnalyticsEventUseCase(AnalyticsEventType.authByLogin);
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
     final UserModel user = UserModel(email, password);
-    final LoginValidationModel? validationResponse =
-        _loginValidationUseCase(user);
+    final LoginValidationError? validationResponse =
+        await _loginValidationUseCase(user);
     emailValidation = validationResponse?.emailValidation;
     passwordValidation = validationResponse?.passwordValidation;
-    _formKey.currentState!.validate();
-    await _saveCredentialsUseCase(user);
-    bool isSuccess = await _checkUserUseCase(user);
+    bool isSuccess = _formKey.currentState?.validate() ?? false;
     if (isSuccess) {
+      await _saveCredentialsUseCase(user);
       _pushSuccessScreen();
     }
   }
@@ -98,9 +106,9 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       user.email.orEmpty,
       user.password.orEmpty,
     );
-    await _saveCredentialsUseCase(userModel);
     bool isSuccess = await _checkUserUseCase(userModel);
     if (isSuccess) {
+      await _saveCredentialsUseCase(userModel);
       _pushSuccessScreen();
     }
   }
@@ -126,13 +134,4 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       ProfileScreen.page(),
     );
   }
-
-  @override
-  TextEditingController get emailController => _emailController;
-
-  @override
-  TextEditingController get passwordController => _passwordController;
-
-  @override
-  GlobalKey<FormState> get formKey => _formKey;
 }

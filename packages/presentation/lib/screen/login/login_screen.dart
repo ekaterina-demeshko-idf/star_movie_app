@@ -90,6 +90,9 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                                   return l10n.emailRequired;
                                 } else if (bloc.emailValidation ==
                                     ValidationErrorType.minLengthTypeError) {
+                                  return l10n.emailLength;
+                                } else if (bloc.emailValidation ==
+                                    ValidationErrorType.invalidValue) {
                                   return l10n.emailInvalid;
                                 } else {
                                   return null;
@@ -126,7 +129,9 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                                     ValidationErrorType.requiredTypeError) {
                                   return l10n.passwordRequired;
                                 } else if (bloc.passwordValidation ==
-                                    ValidationErrorType.regexTypeError) {
+                                        ValidationErrorType.regexTypeError ||
+                                    bloc.passwordValidation ==
+                                        ValidationErrorType.invalidValue) {
                                   return l10n.passwordInvalid;
                                 } else {
                                   return null;

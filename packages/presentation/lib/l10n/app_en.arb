@@ -20,7 +20,8 @@
   "passwordRequired": "Password is required",
   "emailRequired": "Login is required",
   "passwordInvalid": "Invalid password",
-  "emailInvalid": "Login field should be at least 8 symbols",
+  "emailLength": "Login field should be at least 8 symbols",
+  "emailInvalid": "Invalid login",
   "share": "Look, what movie I found! \nhttps://www.themoviedb.org/movie/{id}?language=eng",
   "@share": {
       "placeholders": {
