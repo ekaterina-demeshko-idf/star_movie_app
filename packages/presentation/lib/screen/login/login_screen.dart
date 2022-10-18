@@ -1,6 +1,6 @@
-import 'package:domain/enum/validation_error_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:presentation/mappers/login_error_view_mapper.dart';
 import 'package:presentation/utils/colors.dart';
 import 'package:presentation/utils/dimens.dart';
 import 'package:presentation/utils/text_styles.dart';
@@ -37,6 +37,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
+  final loginErrorViewMapper = LoginErrorViewMapper();
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<BlocData<LoginData?>>(
@@ -54,13 +56,10 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                 textAlign: TextAlign.left,
               ),
               actions: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    l10n.signUp,
-                    style: AppTextStyles.linkStyle(Dimens.size16),
-                  ),
-                )
+                Text(
+                  l10n.signUp,
+                  style: AppTextStyles.linkStyle(Dimens.size16),
+                ),
               ],
             ),
             body: SingleChildScrollView(
@@ -85,14 +84,14 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                             const SizedBox(height: Dimens.size10),
                             TextFormField(
                               validator: (_) {
-                                return bloc.errorViewMapper
+                                return loginErrorViewMapper
                                     .mapEmailErrorToMessage(
                                   context,
-                                  bloc.emailValidation,
+                                  bloc.validationModel?.email,
                                 );
                               },
                               onChanged: (_) {
-                                bloc.onChanged();
+                                bloc.onChangedTextForm();
                               },
                               controller: bloc.emailController,
                               style:
@@ -121,14 +120,14 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                             const SizedBox(height: Dimens.size10),
                             TextFormField(
                               validator: (_) {
-                                return bloc.errorViewMapper
+                                return loginErrorViewMapper
                                     .mapPasswordErrorToMessage(
                                   context,
-                                  bloc.passwordValidation,
+                                  bloc.validationModel?.password,
                                 );
                               },
                               onChanged: (_) {
-                                bloc.onChanged();
+                                bloc.onChangedTextForm();
                               },
                               controller: bloc.passwordController,
                               style:

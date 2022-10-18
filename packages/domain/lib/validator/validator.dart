@@ -1,14 +1,14 @@
 abstract class Validator {
-  bool? isValid(Object a);
+  bool isValid(Object a);
 }
 
 class RequiredField implements Validator {
   @override
-  bool? isValid(Object a) {
+  bool isValid(Object a) {
     if (a is String) {
       return a.isNotEmpty ? true : false;
     }
-    return null;
+    return false;
   }
 }
 
@@ -18,11 +18,11 @@ class MinLength implements Validator {
   MinLength(this.minLength);
 
   @override
-  bool? isValid(Object a) {
+  bool isValid(Object a) {
     if (a is String) {
       return a.length >= minLength ? true : false;
     }
-    return null;
+    return false;
   }
 }
 
@@ -32,23 +32,10 @@ class RegEx implements Validator {
   RegEx(this.regExPattern);
 
   @override
-  bool? isValid(Object a) {
+  bool isValid(Object a) {
     if (a is String) {
       return RegExp(regExPattern).allMatches(a).isNotEmpty ? true : false;
     }
-    return null;
+    return false;
   }
 }
-
-class UserExist implements Validator {
-  bool isExist;
-
-  UserExist(this.isExist);
-
-  @override
-  bool? isValid(Object a) {
-    return isExist;
-  }
-}
-
-

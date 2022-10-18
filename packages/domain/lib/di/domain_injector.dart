@@ -25,9 +25,7 @@ void _initUseCaseModule() {
     () => ImitateApiCallUseCase(),
   );
   GetIt.I.registerFactory<LoginValidationUseCase>(
-    () => LoginValidationUseCase(
-      GetIt.I.get<CheckUserUseCase>(),
-    ),
+    () => LoginValidationUseCase(),
   );
   GetIt.I.registerFactory<GetMovieListUseCase>(
     () => GetMovieListUseCase(

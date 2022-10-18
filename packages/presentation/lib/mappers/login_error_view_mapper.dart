@@ -2,8 +2,8 @@ import 'package:domain/enum/validation_error_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-abstract class ErrorViewMapper {
-  factory ErrorViewMapper() => _ErrorViewMapper();
+abstract class LoginErrorViewMapper {
+  factory LoginErrorViewMapper() => _ErrorViewMapper();
 
   String? mapEmailErrorToMessage(
     BuildContext context,
@@ -16,7 +16,7 @@ abstract class ErrorViewMapper {
   );
 }
 
-class _ErrorViewMapper implements ErrorViewMapper {
+class _ErrorViewMapper implements LoginErrorViewMapper {
   @override
   String? mapPasswordErrorToMessage(
     BuildContext context,

@@ -1,15 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:domain/enum/validation_error_type.dart';
 import 'package:domain/model/login_validation_model.dart';
 import 'package:domain/model/user/user_model.dart';
 import 'package:domain/utils/extensions/string_extension.dart';
-import 'package:flutter/material.dart';
-import 'package:presentation/base/bloc.dart';
 import 'package:domain/usecase/check_user_usecase.dart';
 import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/facebook_auth_usecase.dart';
 import 'package:domain/usecase/save_credentials_usecase.dart';
 import 'package:domain/usecase/login_validation_usecase.dart';
-import 'package:presentation/mappers/error_view_mapper.dart';
+import 'package:presentation/base/bloc.dart';
+import 'package:presentation/models/validation_model.dart';
 import '../../utils/events.dart';
 import '../profile/profile_screen.dart';
 import 'login_data.dart';
@@ -22,7 +22,6 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
     FacebookAuthUseCase facebookAuthUseCase,
     SaveCredentialsUseCase saveCredentialsUseCase,
     LoginValidationUseCase loginValidationUseCase,
-    ErrorViewMapper errorViewMapper,
   ) =>
       _LoginBloc(
         checkUserUseCase,
@@ -30,7 +29,6 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
         facebookAuthUseCase,
         saveCredentialsUseCase,
         loginValidationUseCase,
-        errorViewMapper,
       );
 
   TextEditingController get emailController;
@@ -39,38 +37,27 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
 
   TextEditingController get passwordController;
 
-  ValidationErrorType? get emailValidation;
-
-  ValidationErrorType? get passwordValidation;
+  ValidationModel? get validationModel;
 
   Future<void> onLogin();
 
-  void onChanged();
+  void onChangedTextForm();
 
   Future<void> authByGoogle();
 
   Future<void> authByFacebook();
-
-  ErrorViewMapper get errorViewMapper;
 }
 
 class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     implements LoginBloc {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  @override
-  ValidationErrorType? emailValidation;
-  @override
-  ValidationErrorType? passwordValidation;
   final _formKey = GlobalKey<FormState>();
   final CheckUserUseCase _checkUserUseCase;
   final GoogleAuthUseCase _googleAuthUseCase;
   final FacebookAuthUseCase _facebookAuthUseCase;
   final SaveCredentialsUseCase _saveCredentialsUseCase;
   final LoginValidationUseCase _loginValidationUseCase;
-  final ErrorViewMapper _errorViewMapper;
-  @override
-  ErrorViewMapper get errorViewMapper => _errorViewMapper;
 
   _LoginBloc(
     this._checkUserUseCase,
@@ -78,8 +65,10 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     this._facebookAuthUseCase,
     this._saveCredentialsUseCase,
     this._loginValidationUseCase,
-    this._errorViewMapper,
   );
+
+  @override
+  ValidationModel? validationModel;
 
   @override
   TextEditingController get emailController => _emailController;
@@ -98,19 +87,29 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     final UserModel user = UserModel(email, password);
     final LoginValidationError? validationResponse =
         await _loginValidationUseCase(user);
-    emailValidation = validationResponse?.emailValidation;
-    passwordValidation = validationResponse?.passwordValidation;
-    bool isSuccess = _formKey.currentState?.validate() ?? false;
-    if (isSuccess) {
-      await _saveCredentialsUseCase(user);
-      _pushSuccessScreen();
+    validationModel = ValidationModel(
+      validationResponse?.emailValidation,
+      validationResponse?.passwordValidation,
+    );
+    if (_formKey.currentState?.validate() ?? false) {
+      bool isSuccess = await _checkUserUseCase(user);
+      if (!isSuccess) {
+        validationModel = ValidationModel(
+          ValidationErrorType.invalidValue,
+          ValidationErrorType.invalidValue,
+        );
+        _formKey.currentState?.validate();
+      } else {
+        await _saveCredentialsUseCase(user);
+        _pushSuccessScreen();
+      }
     }
   }
 
   @override
-  void onChanged() {
-    passwordValidation = null;
-    emailValidation = null;
+  void onChangedTextForm() {
+    validationModel?.password = null;
+    validationModel?.email = null;
     formKey.currentState?.validate();
   }
 
