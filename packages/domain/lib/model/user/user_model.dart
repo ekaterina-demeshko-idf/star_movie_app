@@ -1,8 +1,9 @@
 import 'package:domain/model/user/user_facebook_model.dart';
+import 'package:domain/utils/extensions/string_extension.dart';
 
 class UserModel {
-  final String email;
-  final String password;
+  final String? email;
+  final String? password;
 
   UserModel(
     this.email,
@@ -26,7 +27,7 @@ class UserModel {
       );
 
   Map<String, dynamic> toJson() => <String, String>{
-        'email': email,
-        'password': password,
+        'email': email.orEmpty,
+        'password': password.orEmpty,
       };
 }

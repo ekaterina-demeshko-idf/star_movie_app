@@ -7,12 +7,14 @@ import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
 import 'package:domain/usecase/get_movie_list_usecase.dart';
 import 'package:domain/usecase/save_credentials_usecase.dart';
+import 'package:domain/usecase/login_validation_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:presentation/screen/home/home_bloc.dart';
 import 'package:presentation/screen/splash/splash_bloc.dart';
 import '../app/app_bloc.dart';
+import '../mappers/login_error_view_mapper.dart';
 import '../navigation/app_navigator.dart';
-import '../mappers/presentation_view_mapper.dart';
+import '../mappers/home_view_mapper.dart';
 import '../screen/details/details_bloc.dart';
 import '../screen/login/login_bloc.dart';
 
@@ -51,12 +53,16 @@ void _initDetailsScreenModule() {
 }
 
 void _initLoginScreenModule() {
+  GetIt.I.registerFactory<LoginErrorViewMapper>(
+    () => LoginErrorViewMapper(),
+  );
   GetIt.I.registerFactory<LoginBloc>(
     () => LoginBloc(
       GetIt.I.get<CheckUserUseCase>(),
       GetIt.I.get<GoogleAuthUseCase>(),
       GetIt.I.get<FacebookAuthUseCase>(),
       GetIt.I.get<SaveCredentialsUseCase>(),
+      GetIt.I.get<LoginValidationUseCase>(),
     ),
   );
 }

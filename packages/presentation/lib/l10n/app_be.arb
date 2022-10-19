@@ -17,6 +17,11 @@
   "password": "ПАРОЛЬ",
   "login": "Увайсці",
   "success": "Віншую",
+  "passwordRequired": "Пароль абавязковае поле",
+  "emailRequired": "Iмя абавязковае поле",
+  "passwordInvalid": "Невалідны пароль",
+  "emailLength": "Поле павінна быць не менш за 8 сімвалаў",
+  "emailInvalid": "Невалідны логiн",
   "share": "Глядзі, які фільм я знайшоў! \nhttps://www.themoviedb.org/movie/{id}?language=be",
   "@share": {
       "placeholders": {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:presentation/mappers/login_error_view_mapper.dart';
 import 'package:presentation/utils/colors.dart';
 import 'package:presentation/utils/dimens.dart';
 import 'package:presentation/utils/text_styles.dart';
@@ -36,28 +37,29 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
+  final loginErrorViewMapper = LoginErrorViewMapper();
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<BlocData<LoginData?>>(
         stream: bloc.dataStream,
         builder: (context, snapshot) {
+          final l10n = AppLocalizations.of(context)!;
           return Scaffold(
             backgroundColor: PrimaryColors.primaryBackgroundColor,
             appBar: AppBar(
               backgroundColor: PrimaryColors.primaryBackgroundColor,
               centerTitle: false,
               title: Text(
-                AppLocalizations.of(context)!.titleProfile,
+                l10n.titleProfile,
                 style: AppTextStyles.headerStyle(Dimens.size24),
                 textAlign: TextAlign.left,
               ),
               actions: [
-                TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      AppLocalizations.of(context)!.signUp,
-                      style: AppTextStyles.linkStyle(Dimens.size16),
-                    ))
+                Text(
+                  l10n.signUp,
+                  style: AppTextStyles.linkStyle(Dimens.size16),
+                ),
               ],
             ),
             body: SingleChildScrollView(
@@ -67,62 +69,86 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.username,
-                            style:
-                                AppTextStyles.descriptionStyle(Dimens.size12),
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(height: Dimens.size10),
-                          TextField(
-                            controller: bloc.emailController,
-                            style:
-                                AppTextStyles.descriptionStyle(Dimens.size16),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Dimens.size4),
-                                borderSide: BorderSide.none,
-                              ),
-                              prefixIcon: const Icon(
-                                Icons.person_outline,
-                                color: PrimaryColors.whiteWithOpacity45,
-                              ),
-                              filled: true,
-                              fillColor: PrimaryColors.backgroundTextField,
+                      Form(
+                        key: bloc.formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              l10n.username,
+                              style:
+                                  AppTextStyles.descriptionStyle(Dimens.size12),
+                              textAlign: TextAlign.left,
                             ),
-                          ),
-                          const SizedBox(height: Dimens.size20),
-                          Text(
-                            AppLocalizations.of(context)!.password,
-                            style:
-                                AppTextStyles.descriptionStyle(Dimens.size12),
-                            textAlign: TextAlign.left,
-                          ),
-                          const SizedBox(height: Dimens.size10),
-                          TextField(
-                            controller: bloc.passwordController,
-                            style:
-                                AppTextStyles.descriptionStyle(Dimens.size16),
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Dimens.size4),
-                                borderSide: BorderSide.none,
+                            const SizedBox(height: Dimens.size10),
+                            TextFormField(
+                              validator: (_) {
+                                return loginErrorViewMapper
+                                    .mapEmailErrorToMessage(
+                                  context,
+                                  bloc.validationModel?.email,
+                                );
+                              },
+                              onChanged: (_) {
+                                bloc.onChangedTextForm();
+                              },
+                              controller: bloc.emailController,
+                              style:
+                                  AppTextStyles.descriptionStyle(Dimens.size16),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(Dimens.size4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.person_outline,
+                                  color: PrimaryColors.whiteWithOpacity45,
+                                ),
+                                filled: true,
+                                fillColor: PrimaryColors.backgroundTextField,
                               ),
-                              prefixIcon: const Icon(
-                                Icons.lock_outlined,
-                                color: PrimaryColors.whiteWithOpacity45,
-                              ),
-                              filled: true,
-                              fillColor: PrimaryColors.backgroundTextField,
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: Dimens.size20),
+                            Text(
+                              l10n.password,
+                              style:
+                                  AppTextStyles.descriptionStyle(Dimens.size12),
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(height: Dimens.size10),
+                            TextFormField(
+                              validator: (_) {
+                                return loginErrorViewMapper
+                                    .mapPasswordErrorToMessage(
+                                  context,
+                                  bloc.validationModel?.password,
+                                );
+                              },
+                              onChanged: (_) {
+                                bloc.onChangedTextForm();
+                              },
+                              controller: bloc.passwordController,
+                              style:
+                                  AppTextStyles.descriptionStyle(Dimens.size16),
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(Dimens.size4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.lock_outlined,
+                                  color: PrimaryColors.whiteWithOpacity45,
+                                ),
+                                filled: true,
+                                fillColor: PrimaryColors.backgroundTextField,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         height: Dimens.size24,
@@ -137,7 +163,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                           ),
                         ),
                         child: Text(
-                          AppLocalizations.of(context)!.login,
+                          l10n.login,
                           style: AppTextStyles.headerStyle(Dimens.size16),
                         ),
                       ),
