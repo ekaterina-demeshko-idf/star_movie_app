@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:data/database/database.dart';
 import 'package:data/interceptor/trakt_interceptor.dart';
 import 'package:data/repository/firestore_repository.dart';
 import 'package:data/repository/local_storage_repository.dart';
@@ -14,6 +15,7 @@ import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
 import '../flavors_config/config_data.dart';
 import '../interceptor/tmdb_interceptor.dart';
 import '../repository/auth_repository.dart';
@@ -25,10 +27,11 @@ import '../service/service_payload.dart';
 import '../utils/apiPath.dart';
 import '../utils/const.dart';
 
-void initDataInjector(ConfigData configData) {
+Future<void> initDataInjector(ConfigData configData) async {
   _initInterceptorModule(configData.apiKey);
   _initApiModule(configData.baseUrl);
-  _initRepositoryModule();
+  await _initDatabaseModule();
+  await _initRepositoryModule();
 }
 
 void _initApiModule(String baseUrl) {
@@ -75,6 +78,21 @@ void _initInterceptorModule(String apiKey) {
   );
 }
 
+Future<void> _initDatabaseModule() async {
+  GetIt.I.registerSingleton<MovieDatabase>(
+    MovieDatabase(),
+  );
+
+  GetIt.I.registerSingleton<Database>(
+    await openDatabase(
+      MovieDatabase.name,
+      onCreate: (db, version) =>
+          GetIt.I.get<MovieDatabase>().createDB(db, version),
+      version: MovieDatabase.version,
+    ),
+  );
+}
+
 Future<void> _initRepositoryModule() async {
   GetIt.I.registerSingleton<AnalyticsService>(
     AnalyticsServiceImpl(
@@ -95,7 +113,10 @@ Future<void> _initRepositoryModule() async {
     () async => await SharedPreferences.getInstance(),
   );
   GetIt.I.registerSingleton<LocalStorageRepository>(
-    LocalStorageRepositoryImpl(await GetIt.I.getAsync<SharedPreferences>()),
+    LocalStorageRepositoryImpl(
+      await GetIt.I.getAsync<SharedPreferences>(),
+      GetIt.I.get<Database>(),
+    ),
   );
   GetIt.I.registerSingleton<GoogleSignIn>(GoogleSignIn());
   GetIt.I.registerSingleton<FacebookAuth>(FacebookAuth.instance);

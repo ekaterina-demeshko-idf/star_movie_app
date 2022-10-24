@@ -44,6 +44,7 @@ void _initUseCaseModule() {
   GetIt.I.registerFactory<GetMovieListUseCase>(
     () => GetMovieListUseCase(
       GetIt.I.get<TraktAPIRepository>(),
+      GetIt.I.get<LocalStorageRepository>(),
     ),
   );
   GetIt.I.registerFactory<CheckUserUseCase>(

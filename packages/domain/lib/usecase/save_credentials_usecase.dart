@@ -14,4 +14,5 @@ class SaveCredentialsUseCase implements UseCaseParams<UserModel, Future<void>> {
         params.email.orEmpty,
         params.password.orEmpty,
       );
+
 }

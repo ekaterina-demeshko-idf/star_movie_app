@@ -1,7 +1,7 @@
-import 'package:domain/model/movie/movie_response_model.dart';
-import 'package:domain/utils/extensions/string_extension.dart';
+import 'package:domain/model/cache_models/movie_cache_model.dart';
 import 'package:domain/utils/extensions/int_extension.dart';
 import 'package:domain/utils/extensions/list_extension.dart';
+import 'package:domain/utils/extensions/string_extension.dart';
 import 'package:domain/utils/getSecrets.dart';
 import 'package:yaml/yaml.dart';
 import '../models/movie_model.dart';
@@ -10,7 +10,7 @@ abstract class HomeViewMapper {
   factory HomeViewMapper() => _HomeViewMapper();
 
   Future<List<MoviePresentation>> mapMovieDataToRequest(
-      List<MovieResponse> response);
+      List<MovieCache> response);
 }
 
 class _HomeViewMapper implements HomeViewMapper {
@@ -22,21 +22,21 @@ class _HomeViewMapper implements HomeViewMapper {
 
   @override
   Future<List<MoviePresentation>> mapMovieDataToRequest(
-    List<MovieResponse> response,
+    List<MovieCache> response,
   ) async {
     String key = secrets["IMG_API_KEY"];
     return response
         .map((e) => MoviePresentation(
-              e.movie.title.orEmpty,
-              'http://img.omdbapi.com/?apikey=$key&i=${e.movie.ids?.imdb}',
-              e.movie.runtime.convertTimeToString,
-              (e.movie.rating ?? 0.0) / 2,
-              e.movie.genres?.first.orEmpty.capitalize,
-              cutToThree(e.movie.genres?.orEmpty),
-              e.movie.certification.toString(),
-              e.movie.overview.orEmpty,
-              e.movie.ids?.trakt,
-              e.movie.ids?.tmdb,
+              e.title.orEmpty,
+              'http://img.omdbapi.com/?apikey=$key&i=${e.imdb}',
+              e.runtime.convertTimeToString,
+              (e.rating ?? 0.0) / 2,
+              e.genres?.first.orEmpty.capitalize,
+              cutToThree(e.genres?.orEmpty),
+              e.certification.toString(),
+              e.overview?.orEmpty,
+              e.trakt,
+              e.tmdb,
             ))
         .toList();
   }
