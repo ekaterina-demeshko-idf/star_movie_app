@@ -4,7 +4,7 @@ import 'package:path/path.dart';
 
 class MovieDatabase {
   static const name = 'movies.db';
-  static const version = 1;
+  static const version = 3;
   static const anticipatedDB = 'MoviesAnticipated';
   static const trendingDB = 'MoviesTrending';
   static Database? _database;
@@ -16,16 +16,45 @@ class MovieDatabase {
     return _database!;
   }
 
+  void _renameTableMoviesV2(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS MoviesAnticipated');
+    batch.execute('''ALTER TABLE MoviesTrending
+        RENAME TO Movies''');
+    batch.execute('''ALTER TABLE Movies
+    ADD movieType TEXT DEFAULT trending''');
+  }
+
+  void _renameTableCastV2(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS anticipatedCast');
+    batch.execute('''ALTER TABLE trendingCast
+        RENAME TO Cast''');
+  }
+
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 1, onCreate: createDB);
+    return await openDatabase(
+      path,
+      version: 3,
+      onCreate: createDB,
+      onUpgrade: upgradeDB,
+    );
+  }
+
+  void upgradeDB(Database db, int oldVersion, int newVersion) async {
+    var batch = db.batch();
+    if (oldVersion == 2) {
+      _renameTableCastV2(batch);
+      _renameTableMoviesV2(batch);
+    }
+    await batch.commit();
   }
 
   Future<void> createDB(Database db, int version) async {
     await db.execute('''
-      CREATE TABLE $anticipatedDB (
+      CREATE TABLE Movies (
+      movieType TEXT,
       title TEXT,
       imdb TEXT,
       runtime INTEGER,
@@ -33,37 +62,17 @@ class MovieDatabase {
       genres TEXT,
       certification TEXT,
       overview TEXT,
-      trakt INTEGER,
-      tmdb INTEGER
+      tmdb INTEGER,
+      trakt INTEGER PRIMARY KEY
       )''');
 
     await db.execute('''
-      CREATE TABLE $trendingDB (
-      title TEXT,
-      imdb TEXT,
-      runtime INTEGER,
-      rating INTEGER,
-      genres TEXT,
-      certification TEXT,
-      overview TEXT,
-      trakt INTEGER,
-      tmdb INTEGER
-      )''');
-
-    await db.execute('''
-      CREATE TABLE anticipatedCast (
+      CREATE TABLE Cast (
       character TEXT,
       name TEXT,
-      tmdbAnticipated INTEGER,
-      FOREIGN KEY (tmdbAnticipated) REFERENCES $anticipatedDB(tmdb)
-      )''');
-
-    await db.execute('''
-      CREATE TABLE trendingCast (
-      character TEXT,
-      name TEXT,
-      tmdbTrending INTEGER,
-      FOREIGN KEY (tmdbTrending) REFERENCES $trendingDB(tmdb)
+      image TEXT,
+      trakt INTEGER,
+      FOREIGN KEY (trakt) REFERENCES Movies(trakt) ON DELETE CASCADE
       )''');
 
     await db.execute('''

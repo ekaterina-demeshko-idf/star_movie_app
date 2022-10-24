@@ -77,6 +77,7 @@ void _initUseCaseModule() {
     () => GetCastUseCase(
       GetIt.I.get<TraktAPIRepository>(),
       GetIt.I.get<TmdbAPIRepository>(),
+      GetIt.I.get<LocalStorageRepository>(),
     ),
   );
 }

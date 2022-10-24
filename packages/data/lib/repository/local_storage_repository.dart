@@ -1,7 +1,7 @@
 import 'package:domain/enum/movie_type.dart';
+import 'package:domain/model/cache_models/cast_cache_model.dart';
 import 'package:domain/model/cache_models/movie_cache_model.dart';
 import 'package:domain/repository/local_storage_repository.dart';
-import 'package:domain/utils/extensions/string_extension.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:collection/collection.dart';
@@ -51,8 +51,11 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
     if (remoteMovieList.isNotEmpty) {
       for (MovieCache movie in remoteMovieList) {
         _db.insert(
-          'Movies${movieType.name.capitalize}',
-          movie.toJson(movie),
+          'Movies',
+          movie.toJson(
+            movie,
+            movieType,
+          ),
         );
       }
     }
@@ -60,7 +63,7 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
 
   @override
   Future<void> clearMoviesTable(MovieType movieType) async {
-    await _db.delete('Movies${movieType.name.capitalize}');
+    await _db.delete('Movies');
   }
 
   @override
@@ -71,8 +74,8 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
     if (ids.isNotEmpty) {
       for (int id in ids) {
         await _db.delete(
-          'Movies${movieType.name.capitalize}',
-          where: '"trakt" = ?',
+          'Movies',
+          where: '"tmdb" = ?',
           whereArgs: [id],
         );
       }
@@ -81,8 +84,8 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
 
   @override
   Future<List<MovieCache>> getMoviesFromCache(MovieType movieType) async {
-    final List<Map<String, dynamic>> maps =
-        await _db.query('Movies${movieType.name.capitalize}');
+    final List<Map<String, dynamic>> maps = await _db
+        .query('Movies WHERE movieType = "${movieType.name}"');
     return List.generate(maps.length, (i) {
       return MovieCache(
         maps[i]['title'],
@@ -100,9 +103,8 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
 
   @override
   Future<List<int>> getMoviesIdsFromCache(MovieType movieType) async {
-    var traktFromDB = await _db
-        .rawQuery('SELECT trakt FROM Movies${movieType.name.capitalize}');
-    return List<int>.from(traktFromDB.map((i) => i["trakt"]).toList()).toList();
+    var tmdbFromDB = await _db.rawQuery('SELECT tmdb FROM Movies');
+    return List<int>.from(tmdbFromDB.map((i) => i["tmdb"]).toList()).toList();
   }
 
   @override
@@ -121,11 +123,37 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
 
   @override
   Future<int?> getTimestampForMovieType(MovieType movieType) async {
-    final int? timestamp = await _db.rawQuery(
-    'SELECT timestamp FROM requestHistory WHERE movieType = "${movieType.name}"',
-    ).then(
+    final int? timestamp = await _db
+        .rawQuery(
+          'SELECT timestamp FROM requestHistory WHERE movieType = "${movieType.name}"',
+        )
+        .then(
           (result) => result.map((e) => e['timestamp'] as int).firstOrNull,
-    );
+        );
     return timestamp;
+  }
+
+  @override
+  Future<void> saveCastToCache(List<CastCache> castCache) async {
+    if (castCache.isNotEmpty) {
+      for (CastCache cast in castCache) {
+        _db.insert(
+          'Cast',
+          cast.toJson(cast),
+        );
+      }
+    }
+  }
+
+  @override
+  Future<List<CastCache>?> getCastFromCache(int? trakt) async {
+    final List<CastCache>? cast = await _db
+        .rawQuery(
+          'SELECT * FROM Cast WHERE trakt = "$trakt"',
+        )
+        .then(
+          (result) => result.map((e) => CastCache.fromResponse(e)).toList(),
+        );
+    return cast;
   }
 }

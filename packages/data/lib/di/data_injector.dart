@@ -88,6 +88,8 @@ Future<void> _initDatabaseModule() async {
       MovieDatabase.name,
       onCreate: (db, version) =>
           GetIt.I.get<MovieDatabase>().createDB(db, version),
+      onUpgrade: (db, oldVersion, newVersion) =>
+          GetIt.I.get<MovieDatabase>().upgradeDB(db, oldVersion, newVersion),
       version: MovieDatabase.version,
     ),
   );

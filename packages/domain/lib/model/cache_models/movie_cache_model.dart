@@ -1,7 +1,10 @@
+import 'package:domain/enum/movie_type.dart';
+
 const String tableMovies = 'movies';
 
 class MovieFields {
   static final List<String> values = [
+    movieType,
     title,
     imdb,
     runtime,
@@ -12,7 +15,7 @@ class MovieFields {
     trakt,
     tmdb,
   ];
-
+  static const String movieType = 'movieType';
   static const String title = 'title';
   static const String imdb = 'imdb';
   static const String runtime = 'runtime';
@@ -29,8 +32,8 @@ class MovieCache {
   final String? imdb;
   final int? runtime;
   final double? rating;
-  final List<String>? genres; //convert to text before caching
-  final dynamic certification; //convert to text before caching
+  final List<String>? genres;
+  final dynamic certification;
   final String? overview;
   final int? trakt;
   final int? tmdb;
@@ -59,7 +62,12 @@ class MovieCache {
         (json['ids'] as Map<String, dynamic>?)?['tmdb'] as int?,
       );
 
-  Map<String, dynamic> toJson(MovieCache movie) => {
+  Map<String, dynamic> toJson(
+    MovieCache movie,
+    MovieType movieType,
+  ) =>
+      {
+        MovieFields.movieType: movieType.name,
         MovieFields.title: movie.title,
         MovieFields.imdb: movie.imdb,
         MovieFields.runtime: movie.runtime,

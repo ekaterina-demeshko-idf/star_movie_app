@@ -1,5 +1,6 @@
 import 'package:domain/enum/movie_type.dart';
 
+import '../model/cache_models/cast_cache_model.dart';
 import '../model/cache_models/movie_cache_model.dart';
 
 abstract class LocalStorageRepository {
@@ -14,9 +15,15 @@ abstract class LocalStorageRepository {
     MovieType movieType,
   );
 
+  Future<List<MovieCache>> getMoviesFromCache(MovieType movieType);
+
   Future<List<int>> getMoviesIdsFromCache(MovieType movieType);
 
   Future<void> clearMoviesTable(MovieType movieType);
+
+  Future<void> saveCastToCache(List<CastCache> castCache);
+
+  Future<List<CastCache>?> getCastFromCache(int? trakt);
 
   Future<void> deleteByIds(
     List<int> ids,
@@ -29,6 +36,4 @@ abstract class LocalStorageRepository {
   );
 
   Future<int?> getTimestampForMovieType(MovieType movieType);
-
-  Future<List<MovieCache>> getMoviesFromCache(MovieType movieType);
 }
