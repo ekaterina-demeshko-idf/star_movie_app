@@ -35,9 +35,10 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
     List<MovieCache> remoteMovieList,
     MovieType movieType,
   ) async {
+    Batch batch = _db.batch();
     if (remoteMovieList.isNotEmpty) {
       for (MovieCache movie in remoteMovieList) {
-        _db.insert(
+        batch.insert(
           'Movies',
           movie.toJson(
             movie,
@@ -45,6 +46,7 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
           ),
         );
       }
+      await batch.commit();
     }
   }
 
@@ -53,14 +55,16 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
     List<int> ids,
     MovieType movieType,
   ) async {
+    Batch batch = _db.batch();
     if (ids.isNotEmpty) {
       for (int id in ids) {
-        await _db.delete(
+        batch.delete(
           'Movies',
           where: '"tmdb" = ?',
           whereArgs: [id],
         );
       }
+      await batch.commit();
     }
   }
 
@@ -117,13 +121,15 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
 
   @override
   Future<void> saveCastToCache(List<CastAndImages> castCache) async {
+    Batch batch = _db.batch();
     if (castCache.isNotEmpty) {
       for (CastAndImages cast in castCache) {
-        _db.insert(
+        batch.insert(
           'Cast',
           cast.toJson(cast),
         );
       }
+      await batch.commit();
     }
   }
 
