@@ -31,10 +31,10 @@ jobs:
           echo "${{ secrets.FB_LOGIN_PROTOCOL_SCHEME }}" >> secrets.yaml;
       - name: Flutter dependencies
         run: |
-          flutter pub get
+          cd ./packages/presentation && flutter pub get
           cd ./packages/data && flutter pub get
           cd ./packages/domain && flutter pub get
-          cd ./packages/presentation && flutter pub get
+          cd ../../ && flutter pub get
       - name: JsonSerializableGenerator
         run: cd ./packages/domain && flutter pub run build_runner build
       - name: Localization generator
