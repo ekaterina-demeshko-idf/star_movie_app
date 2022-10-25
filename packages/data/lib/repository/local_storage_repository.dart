@@ -60,8 +60,8 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
       for (int id in ids) {
         batch.delete(
           'Movies',
-          where: '"tmdb" = ?',
-          whereArgs: [id],
+          where: '"tmdb" = ? and "movieType" = ?',
+          whereArgs: [id, movieType.name],
         );
       }
       await batch.commit();
