@@ -46,7 +46,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     logAnalyticsEventUseCase(AnalyticsEventType.trendingTab);
     final responseTrending = await _getMovieListUseCase(MovieType.trending);
     final List<MoviePresentation> moviesTrending =
-        await _viewMapper.mapMovieDataToRequest(responseTrending); //
+        await _viewMapper.mapMovieDataToRequest(responseTrending);
     _screenData = _screenData.copyWith(movieTrending: moviesTrending);
     _updateData(isLoading: false);
   }
@@ -57,7 +57,7 @@ class _HomeBloc extends BlocImpl<HomeScreenArguments, HomeData>
     final responseAnticipated =
         await _getMovieListUseCase(MovieType.anticipated);
     final List<MoviePresentation> moviesAnticipated =
-        await _viewMapper.mapMovieDataToRequest(responseAnticipated); //
+        await _viewMapper.mapMovieDataToRequest(responseAnticipated);
     _screenData = _screenData.copyWith(movieAnticipated: moviesAnticipated);
     _updateData(isLoading: false);
   }
