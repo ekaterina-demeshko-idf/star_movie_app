@@ -35,9 +35,11 @@ jobs:
 #          cd ./packages/domain && flutter pub get
 #          cd ./packages/presentation && flutter pub get
       - name: JsonSerializableGenerator
-        run: cd ./packages/domain && flutter pub run build_runner build
+        run: flutter pub run build_runner build
+        working-directory: packages/domain
       - name: Localization generator
-        run: cd ./packages/presentation && flutter gen-l10n
+        run: flutter gen-l10n
+        working-directory: packages/presentation
       - name: Build APK
         run: flutter build apk --release -t lib/main_prod.dart --flavor prod
       - name: upload artifact to Firebase App Distribution
