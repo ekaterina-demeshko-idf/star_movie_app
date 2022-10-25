@@ -1,20 +1,10 @@
 import 'dart:async';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
 
 class MovieDatabase {
   static const name = 'movies.db';
   static const version = 3;
-  static const anticipatedDB = 'MoviesAnticipated';
-  static const trendingDB = 'MoviesTrending';
-  static Database? _database;
 
-  Future<Database> get database async {
-    if (_database != null) return _database!;
-
-    _database = await _initDB(name);
-    return _database!;
-  }
 
   void _renameTableMoviesV2(Batch batch) {
     batch.execute('DROP TABLE IF EXISTS MoviesAnticipated');
@@ -28,18 +18,6 @@ class MovieDatabase {
     batch.execute('DROP TABLE IF EXISTS anticipatedCast');
     batch.execute('''ALTER TABLE trendingCast
         RENAME TO Cast''');
-  }
-
-  Future<Database> _initDB(String filePath) async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
-
-    return await openDatabase(
-      path,
-      version: 3,
-      onCreate: createDB,
-      onUpgrade: upgradeDB,
-    );
   }
 
   void upgradeDB(Database db, int oldVersion, int newVersion) async {
