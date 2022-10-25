@@ -28,12 +28,12 @@ jobs:
           echo "${{ secrets.FACEBOOK_APP_ID }}" >> secrets.yaml;
           echo "${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> secrets.yaml;
           echo "${{ secrets.FB_LOGIN_PROTOCOL_SCHEME }}" >> secrets.yaml;
-      - name: Flutter dependencies
-        run: |
-          flutter pub get
-          cd ./packages/data && flutter pub get
-          cd ./packages/domain && flutter pub get
-          cd ./packages/presentation && flutter pub get
+#      - name: Flutter dependencies
+#        run: |
+#          flutter pub get
+#          cd ./packages/data && flutter pub get
+#          cd ./packages/domain && flutter pub get
+#          cd ./packages/presentation && flutter pub get
       - name: JsonSerializableGenerator
         run: cd ./packages/domain && flutter pub run build_runner build
       - name: Localization generator
