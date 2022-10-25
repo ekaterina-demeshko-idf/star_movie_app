@@ -80,22 +80,14 @@ class GetMovieListUseCase
     final int todayMilliseconds = today.millisecondsSinceEpoch;
     final int? timestampFromCache =
         await _localStorageRepository.getTimestampForMovieType(movieType);
-    if (timestampFromCache == null) {
-      _localStorageRepository.setTimestampForMovieType(
-        movieType,
-        now.millisecondsSinceEpoch,
-      );
-      return true;
-    } else if (timestampFromCache >= todayMilliseconds) {
-      return false;
-    } else if (timestampFromCache < todayMilliseconds) {
+    if (timestampFromCache == null || timestampFromCache < todayMilliseconds) {
       _localStorageRepository.setTimestampForMovieType(
         movieType,
         now.millisecondsSinceEpoch,
       );
       return true;
     } else {
-      return true;
+      return false;
     }
   }
 }

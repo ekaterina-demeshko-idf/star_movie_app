@@ -8,7 +8,8 @@ import '../repository/tmdb_api_repository.dart';
 import '../repository/trakt_api_repository.dart';
 import 'usecase.dart';
 
-class GetCastUseCase implements UseCaseParams<int?, Future<List<CastAndImages>?>> {
+class GetCastUseCase
+    implements UseCaseParams<int?, Future<List<CastAndImages>?>> {
   final TraktAPIRepository _traktAPIRepository;
   final TmdbAPIRepository _tmdbAPIRepository;
   final LocalStorageRepository _localStorageRepository;
@@ -48,8 +49,7 @@ class GetCastUseCase implements UseCaseParams<int?, Future<List<CastAndImages>?>
           await Future.wait(castAndImagesFutureList ?? []);
       await _localStorageRepository.saveCastToCache(castAndImagesList);
       return castAndImagesList;
-    } else {
-      return cacheList;
     }
+    return cacheList;
   }
 }
