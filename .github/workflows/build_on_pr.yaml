@@ -3,7 +3,7 @@ name: build-on-pr #sandbox debug
 on:
   pull_request:
     types:
-      - opened
+      - [opened, reopened]
     branches:
       - main
 
