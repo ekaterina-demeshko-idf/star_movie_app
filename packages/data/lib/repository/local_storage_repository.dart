@@ -31,14 +31,6 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
   }
 
   @override
-  Future<void> saveDate(int date) async {
-    await _preferencesProvider.setInt(
-      'date',
-      date,
-    );
-  }
-
-  @override
   Future<void> saveMoviesToCache(
     List<MovieCache> remoteMovieList,
     MovieType movieType,

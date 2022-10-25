@@ -6,8 +6,6 @@ import '../model/cache_models/movie_cache_model.dart';
 abstract class LocalStorageRepository {
   Future<void> saveCredentials(String email, String password);
 
-  Future<void> saveDate(int date);
-
   Future<void> saveMoviesToCache(
     List<MovieCache> remoteMovieList,
     MovieType movieType,
