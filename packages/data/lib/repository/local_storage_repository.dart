@@ -1,5 +1,5 @@
 import 'package:domain/enum/movie_type.dart';
-import 'package:domain/model/cache_models/cast_cache_model.dart';
+import 'package:domain/model/cast/cast_with_images.dart';
 import 'package:domain/model/cache_models/movie_cache_model.dart';
 import 'package:domain/repository/local_storage_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -39,11 +39,6 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
   }
 
   @override
-  int? getDate() {
-    return _preferencesProvider.getInt('date');
-  }
-
-  @override
   Future<void> saveMoviesToCache(
     List<MovieCache> remoteMovieList,
     MovieType movieType,
@@ -59,11 +54,6 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
         );
       }
     }
-  }
-
-  @override
-  Future<void> clearMoviesTable(MovieType movieType) async {
-    await _db.delete('Movies');
   }
 
   @override
@@ -84,8 +74,8 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
 
   @override
   Future<List<MovieCache>> getMoviesFromCache(MovieType movieType) async {
-    final List<Map<String, dynamic>> maps = await _db
-        .query('Movies WHERE movieType = "${movieType.name}"');
+    final List<Map<String, dynamic>> maps =
+        await _db.query('Movies WHERE movieType = "${movieType.name}"');
     return List.generate(maps.length, (i) {
       return MovieCache(
         maps[i]['title'],
@@ -134,9 +124,9 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
   }
 
   @override
-  Future<void> saveCastToCache(List<CastCache> castCache) async {
+  Future<void> saveCastToCache(List<CastAndImages> castCache) async {
     if (castCache.isNotEmpty) {
-      for (CastCache cast in castCache) {
+      for (CastAndImages cast in castCache) {
         _db.insert(
           'Cast',
           cast.toJson(cast),
@@ -146,13 +136,13 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
   }
 
   @override
-  Future<List<CastCache>?> getCastFromCache(int? trakt) async {
-    final List<CastCache>? cast = await _db
+  Future<List<CastAndImages>?> getCastFromCache(int? trakt) async {
+    final List<CastAndImages>? cast = await _db
         .rawQuery(
-          'SELECT * FROM Cast WHERE trakt = "$trakt"',
+          'SELECT * FROM Cast WHERE trakt = $trakt',
         )
         .then(
-          (result) => result.map((e) => CastCache.fromResponse(e)).toList(),
+          (result) => result.map((e) => CastAndImages.fromResponse(e)).toList(),
         );
     return cast;
   }

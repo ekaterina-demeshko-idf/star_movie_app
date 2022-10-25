@@ -1,7 +1,6 @@
-import 'package:domain/model/cache_models/cast_cache_model.dart';
+import 'package:domain/model/cast/cast_with_images.dart';
 import 'package:presentation/utils/events.dart';
 import 'package:simple_share_native/simple_share_native.dart';
-import 'package:domain/model/cast/cast_with_images.dart';
 import 'package:presentation/base/bloc.dart';
 import 'details_data.dart';
 import 'details_screen.dart';
@@ -42,7 +41,7 @@ class _DetailsBloc extends BlocImpl<DetailsScreenArguments, DetailsData>
 
   void getCastData(int? traktId) async {
     _updateData(isLoading: true);
-    final List<CastCache>? responseCast = await _getCastUseCase(traktId);
+    final List<CastAndImages>? responseCast = await _getCastUseCase(traktId);
     _screenData = _screenData.copyWith(cast: responseCast);
     _updateData(isLoading: false);
   }

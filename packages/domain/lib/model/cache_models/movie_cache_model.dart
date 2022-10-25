@@ -1,7 +1,5 @@
 import 'package:domain/enum/movie_type.dart';
 
-const String tableMovies = 'movies';
-
 class MovieFields {
   static final List<String> values = [
     movieType,
