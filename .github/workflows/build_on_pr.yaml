@@ -1,8 +1,7 @@
 name: build-on-pr
 
 on:
-  pull_request:
-    types: [ opened, reopened ]
+  push:
     branches:
       - main
 

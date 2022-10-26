@@ -1,7 +1,8 @@
 name: build-on-main
 
 on:
-  push:
+  pull_request:
+    types: [ opened, reopened ]
     branches:
       - main
 
@@ -22,26 +23,28 @@ jobs:
       - name: Set secrets
         run: |
           touch secrets.yaml
-          echo "${{ secrets.PROD_API_KEY }}" >> secrets.yaml;
-          echo "${{ secrets.IMG_API_KEY }}" >> secrets.yaml;
-          echo "${{ secrets.TMDB_API_KEY }}" >> secrets.yaml;
-          echo "${{ secrets.FACEBOOK_APP_ID }}" >> secrets.yaml;
-          echo "${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> secrets.yaml;
-          echo "${{ secrets.FB_LOGIN_PROTOCOL_SCHEME }}" >> secrets.yaml;
-#      - name: Flutter dependencies
-#        run: |
-#          flutter pub get
-#          cd ./packages/data && flutter pub get
-#          cd ./packages/domain && flutter pub get
-#          cd ./packages/presentation && flutter pub get
-      - name: JsonSerializableGenerator
-        run: flutter pub run build_runner build
-        working-directory: packages/domain
+          echo "${{ secrets.SANDBOX_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.IMG_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.TMDB_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.FACEBOOK_APP_ID }}" >> secrets.yaml
+          echo "${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> secrets.yaml
+          echo "${{ secrets.FB_LOGIN_PROTOCOL_SCHEME }}" >> secrets.yaml
       - name: Localization generator
-        run: flutter gen-l10n
+        run: |
+          flutter pub get
+          flutter gen-l10n
         working-directory: packages/presentation
+      - name: Data Pub get
+        run: |
+          flutter pub get
+        working-directory: packages/data
+      - name: JsonSerializableGenerator
+        run: |
+          flutter pub get
+          flutter pub run build_runner build
+        working-directory: packages/domain
       - name: Build APK
-        run: flutter build apk --release -t lib/main_prod.dart --flavor prod
+        run: flutter build apk --debug -t lib/main_prod.dart --flavor prod
       - name: Create Release
         id: create_release
         uses: ncipollo/release-action@v1
@@ -49,7 +52,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           artifacts: "build/app/outputs/flutter-apk/app-prod-release.apk"
+          tag: v1.${{ github.run_number }}
+          token: ${{ secrets.TOKEN_GITHUB }}
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
