@@ -42,10 +42,14 @@ jobs:
         working-directory: packages/presentation
       - name: Build APK
         run: flutter build apk --release -t lib/main_prod.dart --flavor prod
-      - name: upload artifact to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.3.5
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
-          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
-          groups: testers
-          file: build/app/outputs/flutter-apk/app-prod-release.apk
+          artifacts: "build/app/outputs/flutter-apk/app-prod-release.apk"
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
