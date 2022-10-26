@@ -46,7 +46,7 @@ jobs:
           flutter pub run build_runner build
         working-directory: packages/domain
       - name: Build APK
-        run: flutter build apk --debug -t lib/main_prod.dart --flavor prod
+        run: flutter build apk --release -t lib/main_prod.dart --flavor prod
       - name: Create Release
         id: create_release
         uses: ncipollo/release-action@v1
