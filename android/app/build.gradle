@@ -59,9 +59,9 @@ android {
         versionName '1.0.0'
         multiDexEnabled true
 
-        resValue "string", "facebook_app_id", facebookAppId
-        resValue "string", "fb_login_protocol_scheme", fbLoginProtocolScheme
-        resValue "string", "facebook_client_token", facebookClientToken
+        resValue "string", "facebook_app_id", "$facebookAppId"
+        resValue "string", "fb_login_protocol_scheme", "$fbLoginProtocolScheme"
+        resValue "string", "facebook_client_token", "$facebookClientToken"
     }
 
     flavorDimensions "app"
