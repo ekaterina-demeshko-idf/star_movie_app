@@ -40,13 +40,15 @@ jobs:
 #          cd ../../ && flutter pub get
       - name: Localization generator
         run: |
-          pwd
           flutter pub get
           flutter gen-l10n
         working-directory: packages/presentation
+      - name: Data Pub get
+        run: |
+          flutter pub get
+        working-directory: packages/data
       - name: JsonSerializableGenerator
         run: |
-          pwd
           flutter pub get
           flutter pub run build_runner build
         working-directory: packages/domain
