@@ -23,24 +23,31 @@ jobs:
       - name: Set secrets
         run: |
           touch secrets.yaml
-          echo "${{ secrets.SANDBOX_API_KEY }}" >> secrets.yaml;
-          echo "${{ secrets.IMG_API_KEY }}" >> secrets.yaml;
-          echo "${{ secrets.TMDB_API_KEY }}" >> secrets.yaml;
-          echo "${{ secrets.FACEBOOK_APP_ID }}" >> secrets.yaml;
-          echo "${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> secrets.yaml;
-          echo "${{ secrets.FB_LOGIN_PROTOCOL_SCHEME }}" >> secrets.yaml;
+          echo "${{ secrets.SANDBOX_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.IMG_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.TMDB_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.FACEBOOK_APP_ID }}" >> secrets.yaml
+          echo "${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> secrets.yaml
+          echo "${{ secrets.FB_LOGIN_PROTOCOL_SCHEME }}" >> secrets.yaml
+          cat secrets.yaml
 #      - name: Flutter dependencies
 #        run: |
 #          cd ./packages/presentation && flutter pub get
 #          cd ./packages/data && flutter pub get
 #          cd ./packages/domain && flutter pub get
 #          cd ../../ && flutter pub get
-      - name: JsonSerializableGenerator
-        run: flutter pub run build_runner build
-        working-directory: packages/domain
       - name: Localization generator
-        run: flutter gen-l10n
+        run: |
+          pwd
+          flutter pub get
+          flutter gen-l10n
         working-directory: packages/presentation
+      - name: JsonSerializableGenerator
+        run: |
+          pwd
+          flutter pub get
+          flutter pub run build_runner build
+        working-directory: packages/domain
       - name: Build APK
         run: flutter build apk --debug -t lib/main_sandbox.dart --flavor sandbox
       - name: upload artifact to Firebase App Distribution
