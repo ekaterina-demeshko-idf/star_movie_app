@@ -1,8 +1,7 @@
 name: build-on-main
 
 on:
-  pull_request:
-    types: [ opened, reopened ]
+  push:
     branches:
       - main
 
