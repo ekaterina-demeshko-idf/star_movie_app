@@ -51,7 +51,7 @@ jobs:
           flutter pub run build_runner build
         working-directory: packages/domain
       - name: Build APK
-        run: flutter build apk --debug -t lib/main_sandbox.dart --flavor sandbox
+        run: flutter build apk --debug -t lib/main_sandbox.dart --flavor sandbox --stacktrace
       - name: upload artifact to Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.3.5
         with:
