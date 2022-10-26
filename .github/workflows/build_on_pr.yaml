@@ -50,9 +50,9 @@ jobs:
           flutter pub get
           flutter pub run build_runner build
         working-directory: packages/domain
-      - name: Get Stacktrace
-        run: gradle wrapper && ./gradlew :app:assembleProdDebug --stacktrace
-        working-directory: android
+#      - name: Get Stacktrace
+#        run: gradle wrapper && ./gradlew :app:assembleProdDebug --stacktrace
+#        working-directory: android
       - name: Build APK
         run: flutter build apk --debug -t lib/main_prod.dart --flavor prod
       - name: upload artifact to Firebase App Distribution
