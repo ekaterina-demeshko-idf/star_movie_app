@@ -61,9 +61,6 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
-        resValue("string", "facebook_app_id", facebookAppId)
-        resValue("string", "fb_login_protocol_scheme", fbLoginProtocolScheme)
-        resValue("string", "facebook_client_token", facebookClientToken)
     }
 
     flavorDimensions "app"
@@ -74,12 +71,18 @@ android {
             applicationId "com.example.movie.prod"
             versionCode 1
             versionName "1.0"
+            resValue("string", "facebook_app_id", facebookAppId)
+            resValue("string", "fb_login_protocol_scheme", fbLoginProtocolScheme)
+            resValue("string", "facebook_client_token", facebookClientToken)
         }
         sandbox {
             dimension "app"
             applicationId "com.example.movie.sandbox"
             versionCode 1
             versionName "1.0"
+            resValue("string", "facebook_app_id", facebookAppId)
+            resValue("string", "fb_login_protocol_scheme", fbLoginProtocolScheme)
+            resValue("string", "facebook_client_token", facebookClientToken)
         }
     }
 
