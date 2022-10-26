@@ -36,8 +36,8 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 31
-    ndkVersion flutter.ndkVersion
+    compileSdkVersion 33
+//    ndkVersion flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -68,7 +68,6 @@ android {
     productFlavors {
         prod {
             dimension "app"
-            applicationId "com.example.movie.prod"
             versionCode 1
             versionName "1.0"
             resValue("string", "facebook_app_id", facebookAppId)
@@ -77,7 +76,6 @@ android {
         }
         sandbox {
             dimension "app"
-            applicationId "com.example.movie.sandbox"
             versionCode 1
             versionName "1.0"
             resValue("string", "facebook_app_id", facebookAppId)
