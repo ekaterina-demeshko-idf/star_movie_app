@@ -1,3 +1,4 @@
+import 'package:domain/validator/validation_error.dart';
 import 'package:flutter/material.dart';
 import 'package:domain/enum/validation_error_type.dart';
 import 'package:domain/model/login_validation_model.dart';
@@ -92,16 +93,16 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       validationResponse?.passwordValidation,
     );
     if (_formKey.currentState?.validate() ?? false) {
-      bool isSuccess = await _checkUserUseCase(user);
-      if (!isSuccess) {
+      try {
+        await _checkUserUseCase(user);
+        await _saveCredentialsUseCase(user);
+        _pushSuccessScreen();
+      } on ValidationErrors {
         validationModel = ValidationModel(
           ValidationErrorType.invalidValue,
           ValidationErrorType.invalidValue,
         );
         _formKey.currentState?.validate();
-      } else {
-        await _saveCredentialsUseCase(user);
-        _pushSuccessScreen();
       }
     }
   }
@@ -125,10 +126,16 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       user.email.orEmpty,
       user.password.orEmpty,
     );
-    bool isSuccess = await _checkUserUseCase(userModel);
-    if (isSuccess) {
+    try {
+      await _checkUserUseCase(userModel);
       await _saveCredentialsUseCase(userModel);
       _pushSuccessScreen();
+    } on ValidationErrors {
+      validationModel = ValidationModel(
+        ValidationErrorType.invalidValue,
+        ValidationErrorType.invalidValue,
+      );
+      _formKey.currentState?.validate();
     }
   }
 
@@ -142,9 +149,16 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       user.email.orEmpty,
       user.password.orEmpty,
     );
-    bool isSuccess = await _checkUserUseCase(userModel);
-    if (isSuccess) {
+    try {
+      await _checkUserUseCase(userModel);
+      await _saveCredentialsUseCase(userModel);
       _pushSuccessScreen();
+    } on ValidationErrors {
+      validationModel = ValidationModel(
+        ValidationErrorType.invalidValue,
+        ValidationErrorType.invalidValue,
+      );
+      _formKey.currentState?.validate();
     }
   }
 
