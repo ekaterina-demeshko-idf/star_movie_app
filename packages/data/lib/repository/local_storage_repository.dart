@@ -52,18 +52,20 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
 
   @override
   Future<void> deleteByIds(
-    List<int> ids,
+    List ids,
     MovieType movieType,
   ) async {
     Batch batch = _db.batch();
+    List<dynamic> args = [];
     if (ids.isNotEmpty) {
-      for (int id in ids) {
-        batch.delete(
-          'Movies',
-          where: '"tmdb" = ? and "movieType" = ?',
-          whereArgs: [id, movieType.name],
-        );
-      }
+      args.addAll(ids);
+      args.add(movieType.name);
+      batch.delete(
+        'Movies',
+        where: '''"tmdb" in (${List.filled(ids.length - 1, '?').join(',')}) 
+        and "movieType" = ?''',
+        whereArgs: args,
+      );
       await batch.commit();
     }
   }
