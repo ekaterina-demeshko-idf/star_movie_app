@@ -10,7 +10,8 @@ class CheckUserUseCase implements UseCaseParams<UserModel, Future<void>> {
 
   @override
   Future<void> call(UserModel user) async {
-    if (!(await _firestoreRepository.checkUserExist(user))) {
+    final bool isUserExist = await _firestoreRepository.checkUserExist(user);
+    if (!isUserExist) {
       throw ValidationErrors();
     }
   }
