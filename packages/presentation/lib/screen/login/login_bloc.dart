@@ -86,24 +86,24 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
     final UserModel user = UserModel(email, password);
-    final LoginValidationError? validationResponse =
-        await _loginValidationUseCase(user);
-    validationModel = ValidationModel(
-      validationResponse?.emailValidation,
-      validationResponse?.passwordValidation,
-    );
-    if (_formKey.currentState?.validate() ?? false) {
-      try {
+    try {
+      final LoginValidationError? validationResponse =
+          await _loginValidationUseCase(user);
+      validationModel = ValidationModel(
+        validationResponse?.emailValidation,
+        validationResponse?.passwordValidation,
+      );
+      if (_formKey.currentState?.validate() ?? false) {
         await _checkUserUseCase(user);
         await _saveCredentialsUseCase(user);
         _pushSuccessScreen();
-      } on ValidationErrors {
-        validationModel = ValidationModel(
-          ValidationErrorType.invalidValue,
-          ValidationErrorType.invalidValue,
-        );
-        _formKey.currentState?.validate();
       }
+    } on ValidationErrors {
+      validationModel = ValidationModel(
+        ValidationErrorType.invalidValue,
+        ValidationErrorType.invalidValue,
+      );
+      _formKey.currentState?.validate();
     }
   }
 
