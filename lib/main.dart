@@ -13,13 +13,14 @@ import 'di/app_injector.dart';
 void mainCommon({Environment env = Environment.prod}) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(kDebugMode);
+  await FirebaseCrashlytics.instance
+      .setCrashlyticsCollectionEnabled(!kDebugMode);
   final currentEnv = env.name;
   final jsonConfig = await readJson(currentEnv);
   final ConfigData configData = ConfigData.fromJson(jsonConfig);
   final ConfigPresentation configPresentation =
       ConfigPresentation.fromJson(jsonConfig);
-  initAppInjector(configData);
+  await initAppInjector(configData);
   runApp(MyApp(configPresentation));
 }
 
