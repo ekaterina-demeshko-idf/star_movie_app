@@ -1,0 +1,56 @@
+name: build-on-pr
+
+on:
+  pull_request:
+    types: [ opened, reopened ]
+    branches:
+      - main
+
+jobs:
+  build-to-firebase-distribution:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.5'
+          channel: 'stable'
+      - run: flutter --version
+      - name: Flutter upgrade
+        run: flutter upgrade
+      - name: Set secrets
+        run: |
+          touch secrets.yaml
+          echo "${{ secrets.SANDBOX_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.IMG_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.TMDB_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.FACEBOOK_APP_ID }}" >> secrets.yaml
+          echo "${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> secrets.yaml
+          echo "${{ secrets.FB_LOGIN_PROTOCOL_SCHEME }}" >> secrets.yaml
+      - name: Localization generator
+        run: |
+          flutter pub get
+          flutter gen-l10n
+        working-directory: packages/presentation
+      - name: Data Pub get
+        run: |
+          flutter pub get
+        working-directory: packages/data
+      - name: JsonSerializableGenerator
+        run: |
+          flutter pub get
+          flutter pub run build_runner build
+        working-directory: packages/domain
+      - name: Build APK
+        run: flutter build apk --debug -t lib/main_sandbox.dart --flavor sandbox
+      - name: upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.4.0
+        with:
+          appId: ${{secrets.FIREBASE_ANDROID_APP_ID}}
+          token: ${{ secrets.FIREBASE_LOGIN }}
+          groups: testers
+          file: build/app/outputs/flutter-apk/app-sandbox-debug.apk

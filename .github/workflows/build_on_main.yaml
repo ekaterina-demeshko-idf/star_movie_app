@@ -1,0 +1,57 @@
+name: build-on-main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-to-github-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.0.5'
+          channel: 'stable'
+      - run: flutter --version
+      - name: Flutter upgrade
+        run: flutter upgrade
+      - name: Set secrets
+        run: |
+          touch secrets.yaml
+          echo "${{ secrets.SANDBOX_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.IMG_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.TMDB_API_KEY }}" >> secrets.yaml
+          echo "${{ secrets.FACEBOOK_APP_ID }}" >> secrets.yaml
+          echo "${{ secrets.FACEBOOK_CLIENT_TOKEN }}" >> secrets.yaml
+          echo "${{ secrets.FB_LOGIN_PROTOCOL_SCHEME }}" >> secrets.yaml
+      - name: Localization generator
+        run: |
+          flutter pub get
+          flutter gen-l10n
+        working-directory: packages/presentation
+      - name: Data Pub get
+        run: |
+          flutter pub get
+        working-directory: packages/data
+      - name: JsonSerializableGenerator
+        run: |
+          flutter pub get
+          flutter pub run build_runner build
+        working-directory: packages/domain
+      - name: Build APK
+        run: flutter build apk --release -t lib/main_prod.dart --flavor prod
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/flutter-apk/app-prod-release.apk"
+          tag: v1.${{ github.run_number }}
+          token: ${{ secrets.TOKEN_GITHUB }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
