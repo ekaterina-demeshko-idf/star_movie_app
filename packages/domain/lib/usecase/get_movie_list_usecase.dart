@@ -20,7 +20,7 @@ class GetMovieListUseCase
   Future<List<MovieCache>> call(MovieType currentMovieType) async {
     final List<MovieCache> jsonMovies = [];
     final List<int> movieCacheIds = [];
-    if (await _isTimestampNewDay(
+    if (await _newDayCheck(
       DateTime.now(),
       currentMovieType,
     )) {
@@ -77,7 +77,7 @@ class GetMovieListUseCase
     return jsonMovies;
   }
 
-  Future<bool> _isTimestampNewDay(
+  Future<bool> _newDayCheck(
     DateTime now,
     MovieType movieType,
   ) async {
