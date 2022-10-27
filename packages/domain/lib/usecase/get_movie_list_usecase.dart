@@ -19,7 +19,7 @@ class GetMovieListUseCase
   @override
   Future<List<MovieCache>> call(MovieType currentMovieType) async {
     final List<MovieCache> jsonMovies = [];
-    if (await _newDayCheck(
+    if (await _firstRequestInADay(
       DateTime.now(),
       currentMovieType,
     )) {
@@ -87,7 +87,7 @@ class GetMovieListUseCase
     return jsonMovies;
   }
 
-  Future<bool> _newDayCheck(
+  Future<bool> _firstRequestInADay(
     DateTime now,
     MovieType movieType,
   ) async {
