@@ -19,7 +19,6 @@ class GetMovieListUseCase
   @override
   Future<List<MovieCache>> call(MovieType currentMovieType) async {
     final List<MovieCache> jsonMovies = [];
-    final List<int> movieCacheIds = [];
     if (await _newDayCheck(
       DateTime.now(),
       currentMovieType,
@@ -37,30 +36,41 @@ class GetMovieListUseCase
         jsonMovies,
         currentMovieType,
       );
-      movieCacheIds.addAll(await _localStorageRepository
-          .getMoviesIdsFromCache(currentMovieType));
-      final List<int> idsToDeleteFromDB = movieCacheIds
-          .where((e1) => jsonMovies.where((e) => e.trakt == e1).isEmpty)
-          .toList();
-      if (idsToDeleteFromDB.isNotEmpty) {
-        await _localStorageRepository.deleteByIds(
-          idsToDeleteFromDB,
-          currentMovieType,
-        );
-      }
-      final List<MovieCache> moviesToAddToDB = jsonMovies
-          .where(
-              (movie) => movieCacheIds.where((id) => movie.trakt == id).isEmpty)
-          .toList();
-      if (moviesToAddToDB.isNotEmpty) {
-        await _localStorageRepository.saveMoviesToCache(
-          moviesToAddToDB,
-          currentMovieType,
-        );
-      }
+      _updateMoviesInCache(
+        jsonMovies,
+        currentMovieType,
+      );
       return jsonMovies;
     } else {
       return await _localStorageRepository.getMoviesFromCache(currentMovieType);
+    }
+  }
+
+  void _updateMoviesInCache(
+    List<MovieCache> jsonMovies,
+    MovieType currentMovieType,
+  ) async {
+    final List<int> movieCacheIds = [];
+    movieCacheIds.addAll(
+        await _localStorageRepository.getMoviesIdsFromCache(currentMovieType));
+    final List<int> idsToDeleteFromDB = movieCacheIds
+        .where((e1) => jsonMovies.where((e) => e.trakt == e1).isEmpty)
+        .toList();
+    if (idsToDeleteFromDB.isNotEmpty) {
+      await _localStorageRepository.deleteByIds(
+        idsToDeleteFromDB,
+        currentMovieType,
+      );
+    }
+    final List<MovieCache> moviesToAddToDB = jsonMovies
+        .where(
+            (movie) => movieCacheIds.where((id) => movie.trakt == id).isEmpty)
+        .toList();
+    if (moviesToAddToDB.isNotEmpty) {
+      await _localStorageRepository.saveMoviesToCache(
+        moviesToAddToDB,
+        currentMovieType,
+      );
     }
   }
 
