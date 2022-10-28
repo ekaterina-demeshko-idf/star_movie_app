@@ -1,7 +1,6 @@
 import 'package:domain/validator/validation_error.dart';
 import 'package:flutter/material.dart';
 import 'package:domain/enum/validation_error_type.dart';
-import 'package:domain/model/login_validation_model.dart';
 import 'package:domain/model/user/user_model.dart';
 import 'package:domain/utils/extensions/string_extension.dart';
 import 'package:domain/usecase/check_user_usecase.dart';
@@ -87,15 +86,14 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
     final String password = _passwordController.text.trim();
     final UserModel user = UserModel(email, password);
     try {
-        await _checkUserUseCase(user);
-        await _saveCredentialsUseCase(user);
-        _pushSuccessScreen();
-    } on ValidationErrors {
-      final LoginValidationError? validationResponse =
       await _loginValidationUseCase(user);
+      await _checkUserUseCase(user);
+      await _saveCredentialsUseCase(user);
+      _pushSuccessScreen();
+    } on ValidationErrors catch (e) {
       validationModel = ValidationModel(
-        validationResponse?.emailValidation,
-        validationResponse?.passwordValidation,
+        e.emailError,
+        e.passwordError,
       );
       _formKey.currentState?.validate();
     }
