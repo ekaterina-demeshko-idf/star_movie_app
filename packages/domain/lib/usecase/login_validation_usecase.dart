@@ -28,7 +28,7 @@ class LoginValidationUseCase
 
     final ValidationErrorType? passwordFailedType =
         getEnumByValidator(passwordFailed);
-    if (emailFailedType != null && passwordFailedType != null) {
+    if (emailFailedType != null || passwordFailedType != null) {
       throw ValidationErrors(
         emailError: emailFailedType,
         passwordError: passwordFailedType,
