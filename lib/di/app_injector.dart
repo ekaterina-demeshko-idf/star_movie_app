@@ -3,8 +3,8 @@ import 'package:domain/di/domain_injector.dart';
 import 'package:presentation/di/presentation_injector.dart';
 import 'package:data/flavors_config/config_data.dart';
 
-void initAppInjector(ConfigData configData) {
-  initDataInjector(configData);
+Future<void> initAppInjector(ConfigData configData) async {
+  await initDataInjector(configData);
   initDomainInjector();
   initPresentationInjector();
 }
