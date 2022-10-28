@@ -21,6 +21,6 @@ abstract class BaseValidationUseCase<Params, Output>
     if (v is RegEx) {
       return ValidationErrorType.regexTypeError;
     }
-    return null;
+    return ValidationErrorType.invalidValue;
   }
 }
