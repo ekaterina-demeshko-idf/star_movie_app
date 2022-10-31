@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:presentation/mappers/login_error_view_mapper.dart';
@@ -24,6 +26,7 @@ class LoginScreen extends StatefulWidget {
 
   static const _routeName = '/LoginPage';
 
+  static bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
   static BasePage page(LoginScreenArguments arguments) => BasePage(
         key: const ValueKey(_routeName),
         name: _routeName,
@@ -154,7 +157,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                         height: Dimens.size24,
                       ),
                       ElevatedButton(
-                        onPressed: bloc.onLogin,
+                        onPressed: LoginScreen.isMobileDevice ? bloc.onLogin : () {},
                         style: ElevatedButton.styleFrom(
                           backgroundColor: PrimaryColors.primaryColor,
                           padding: const EdgeInsets.symmetric(
@@ -174,7 +177,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
-                            onTap: bloc.authByGoogle,
+                            onTap: LoginScreen.isMobileDevice ? bloc.authByGoogle : () {},
                             child: SvgPicture.asset(
                               ImagesPath.googleBtn,
                               height: Dimens.size60,
@@ -183,7 +186,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                           ),
                           const SizedBox(width: Dimens.size30),
                           InkWell(
-                            onTap: bloc.authByFacebook,
+                            onTap: LoginScreen.isMobileDevice ? bloc.authByFacebook : () {},
                             child: SvgPicture.asset(
                               ImagesPath.facebookBtn,
                               height: Dimens.size60,
