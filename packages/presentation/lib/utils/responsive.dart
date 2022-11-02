@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'dimens.dart';
+
 class Responsive {
   const Responsive._();
 
@@ -19,9 +21,30 @@ class Responsive {
     }
   }
 
+  static double getLoginFormWidth(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth > 800) {
+      return Dimens.size500;
+    } else if (screenWidth > 400) {
+      return Dimens.size360;
+    } else {
+      return Dimens.size300;
+    }
+  }
+
+  static double getLoginButtonWidth(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth > 800) {
+      return Dimens.size220;
+    } else if (screenWidth > 400) {
+      return Dimens.size145;
+    } else {
+      return Dimens.size120;
+    }
+  }
   static bool switchToSideBar(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    if(screenWidth > 800) {
+    if (screenWidth > 800) {
       return true;
     }
     return false;

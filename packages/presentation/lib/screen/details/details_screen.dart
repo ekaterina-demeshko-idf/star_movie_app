@@ -75,7 +75,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                     ImageFiltered(
                       imageFilter: ImageFilter.blur(sigmaY: 3, sigmaX: 3),
                       child: Container(
-                        height: Dimens.size260,
+                        height: Dimens.size260, //responsive
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage('${screenData?.movie?.image}'),
@@ -119,7 +119,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                             ),
                             Center(
                               child:
-                                  Image.network('${screenData?.movie?.image}'),
+                                  Image.network('${screenData?.movie?.image}'), //responsive
                             ),
                             const SizedBox(
                               height: Dimens.size18,
@@ -137,7 +137,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                             Text(
                               '${screenData?.movie?.runtime} | ${screenData?.movie?.certification}',
                               style: AppTextStyles.descriptionStyle(
-                                  AppTextStyles.fontSize_14),
+                                  AppTextStyles.fontSize_14), //responsive
                             ),
                             const SizedBox(
                               height: Dimens.size10,
@@ -145,7 +145,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                             Text(
                               '${screenData?.movie?.genres}',
                               style: AppTextStyles.descriptionStyle(
-                                  AppTextStyles.fontSize_14),
+                                  AppTextStyles.fontSize_14), //responsive
                             ),
                             const SizedBox(
                               height: Dimens.size20,
@@ -228,50 +228,66 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                             const SizedBox(
                               height: Dimens.size16,
                             ),
-                            Text(
-                              l10n.synopsis,
-                              textAlign: TextAlign.left,
-                              style: AppTextStyles.headerStyle(
-                                  AppTextStyles.fontSize_20),
-                            ),
-                            const SizedBox(
-                              height: Dimens.size10,
-                            ),
-                            ReadMoreText(
-                              '${screenData?.movie?.overview}',
-                              trimLines: 4,
-                              trimMode: TrimMode.Line,
-                              colorClickableText: PrimaryColors.primaryLink,
-                              trimCollapsedText: l10n.showMore,
-                              trimExpandedText: l10n.showLess,
-                              style: AppTextStyles.descriptionStyle(
-                                  AppTextStyles.fontSize_14,
-                                  lineHeight: Dimens.size20),
-                            ),
-                            const SizedBox(
-                              height: Dimens.size20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Column(
                               children: [
-                                Text(
-                                  l10n.castCrew,
-                                  textAlign: TextAlign.left,
-                                  style: AppTextStyles.headerStyle(
-                                      AppTextStyles.fontSize_20),
+                                Column(
+                                  children: [
+                                    Text(
+                                      l10n.synopsis,
+                                      textAlign: TextAlign.left,
+                                      style: AppTextStyles.headerStyle(
+                                          AppTextStyles.fontSize_20),
+                                    ),
+                                    const SizedBox(
+                                      height: Dimens.size10,
+                                    ),
+                                    ReadMoreText(
+                                      '${screenData?.movie?.overview}',
+                                      trimLines: 4,
+                                      trimMode: TrimMode.Line,
+                                      colorClickableText: PrimaryColors.primaryLink,
+                                      trimCollapsedText: l10n.showMore,
+                                      trimExpandedText: l10n.showLess,
+                                      style: AppTextStyles.descriptionStyle( //responsive
+                                          AppTextStyles.fontSize_14,
+                                          lineHeight: Dimens.size20),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  l10n.viewAll,
-                                  style: AppTextStyles.linkStyle(
-                                    AppTextStyles.fontSize_18,
+                                const SizedBox(
+                                  height: Dimens.size20,
+                                ),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height - 470,
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            l10n.castCrew,
+                                            textAlign: TextAlign.left,
+                                            style: AppTextStyles.headerStyle(
+                                                AppTextStyles.fontSize_20),
+                                          ),
+                                          Text(
+                                            l10n.viewAll,
+                                            style: AppTextStyles.linkStyle(
+                                              AppTextStyles.fontSize_18,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height:MediaQuery.of(context).size.height,
+                                        child: data.isLoading
+                                            ? const CastListSkelet()
+                                            : CastList(screenData: screenData),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
-                            ),
-                            Expanded(
-                              child: data.isLoading
-                                  ? const CastListSkelet()
-                                  : CastList(screenData: screenData),
                             )
                           ],
                         ),
