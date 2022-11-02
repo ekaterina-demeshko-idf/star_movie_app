@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:presentation/screen/home/widgets/movie_list_skelet.dart';
 import 'package:presentation/utils/images/paths.dart';
+import 'package:presentation/utils/responsive.dart';
 import '../../../base/bloc_data.dart';
 import '../../../enum/current_tab.dart';
 import '../../../utils/dimens.dart';
@@ -55,10 +56,9 @@ class _MovieListWidgetState extends BlocScreenState<MovieListWidget, HomeBloc> {
                       )
                     : GridView.builder(
                         shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           childAspectRatio: (.16 / .25),
-                          crossAxisCount: 2,
+                          crossAxisCount: Responsive.getCrossAxisCount(context),
                           mainAxisSpacing: Dimens.size30,
                         ),
                         itemCount: screenList.length,

@@ -41,7 +41,7 @@ class MovieDatabase {
       certification TEXT,
       overview TEXT,
       tmdb INTEGER,
-      trakt INTEGER PRIMARY KEY
+      trakt INTEGER
       )''');
 
     await db.execute('''

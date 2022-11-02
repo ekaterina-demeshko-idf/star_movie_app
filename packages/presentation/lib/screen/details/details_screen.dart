@@ -1,21 +1,21 @@
 import 'dart:ui';
-import 'package:presentation/screen/details/widgets/cast_list_skelet.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:readmore/readmore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:presentation/base/bloc_data.dart';
+import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/models/movie_model.dart';
-import '../../base/bloc_data.dart';
-import '../../base/bloc_screen.dart';
-import '../../navigation/base_arguments.dart';
-import '../../navigation/base_page.dart';
-import '../../utils/colors.dart';
-import '../../utils/dimens.dart';
-import '../../utils/images/paths.dart';
-import '../../utils/text_styles.dart';
-import 'details_bloc.dart';
-import 'details_data.dart';
+import 'package:presentation/navigation/base_arguments.dart';
+import 'package:presentation/navigation/base_page.dart';
+import 'package:presentation/screen/details/details_bloc.dart';
+import 'package:presentation/screen/details/details_data.dart';
+import 'package:presentation/screen/details/widgets/cast_list_skelet.dart';
+import 'package:presentation/utils/colors.dart';
+import 'package:presentation/utils/dimens.dart';
+import 'package:presentation/utils/images/paths.dart';
+import 'package:presentation/utils/text_styles.dart';
+import 'package:readmore/readmore.dart';
 
 class DetailsScreenArguments extends BaseArguments {
   final MoviePresentation movie;

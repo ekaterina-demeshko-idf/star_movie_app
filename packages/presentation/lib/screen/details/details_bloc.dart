@@ -1,10 +1,10 @@
 import 'package:domain/model/cast/cast_with_images.dart';
+import 'package:domain/usecase/get_cast_usecase.dart';
+import 'package:presentation/base/bloc.dart';
 import 'package:presentation/utils/events.dart';
 import 'package:simple_share_native/simple_share_native.dart';
-import 'package:presentation/base/bloc.dart';
 import 'details_data.dart';
 import 'details_screen.dart';
-import 'package:domain/usecase/get_cast_usecase.dart';
 
 abstract class DetailsBloc extends Bloc<DetailsScreenArguments, DetailsData> {
   factory DetailsBloc(GetCastUseCase getCastUseCase) =>
