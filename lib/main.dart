@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
+import 'package:window_size/window_size.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,14 +15,14 @@ import 'firebase_options.dart';
 
 void mainCommon({Environment env = Environment.prod}) async {
   WidgetsFlutterBinding.ensureInitialized();
-  bool isMobileDevice = !kIsWeb && (Platform.isIOS || Platform.isAndroid);
-  if(true) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    await FirebaseCrashlytics.instance
-        .setCrashlyticsCollectionEnabled(!kDebugMode);
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    setWindowMinSize(const Size(400, 500));
   }
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseCrashlytics.instance
+      .setCrashlyticsCollectionEnabled(!kDebugMode);
   final currentEnv = env.name;
   final jsonConfig = await readJson(currentEnv);
   final ConfigData configData = ConfigData.fromJson(jsonConfig);

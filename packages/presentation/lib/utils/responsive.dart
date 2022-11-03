@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/utils/text_styles.dart';
-
 import 'dimens.dart';
 
 class Responsive {
@@ -8,7 +7,6 @@ class Responsive {
 
   static int getCrossAxisCount(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final targetPlatform = Theme.of(context).platform;
     if (screenWidth > 1200) {
       return 6;
     } else if (screenWidth > 1000) {
@@ -57,6 +55,7 @@ class Responsive {
       return 1;
     }
   }
+
   static double textDetailsImage(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     if (screenWidth > 800) {
