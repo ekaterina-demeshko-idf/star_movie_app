@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:presentation/utils/text_styles.dart';
 
 import 'dimens.dart';
 
@@ -18,6 +19,50 @@ class Responsive {
       return 3;
     } else {
       return 2;
+    }
+  }
+
+  static int getExpandedFlex(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth > 800) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  static Axis getAxisOfDetails(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth > 800) {
+      return Axis.horizontal;
+    } else {
+      return Axis.vertical;
+    }
+  }
+
+  static double backgroundDetailsImage(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth > 800) {
+      return Dimens.size400;
+    } else {
+      return Dimens.size260;
+    }
+  }
+
+  static double posterDetailsImage(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth > 800) {
+      return .6;
+    } else {
+      return 1;
+    }
+  }
+  static double textDetailsImage(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    if (screenWidth > 800) {
+      return AppTextStyles.fontSize_18;
+    } else {
+      return AppTextStyles.fontSize_14;
     }
   }
 
@@ -42,6 +87,7 @@ class Responsive {
       return Dimens.size120;
     }
   }
+
   static bool switchToSideBar(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     if (screenWidth > 800) {
