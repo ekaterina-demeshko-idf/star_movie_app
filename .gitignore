@@ -49,3 +49,4 @@ app.*.map.json
 secrets.yaml
 Podfile.lock
 macos/Pods/
+
