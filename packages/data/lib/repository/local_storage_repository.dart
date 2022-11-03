@@ -62,7 +62,7 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
       args.add(movieType.name);
       batch.delete(
         'Movies',
-        where: '''"tmdb" in (${List.filled(ids.length - 1, '?').join(',')}) 
+        where: '''"trakt" in (${List.filled(ids.length - 1, '?').join(',')}) 
         and "movieType" = ?''',
         whereArgs: args,
       );
@@ -91,8 +91,8 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
 
   @override
   Future<List<int>> getMoviesIdsFromCache(MovieType movieType) async {
-    var tmdbFromDB = await _db.rawQuery('SELECT tmdb FROM Movies');
-    return List<int>.from(tmdbFromDB.map((i) => i["tmdb"]).toList()).toList();
+    var traktFromDB = await _db.rawQuery('SELECT trakt FROM Movies');
+    return List<int>.from(traktFromDB.map((i) => i["trakt"]).toList()).toList();
   }
 
   @override
