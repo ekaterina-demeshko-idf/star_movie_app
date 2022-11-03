@@ -24,7 +24,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
   @override
   Widget build(BuildContext context) {
-    final targetPlatform = Theme.of(context).platform;
+    AppLocalizations  l10n = AppLocalizations.of(context)!;
     return MaterialApp(
       title: widget.configPresentation.appTitle,
       localizationsDelegates: const [
@@ -81,7 +81,7 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                                   ImagesPath.movieIcon,
                                   color: PrimaryColors.primarySelected,
                                 ),
-                                label: const Text('Home'),
+                                label: Text(l10n.title),
                               ),
                               NavigationRailDestination(
                                 icon: SvgPicture.asset(
@@ -92,7 +92,7 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                                   ImagesPath.tickerIcon,
                                   color: PrimaryColors.primarySelected,
                                 ),
-                                label: const Text('Ticket'),
+                                label: Text(l10n.showtime),
                               ),
                               NavigationRailDestination(
                                 icon: SvgPicture.asset(
@@ -103,7 +103,7 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                                   ImagesPath.alarmIcon,
                                   color: PrimaryColors.primarySelected,
                                 ),
-                                label: Text('Notifications'),
+                                label: Text(l10n.notifications),
                               ),
                               NavigationRailDestination(
                                 icon: SvgPicture.asset(
@@ -114,7 +114,7 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                                   ImagesPath.personIcon,
                                   color: PrimaryColors.primarySelected,
                                 ),
-                                label: Text('Profile'),
+                                label: Text(l10n.titleProfile),
                               ),
                             ],
                           ),
