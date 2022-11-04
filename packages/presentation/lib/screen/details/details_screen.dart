@@ -241,8 +241,9 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                     trimCollapsedText: l10n.showMore,
                                     trimExpandedText: l10n.showLess,
                                     style: AppTextStyles.descriptionStyle(
-                                        Responsive.textDetailsImage(context),
-                                        lineHeight: Dimens.size20),
+                                      Responsive.textDetailsImage(context),
+                                      lineHeight: Dimens.size20,
+                                    ),
                                   ),
                                 ],
                               ),
