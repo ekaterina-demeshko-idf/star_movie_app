@@ -96,7 +96,7 @@ class Responsive {
 
   static bool switchToSideBar(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    if (screenWidth > mediumScreen && Platform.isMacOS) {
+    if (screenWidth > mediumScreen) {
       return true;
     }
     return false;
