@@ -27,9 +27,6 @@ class LoginScreen extends StatefulWidget {
 
   static const _routeName = '/LoginPage';
 
-  static bool isMobileDevice =
-      !kIsWeb && (Platform.isIOS || Platform.isAndroid);
-
   static BasePage page(LoginScreenArguments arguments) => BasePage(
         key: const ValueKey(_routeName),
         name: _routeName,
@@ -83,7 +80,8 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                                   Text(
                                     l10n.username,
                                     style: AppTextStyles.descriptionStyle(
-                                        Dimens.size12),
+                                      Dimens.size12,
+                                    ),
                                     textAlign: TextAlign.left,
                                   ),
                                   const SizedBox(height: Dimens.size10),
@@ -120,7 +118,8 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                                   Text(
                                     l10n.password,
                                     style: AppTextStyles.descriptionStyle(
-                                        Dimens.size12),
+                                      Dimens.size12,
+                                    ),
                                     textAlign: TextAlign.left,
                                   ),
                                   const SizedBox(height: Dimens.size10),
@@ -137,7 +136,8 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                                     },
                                     controller: bloc.passwordController,
                                     style: AppTextStyles.descriptionStyle(
-                                        Dimens.size16),
+                                      Dimens.size16,
+                                    ),
                                     obscureText: true,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
@@ -160,17 +160,13 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: Dimens.size24,
-                      ),
+                      const SizedBox(height: Dimens.size24),
                       ElevatedButton(
-                        onPressed:
-                            LoginScreen.isMobileDevice ? bloc.onLogin : () {},
+                        onPressed: bloc.onLogin,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: PrimaryColors.primaryColor,
                           padding: EdgeInsets.symmetric(
                             horizontal: Responsive.getLoginButtonWidth(context),
-                            //responsive
                             vertical: Dimens.size18,
                           ),
                         ),
@@ -179,16 +175,12 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                           style: AppTextStyles.headerStyle(Dimens.size16),
                         ),
                       ),
-                      const SizedBox(
-                        height: Dimens.size100,
-                      ),
+                      const SizedBox(height: Dimens.size100),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
-                            onTap: LoginScreen.isMobileDevice
-                                ? bloc.authByGoogle
-                                : () {},
+                            onTap: bloc.authByGoogle,
                             child: SvgPicture.asset(
                               ImagesPath.googleBtn,
                               height: Dimens.size60,
@@ -197,9 +189,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                           ),
                           const SizedBox(width: Dimens.size30),
                           InkWell(
-                            onTap: LoginScreen.isMobileDevice
-                                ? bloc.authByFacebook
-                                : () {},
+                            onTap: bloc.authByFacebook,
                             child: SvgPicture.asset(
                               ImagesPath.facebookBtn,
                               height: Dimens.size60,

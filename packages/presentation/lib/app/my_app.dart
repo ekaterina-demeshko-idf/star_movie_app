@@ -24,7 +24,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
   @override
   Widget build(BuildContext context) {
-    AppLocalizations  l10n = AppLocalizations.of(context)!;
     return MaterialApp(
       title: widget.configPresentation.appTitle,
       localizationsDelegates: const [
@@ -47,11 +46,11 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
         builder: (context, result) {
           final appData = result.data?.data;
           if (appData is AppData) {
+            final l10n = AppLocalizations.of(context)!;
             return Scaffold(
               body: Row(
                 children: [
-                  appData.hideNavBar ||
-                      !(Responsive.switchToSideBar(context))
+                  appData.hideNavBar || !(Responsive.switchToSideBar(context))
                       ? const SizedBox.shrink()
                       : Container(
                           padding: const EdgeInsets.only(bottom: Dimens.size14),
@@ -131,7 +130,7 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
                 ],
               ),
               bottomNavigationBar: appData.hideNavBar ||
-                  Responsive.switchToSideBar(context)
+                      Responsive.switchToSideBar(context)
                   ? const SizedBox.shrink()
                   : Container(
                       padding: const EdgeInsets.only(bottom: Dimens.size14),
