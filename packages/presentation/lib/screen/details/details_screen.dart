@@ -77,14 +77,18 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                       Stack(
                         children: [
                           ImageFiltered(
-                            imageFilter: ImageFilter.blur(sigmaY: 3, sigmaX: 3),
+                            imageFilter: ImageFilter.blur(
+                              sigmaY: 3,
+                              sigmaX: 3,
+                            ),
                             child: Container(
                               height:
                                   Responsive.backgroundDetailsImage(context),
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(
-                                      '${screenData?.movie?.image}'),
+                                    '${screenData?.movie?.image}',
+                                  ),
                                   fit: BoxFit.fitWidth,
                                   alignment: FractionalOffset.topCenter,
                                 ),
@@ -116,9 +120,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                   size: Dimens.size50,
                                 ),
                               ),
-                              const SizedBox(
-                                height: Dimens.size12,
-                              ),
+                              const SizedBox(height: Dimens.size12),
                               Center(
                                 child: Image.network(
                                   '${screenData?.movie?.image}',
@@ -129,9 +131,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: Dimens.size18,
-                      ),
+                      const SizedBox(height: Dimens.size18),
                       Text(
                         '${screenData?.movie?.title}',
                         style: AppTextStyles.headerStyle(
@@ -139,27 +139,21 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(
-                        height: Dimens.size10,
-                      ),
+                      const SizedBox(height: Dimens.size10),
                       Text(
                         '${screenData?.movie?.runtime} | ${screenData?.movie?.certification}',
                         style: AppTextStyles.descriptionStyle(
                           Responsive.textDetailsImage(context),
                         ),
                       ),
-                      const SizedBox(
-                        height: Dimens.size10,
-                      ),
+                      const SizedBox(height: Dimens.size10),
                       Text(
                         '${screenData?.movie?.genres}',
                         style: AppTextStyles.descriptionStyle(
                           Responsive.textDetailsImage(context),
                         ),
                       ),
-                      const SizedBox(
-                        height: Dimens.size20,
-                      ),
+                      const SizedBox(height: Dimens.size20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -169,9 +163,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               AppTextStyles.fontSize_26,
                             ),
                           ),
-                          const SizedBox(
-                            width: Dimens.size10,
-                          ),
+                          const SizedBox(width: Dimens.size10),
                           RatingBar(
                             initialRating: screenData?.movie?.rating ?? 0,
                             direction: Axis.horizontal,
@@ -190,9 +182,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: Dimens.size10,
-                      ),
+                      const SizedBox(height: Dimens.size10),
                       Container(
                         height: Dimens.size40,
                         margin: const EdgeInsets.only(
@@ -219,15 +209,9 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                             borderRadius: BorderRadius.circular(Dimens.size24),
                           ),
                           tabs: [
-                            Tab(
-                              text: l10n.details,
-                            ),
-                            Tab(
-                              text: l10n.reviews,
-                            ),
-                            Tab(
-                              text: l10n.showtime,
-                            ),
+                            Tab(text: l10n.details),
+                            Tab(text: l10n.reviews),
+                            Tab(text: l10n.showtime),
                           ],
                         ),
                       ),
@@ -247,9 +231,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                     style: AppTextStyles.headerStyle(
                                         AppTextStyles.fontSize_20),
                                   ),
-                                  const SizedBox(
-                                    height: Dimens.size10,
-                                  ),
+                                  const SizedBox(height: Dimens.size10),
                                   ReadMoreText(
                                     '${screenData?.movie?.overview}',
                                     trimLines: 4,
@@ -280,7 +262,8 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                         l10n.castCrew,
                                         textAlign: TextAlign.left,
                                         style: AppTextStyles.headerStyle(
-                                            AppTextStyles.fontSize_20),
+                                          AppTextStyles.fontSize_20,
+                                        ),
                                       ),
                                       Text(
                                         l10n.viewAll,
@@ -352,33 +335,29 @@ class CastList extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: Dimens.size10,
-                ),
+                const SizedBox(width: Dimens.size10),
                 Text(
                   '${screenData?.cast?[index].name}',
                   style: AppTextStyles.headerStyle(
                     AppTextStyles.fontSize_14,
                   ),
                 ),
-                const SizedBox(
-                  width: Dimens.size16,
-                ),
+                const SizedBox(width: Dimens.size16),
                 TextButton(
                     onPressed: () {},
                     child: Text(
                       ' ··· ',
                       style: AppTextStyles.descriptionStyle(
-                          AppTextStyles.fontSize_20),
+                        AppTextStyles.fontSize_20,
+                      ),
                     )),
-                const SizedBox(
-                  width: Dimens.size6,
-                ),
+                const SizedBox(width: Dimens.size6),
                 Expanded(
                   child: Text(
                     '${screenData?.cast?[index].character?.toUpperCase()}',
                     style: AppTextStyles.descriptionStyle(
-                        AppTextStyles.fontSize_14),
+                      AppTextStyles.fontSize_14,
+                    ),
                     maxLines: 1,
                   ),
                 ),
