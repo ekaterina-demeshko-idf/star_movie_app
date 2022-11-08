@@ -1,8 +1,11 @@
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:presentation/mappers/login_error_view_mapper.dart';
 import 'package:presentation/utils/colors.dart';
 import 'package:presentation/utils/dimens.dart';
+import 'package:presentation/utils/responsive.dart';
 import 'package:presentation/utils/text_styles.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../base/bloc_data.dart';
@@ -55,12 +58,6 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                 style: AppTextStyles.headerStyle(Dimens.size24),
                 textAlign: TextAlign.left,
               ),
-              actions: [
-                Text(
-                  l10n.signUp,
-                  style: AppTextStyles.linkStyle(Dimens.size16),
-                ),
-              ],
             ),
             body: SingleChildScrollView(
               child: Center(
@@ -75,90 +72,105 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              l10n.username,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size12),
-                              textAlign: TextAlign.left,
-                            ),
-                            const SizedBox(height: Dimens.size10),
-                            TextFormField(
-                              validator: (_) {
-                                return loginErrorViewMapper
-                                    .mapEmailErrorToMessage(
-                                  context,
-                                  bloc.validationModel?.email,
-                                );
-                              },
-                              onChanged: (_) {
-                                bloc.onChangedTextForm();
-                              },
-                              controller: bloc.emailController,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size16),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(Dimens.size4),
-                                  borderSide: BorderSide.none,
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.person_outline,
-                                  color: PrimaryColors.whiteWithOpacity45,
-                                ),
-                                filled: true,
-                                fillColor: PrimaryColors.backgroundTextField,
-                              ),
-                            ),
-                            const SizedBox(height: Dimens.size20),
-                            Text(
-                              l10n.password,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size12),
-                              textAlign: TextAlign.left,
-                            ),
-                            const SizedBox(height: Dimens.size10),
-                            TextFormField(
-                              validator: (_) {
-                                return loginErrorViewMapper
-                                    .mapPasswordErrorToMessage(
-                                  context,
-                                  bloc.validationModel?.password,
-                                );
-                              },
-                              onChanged: (_) {
-                                bloc.onChangedTextForm();
-                              },
-                              controller: bloc.passwordController,
-                              style:
-                                  AppTextStyles.descriptionStyle(Dimens.size16),
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(Dimens.size4),
-                                  borderSide: BorderSide.none,
-                                ),
-                                prefixIcon: const Icon(
-                                  Icons.lock_outlined,
-                                  color: PrimaryColors.whiteWithOpacity45,
-                                ),
-                                filled: true,
-                                fillColor: PrimaryColors.backgroundTextField,
+                            SizedBox(
+                              width: Responsive.isMediumScreen(context)
+                                  ? Dimens.size500
+                                  : Dimens.size300,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    l10n.username,
+                                    style: AppTextStyles.descriptionStyle(
+                                      Dimens.size12,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  const SizedBox(height: Dimens.size10),
+                                  TextFormField(
+                                    validator: (_) {
+                                      return loginErrorViewMapper
+                                          .mapEmailErrorToMessage(
+                                        context,
+                                        bloc.validationModel?.email,
+                                      );
+                                    },
+                                    onChanged: (_) {
+                                      bloc.onChangedTextForm();
+                                    },
+                                    controller: bloc.emailController,
+                                    style: AppTextStyles.descriptionStyle(
+                                        Dimens.size16),
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(Dimens.size4),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      prefixIcon: const Icon(
+                                        Icons.person_outline,
+                                        color: PrimaryColors.whiteWithOpacity45,
+                                      ),
+                                      filled: true,
+                                      fillColor:
+                                          PrimaryColors.backgroundTextField,
+                                    ),
+                                  ),
+                                  const SizedBox(height: Dimens.size20),
+                                  Text(
+                                    l10n.password,
+                                    style: AppTextStyles.descriptionStyle(
+                                      Dimens.size12,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  const SizedBox(height: Dimens.size10),
+                                  TextFormField(
+                                    validator: (_) {
+                                      return loginErrorViewMapper
+                                          .mapPasswordErrorToMessage(
+                                        context,
+                                        bloc.validationModel?.password,
+                                      );
+                                    },
+                                    onChanged: (_) {
+                                      bloc.onChangedTextForm();
+                                    },
+                                    controller: bloc.passwordController,
+                                    style: AppTextStyles.descriptionStyle(
+                                      Dimens.size16,
+                                    ),
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(Dimens.size4),
+                                        borderSide: BorderSide.none,
+                                      ),
+                                      prefixIcon: const Icon(
+                                        Icons.lock_outlined,
+                                        color: PrimaryColors.whiteWithOpacity45,
+                                      ),
+                                      filled: true,
+                                      fillColor:
+                                          PrimaryColors.backgroundTextField,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(
-                        height: Dimens.size24,
-                      ),
+                      const SizedBox(height: Dimens.size24),
                       ElevatedButton(
                         onPressed: bloc.onLogin,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: PrimaryColors.primaryColor,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: Dimens.size145,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: Responsive.isMediumScreen(context)
+                                ? Dimens.size220
+                                : Dimens.size120,
                             vertical: Dimens.size18,
                           ),
                         ),
@@ -167,9 +179,7 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                           style: AppTextStyles.headerStyle(Dimens.size16),
                         ),
                       ),
-                      const SizedBox(
-                        height: Dimens.size100,
-                      ),
+                      const SizedBox(height: Dimens.size100),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

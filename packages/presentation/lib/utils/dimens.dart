@@ -29,8 +29,14 @@ class Dimens {
   static const double size50 = 50;
   static const double size60 = 60;
   static const double size100 = 100;
+  static const double size120 = 120;
   static const double size145 = 145;
+  static const double size180 = 180;
   static const double size200 = 200;
   static const double size260 = 260;
+  static const double size220 = 220;
+  static const double size300 = 300;
+  static const double size360 = 360;
   static const double size400 = 400;
+  static const double size500 = 500;
 }

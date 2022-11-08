@@ -1,5 +1,5 @@
 import 'package:domain/model/cast/cast_with_images.dart';
-import '../../models/movie_model.dart';
+import 'package:presentation/models/movie_model.dart';
 
 class DetailsData {
   final MoviePresentation? movie;

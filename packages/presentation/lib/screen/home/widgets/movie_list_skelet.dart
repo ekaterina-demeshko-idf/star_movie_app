@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/utils/colors.dart';
+import 'package:presentation/utils/responsive.dart';
 import 'package:shimmer/shimmer.dart';
-
-import '../../../utils/dimens.dart';
+import 'package:presentation/utils/dimens.dart';
 
 class MovieListSkelet extends StatelessWidget {
   const MovieListSkelet({
@@ -17,9 +17,9 @@ class MovieListSkelet extends StatelessWidget {
       enabled: true,
       child: GridView.builder(
         shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: (.16 / .25),
-          crossAxisCount: 2,
+          crossAxisCount: Responsive.getCrossAxisCount(context),
           mainAxisSpacing: Dimens.size30,
         ),
         itemCount: 6,
