@@ -36,21 +36,21 @@ class SideNavigation extends StatelessWidget {
         },
         labelType: NavigationRailLabelType.none,
         destinations: <NavigationRailDestination>[
-          Item.getRailItem(
-            ImagesPath.movieIcon,
-            l10n.title,
+          RailItem(
+            imagePath: ImagesPath.movieIcon,
+            label: l10n.title,
           ),
-          Item.getRailItem(
-            ImagesPath.tickerIcon,
-            l10n.showtime,
+          RailItem(
+            imagePath: ImagesPath.tickerIcon,
+            label: l10n.showtime,
           ),
-          Item.getRailItem(
-            ImagesPath.alarmIcon,
-            l10n.notifications,
+          RailItem(
+            imagePath: ImagesPath.alarmIcon,
+            label: l10n.notifications,
           ),
-          Item.getRailItem(
-            ImagesPath.personIcon,
-            l10n.titleProfile,
+          RailItem(
+            imagePath: ImagesPath.personIcon,
+            label: l10n.titleProfile,
           ),
         ],
       ),

@@ -33,21 +33,21 @@ class BottomNavigation extends StatelessWidget {
         backgroundColor: PrimaryColors.primaryBackgroundColor,
         elevation: 0,
         items: <BottomNavigationBarItem>[
-          Item.getBottomItem(
-            ImagesPath.movieIcon,
-            l10n.title,
+          BottomItem(
+            imagePath: ImagesPath.movieIcon,
+            label: l10n.title,
           ),
-          Item.getBottomItem(
-            ImagesPath.tickerIcon,
-            l10n.showtime,
+          BottomItem(
+            imagePath: ImagesPath.tickerIcon,
+            label: l10n.showtime,
           ),
-          Item.getBottomItem(
-            ImagesPath.alarmIcon,
-            l10n.notifications,
+          BottomItem(
+            imagePath: ImagesPath.alarmIcon,
+            label: l10n.notifications,
           ),
-          Item.getBottomItem(
-            ImagesPath.personIcon,
-            l10n.titleProfile,
+          BottomItem(
+            imagePath: ImagesPath.personIcon,
+            label: l10n.titleProfile,
           ),
         ],
         currentIndex: bloc.selectedIndex,
