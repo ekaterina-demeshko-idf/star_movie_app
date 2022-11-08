@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:presentation/app/app_bloc.dart';
+import 'package:presentation/app/widgets/item.dart';
 import 'package:presentation/utils/colors.dart';
 import 'package:presentation/utils/dimens.dart';
 import 'package:presentation/utils/images/paths.dart';
@@ -33,49 +33,21 @@ class BottomNavigation extends StatelessWidget {
         backgroundColor: PrimaryColors.primaryBackgroundColor,
         elevation: 0,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              ImagesPath.movieIcon,
-              color: PrimaryColors.whiteWithOpacity80,
-            ),
-            activeIcon: SvgPicture.asset(
-              ImagesPath.movieIcon,
-              color: PrimaryColors.primarySelected,
-            ),
-            label: l10n.title,
+          Item.getBottomItem(
+            ImagesPath.movieIcon,
+            l10n.title,
           ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              ImagesPath.tickerIcon,
-              color: PrimaryColors.whiteWithOpacity80,
-            ),
-            activeIcon: SvgPicture.asset(
-              ImagesPath.tickerIcon,
-              color: PrimaryColors.primarySelected,
-            ),
-            label: l10n.showtime,
+          Item.getBottomItem(
+            ImagesPath.tickerIcon,
+            l10n.showtime,
           ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              ImagesPath.alarmIcon,
-              color: PrimaryColors.whiteWithOpacity80,
-            ),
-            activeIcon: SvgPicture.asset(
-              ImagesPath.alarmIcon,
-              color: PrimaryColors.primarySelected,
-            ),
-            label: l10n.notifications,
+          Item.getBottomItem(
+            ImagesPath.alarmIcon,
+            l10n.notifications,
           ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              ImagesPath.personIcon,
-              color: PrimaryColors.whiteWithOpacity80,
-            ),
-            activeIcon: SvgPicture.asset(
-              ImagesPath.personIcon,
-              color: PrimaryColors.primarySelected,
-            ),
-            label: l10n.titleProfile,
+          Item.getBottomItem(
+            ImagesPath.personIcon,
+            l10n.titleProfile,
           ),
         ],
         currentIndex: bloc.selectedIndex,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:presentation/app/app_bloc.dart';
+import 'package:presentation/app/widgets/item.dart';
 import 'package:presentation/utils/colors.dart';
 import 'package:presentation/utils/dimens.dart';
 import 'package:presentation/utils/images/paths.dart';
@@ -35,49 +36,21 @@ class SideNavigation extends StatelessWidget {
         },
         labelType: NavigationRailLabelType.none,
         destinations: <NavigationRailDestination>[
-          NavigationRailDestination(
-            icon: SvgPicture.asset(
-              ImagesPath.movieIcon,
-              color: PrimaryColors.whiteWithOpacity80,
-            ),
-            selectedIcon: SvgPicture.asset(
-              ImagesPath.movieIcon,
-              color: PrimaryColors.primarySelected,
-            ),
-            label: Text(l10n.title),
+          Item.getRailItem(
+            ImagesPath.movieIcon,
+            l10n.title,
           ),
-          NavigationRailDestination(
-            icon: SvgPicture.asset(
-              ImagesPath.tickerIcon,
-              color: PrimaryColors.whiteWithOpacity80,
-            ),
-            selectedIcon: SvgPicture.asset(
-              ImagesPath.tickerIcon,
-              color: PrimaryColors.primarySelected,
-            ),
-            label: Text(l10n.showtime),
+          Item.getRailItem(
+            ImagesPath.tickerIcon,
+            l10n.showtime,
           ),
-          NavigationRailDestination(
-            icon: SvgPicture.asset(
-              ImagesPath.alarmIcon,
-              color: PrimaryColors.whiteWithOpacity80,
-            ),
-            selectedIcon: SvgPicture.asset(
-              ImagesPath.alarmIcon,
-              color: PrimaryColors.primarySelected,
-            ),
-            label: Text(l10n.notifications),
+          Item.getRailItem(
+            ImagesPath.alarmIcon,
+            l10n.notifications,
           ),
-          NavigationRailDestination(
-            icon: SvgPicture.asset(
-              ImagesPath.personIcon,
-              color: PrimaryColors.whiteWithOpacity80,
-            ),
-            selectedIcon: SvgPicture.asset(
-              ImagesPath.personIcon,
-              color: PrimaryColors.primarySelected,
-            ),
-            label: Text(l10n.titleProfile),
+          Item.getRailItem(
+            ImagesPath.personIcon,
+            l10n.titleProfile,
           ),
         ],
       ),
