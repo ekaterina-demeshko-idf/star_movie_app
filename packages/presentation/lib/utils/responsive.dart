@@ -8,10 +8,8 @@ class Responsive {
   static const double largeScreen = 1000;
   static const double extraLargeScreen = 1200;
 
-  static bool isMediumScreen(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
-    return deviceWidth > mediumScreen ? true : false;
-  }
+  static bool isMediumScreen(BuildContext context) =>
+      MediaQuery.of(context).size.width > mediumScreen;
 
   static int getCrossAxisCount(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
