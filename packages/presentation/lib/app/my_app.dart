@@ -45,7 +45,7 @@ class _MyAppState extends BlocScreenState<MyApp, AppBloc> {
         builder: (context, result) {
           final appData = result.data?.data;
           if (appData is AppData) {
-            return Responsive.switchToSideBar(context)
+            return Responsive.isMediumScreen(context)
                 ? DesktopRoot(
                     appData: appData,
                     bloc: bloc,

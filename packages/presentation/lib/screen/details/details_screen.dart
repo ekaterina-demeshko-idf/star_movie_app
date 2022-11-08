@@ -82,8 +82,9 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               sigmaX: 3,
                             ),
                             child: Container(
-                              height:
-                                  Responsive.backgroundDetailsImage(context),
+                              height: Responsive.isMediumScreen(context)
+                                  ? Dimens.size400
+                                  : Dimens.size260,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: NetworkImage(
@@ -124,7 +125,9 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                               Center(
                                 child: Image.network(
                                   '${screenData?.movie?.image}',
-                                  scale: Responsive.posterDetailsImage(context),
+                                  scale: Responsive.isMediumScreen(context)
+                                      ? .6
+                                      : 1,
                                 ),
                               ),
                             ],
@@ -143,14 +146,18 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                       Text(
                         '${screenData?.movie?.runtime} | ${screenData?.movie?.certification}',
                         style: AppTextStyles.descriptionStyle(
-                          Responsive.textDetailsImage(context),
+                          Responsive.isMediumScreen(context)
+                              ? AppTextStyles.fontSize_18
+                              : AppTextStyles.fontSize_14,
                         ),
                       ),
                       const SizedBox(height: Dimens.size10),
                       Text(
                         '${screenData?.movie?.genres}',
                         style: AppTextStyles.descriptionStyle(
-                          Responsive.textDetailsImage(context),
+                          Responsive.isMediumScreen(context)
+                              ? AppTextStyles.fontSize_18
+                              : AppTextStyles.fontSize_14,
                         ),
                       ),
                       const SizedBox(height: Dimens.size20),
@@ -216,10 +223,12 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                         ),
                       ),
                       Flex(
-                        direction: Responsive.getAxisOfDetails(context),
+                        direction: Responsive.isMediumScreen(context)
+                            ? Axis.horizontal
+                            : Axis.vertical,
                         children: [
                           Expanded(
-                            flex: Responsive.getExpandedFlex(context),
+                            flex: Responsive.isMediumScreen(context) ? 1 : 0,
                             child: Padding(
                               padding: const EdgeInsets.all(Dimens.size24),
                               child: Column(
@@ -241,7 +250,9 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                                     trimCollapsedText: l10n.showMore,
                                     trimExpandedText: l10n.showLess,
                                     style: AppTextStyles.descriptionStyle(
-                                      Responsive.textDetailsImage(context),
+                                      Responsive.isMediumScreen(context)
+                                          ? AppTextStyles.fontSize_18
+                                          : AppTextStyles.fontSize_14,
                                       lineHeight: Dimens.size20,
                                     ),
                                   ),
@@ -250,7 +261,7 @@ class _DetailsScreenState extends BlocScreenState<DetailsScreen, DetailsBloc> {
                             ),
                           ),
                           Expanded(
-                            flex: Responsive.getExpandedFlex(context),
+                            flex: Responsive.isMediumScreen(context) ? 1 : 0,
                             child: Padding(
                               padding: const EdgeInsets.all(Dimens.size24),
                               child: Column(

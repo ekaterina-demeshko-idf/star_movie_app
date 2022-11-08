@@ -73,7 +73,9 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              width: Responsive.getLoginFormWidth(context),
+                              width: Responsive.isMediumScreen(context)
+                                  ? Dimens.size500
+                                  : Dimens.size300,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -166,7 +168,9 @@ class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: PrimaryColors.primaryColor,
                           padding: EdgeInsets.symmetric(
-                            horizontal: Responsive.getLoginButtonWidth(context),
+                            horizontal: Responsive.isMediumScreen(context)
+                                ? Dimens.size220
+                                : Dimens.size120,
                             vertical: Dimens.size18,
                           ),
                         ),
