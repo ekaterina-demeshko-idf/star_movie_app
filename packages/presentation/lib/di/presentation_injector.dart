@@ -10,6 +10,7 @@ import 'package:domain/usecase/save_credentials_usecase.dart';
 import 'package:domain/usecase/login_validation_usecase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:presentation/screen/home/home_bloc.dart';
+import 'package:presentation/screen/payment/payment_bloc.dart';
 import 'package:presentation/screen/splash/splash_bloc.dart';
 import '../app/app_bloc.dart';
 import '../mappers/login_error_view_mapper.dart';
@@ -20,6 +21,7 @@ import '../screen/login/login_bloc.dart';
 
 void initPresentationInjector() {
   _initSplashScreenModule();
+  _initPaymentScreenModule();
   _initAppModule();
   _initHomeScreenModule();
   _initDetailsScreenModule();
@@ -31,6 +33,12 @@ void _initSplashScreenModule() {
     () => SplashBloc(
       GetIt.I.get<ImitateApiCallUseCase>(),
     ),
+  );
+}
+
+void _initPaymentScreenModule() {
+  GetIt.I.registerFactory<PaymentBloc>(
+    () => PaymentBloc(),
   );
 }
 

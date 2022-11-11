@@ -3,6 +3,7 @@ import 'package:domain/usecase/analytics_screen_usecase.dart';
 import 'package:domain/utils/extensions/string_extension.dart';
 import 'package:flutter/widgets.dart';
 import 'package:collection/collection.dart';
+import 'package:presentation/screen/payment/payment_screen.dart';
 import '../base/bloc.dart';
 import '../enum/bottom_nav_bar_item.dart';
 import '../navigation/base_page.dart';
@@ -60,6 +61,13 @@ class _AppBloc extends BlocImpl implements AppBloc {
       case BottomNavBarItem.profile:
         _logAnalyticsEventUseCase('login_nav_bar');
         _popAllAndPush(LoginScreen.page(LoginScreenArguments()));
+        break;
+      case BottomNavBarItem.ticket:
+        _logAnalyticsEventUseCase('ticket_nav_bar');
+        _popAllAndPush(PaymentScreen.page());
+        break;
+      case BottomNavBarItem.notifications:
+        // TODO: Handle this case.
         break;
     }
     _updateData();
