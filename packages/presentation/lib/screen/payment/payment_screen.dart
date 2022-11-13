@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:presentation/base/bloc_data.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/navigation/base_page.dart';
-import 'package:presentation/utils/formatters.dart';
 import 'package:presentation/screen/payment/payment_bloc.dart';
 import 'package:presentation/utils/colors.dart';
 import 'package:presentation/utils/dimens.dart';
+import 'package:presentation/utils/formatters.dart';
 import 'package:presentation/utils/text_styles.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -45,9 +45,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                   children: [
                     Text(
                       'Phone',
-                      style: AppTextStyles.descriptionStyle(
-                        Dimens.size16,
-                      ),
+                      style: AppTextStyles.descriptionStyle(Dimens.size16),
                       textAlign: TextAlign.left,
                     ),
                     const SizedBox(height: Dimens.size10),
@@ -55,14 +53,14 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                       keyboardType: TextInputType.phone,
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
-                        CheckFormatterList(),
+                        CustomPhoneFormatter(),
                       ],
                       style: AppTextStyles.descriptionStyle(Dimens.size16),
                       decoration: InputDecoration(
-                        //prefixText: '+ 375',
                         hintText: '+375 (xx) xxx-xx-xx',
                         hintStyle: const TextStyle(
-                            color: PrimaryColors.whiteWithOpacity45),
+                          color: PrimaryColors.whiteWithOpacity45,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(Dimens.size4),
                           borderSide: BorderSide.none,
@@ -101,7 +99,8 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                         ),
                         hintText: 'xxxx xxxx xxxx xxxx',
                         hintStyle: const TextStyle(
-                            color: PrimaryColors.whiteWithOpacity45),
+                          color: PrimaryColors.whiteWithOpacity45,
+                        ),
                         filled: true,
                         fillColor: PrimaryColors.backgroundTextField,
                       ),
@@ -134,7 +133,8 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                   CustomDateFormatter(),
                                 ],
                                 style: AppTextStyles.descriptionStyle(
-                                    Dimens.size16),
+                                  Dimens.size16,
+                                ),
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius:
@@ -147,7 +147,8 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                   ),
                                   hintText: 'MM/YY',
                                   hintStyle: const TextStyle(
-                                      color: PrimaryColors.whiteWithOpacity45),
+                                    color: PrimaryColors.whiteWithOpacity45,
+                                  ),
                                   filled: true,
                                   fillColor: PrimaryColors.backgroundTextField,
                                 ),
@@ -162,7 +163,8 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                               Text(
                                 'CVV',
                                 style: AppTextStyles.descriptionStyle(
-                                    Dimens.size16),
+                                  Dimens.size16,
+                                ),
                                 textAlign: TextAlign.left,
                               ),
                               const SizedBox(height: 10),
@@ -174,7 +176,8 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                 ],
                                 obscureText: true,
                                 style: AppTextStyles.descriptionStyle(
-                                    Dimens.size16),
+                                  Dimens.size16,
+                                ),
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius:

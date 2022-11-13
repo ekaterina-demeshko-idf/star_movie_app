@@ -60,7 +60,7 @@ class CustomDateFormatter extends TextInputFormatter {
   }
 }
 
-class CheckFormatterList extends TextInputFormatter {
+class CustomPhoneFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,
