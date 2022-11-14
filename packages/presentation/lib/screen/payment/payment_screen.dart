@@ -1,3 +1,4 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:presentation/base/bloc_data.dart';
@@ -33,11 +34,12 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
     return StreamBuilder<BlocData>(
         stream: bloc.dataStream,
         builder: (context, snapshot) {
+          final l10n = AppLocalizations.of(context)!;
           return Scaffold(
             backgroundColor: PrimaryColors.primaryBackgroundColor,
             appBar: AppBar(
               backgroundColor: PrimaryColors.primaryBackgroundColor,
-              title: const Text('Payment'),
+              title: Text(l10n.payment),
             ),
             body: Padding(
               padding: const EdgeInsets.all(Dimens.size18),
@@ -47,7 +49,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                   child: Column(
                     children: [
                       Text(
-                        'Phone',
+                        l10n.phoneNumber,
                         style: AppTextStyles.headerStyle(Dimens.size16),
                         textAlign: TextAlign.left,
                       ),
@@ -90,7 +92,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                           children: [
                             const SizedBox(height: Dimens.size10),
                             Text(
-                              'Card Number',
+                              l10n.cardNumber,
                               style: AppTextStyles.headerStyle(Dimens.size16),
                               textAlign: TextAlign.left,
                             ),
@@ -132,7 +134,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          'Date',
+                                          l10n.date,
                                           style: AppTextStyles.headerStyle(
                                             Dimens.size16,
                                           ),
@@ -248,7 +250,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                           ),
                         ),
                         child: Text(
-                          'Save',
+                         l10n.save,
                           style: AppTextStyles.headerStyle(Dimens.size16),
                         ),
                       ),

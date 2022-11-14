@@ -69,11 +69,11 @@ class _ErrorViewMapper implements ErrorViewMapper {
 
     switch (error) {
       case ValidationErrorType.monthInvalid:
-        return 'Month is invalid';
+        return l10n.monthInvalid;
       case ValidationErrorType.dateInvalid:
-        return 'Card has expired';
+        return l10n.cardExpired;
       case ValidationErrorType.requiredTypeError:
-        return 'This field is required';
+        return l10n.requiredField;
       default:
         return null;
     }
