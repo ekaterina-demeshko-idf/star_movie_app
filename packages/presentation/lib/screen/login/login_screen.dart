@@ -40,7 +40,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends BlocScreenState<LoginScreen, LoginBloc> {
-  final loginErrorViewMapper = LoginErrorViewMapper();
+  final loginErrorViewMapper = ErrorViewMapper();
 
   @override
   Widget build(BuildContext context) {

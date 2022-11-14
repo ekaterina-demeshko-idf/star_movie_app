@@ -8,6 +8,7 @@ import 'package:presentation/utils/colors.dart';
 import 'package:presentation/utils/dimens.dart';
 import 'package:presentation/utils/formatters.dart';
 import 'package:presentation/utils/text_styles.dart';
+import 'package:presentation/mappers/login_error_view_mapper.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({Key? key}) : super(key: key);
@@ -26,6 +27,7 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
+  final dateErrorViewMapper = ErrorViewMapper();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<BlocData>(
@@ -89,8 +91,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                             const SizedBox(height: Dimens.size10),
                             Text(
                               'Card Number',
-                              style:
-                                  AppTextStyles.headerStyle(Dimens.size16),
+                              style: AppTextStyles.headerStyle(Dimens.size16),
                               textAlign: TextAlign.left,
                             ),
                             const SizedBox(height: Dimens.size10),
@@ -101,8 +102,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                 CustomCardFormatter(),
                                 LengthLimitingTextInputFormatter(19),
                               ],
-                              style:
-                                  AppTextStyles.headerStyle(Dimens.size16),
+                              style: AppTextStyles.headerStyle(Dimens.size16),
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius:
@@ -140,11 +140,17 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                         ),
                                         const SizedBox(height: Dimens.size10),
                                         TextFormField(
-                                          autovalidateMode: AutovalidateMode
-                                              .onUserInteraction,
-                                          validator: (value) {
-                                            return bloc.validateDate(value);
+                                          validator: (_) {
+                                            return dateErrorViewMapper
+                                                .mapDateErrorToMessage(
+                                              context,
+                                              bloc.validationModel?.date,
+                                            );
                                           },
+                                          onChanged: (_) {
+                                            bloc.onChangedTextForm();
+                                          },
+                                          controller: bloc.dateController,
                                           keyboardType: TextInputType.number,
                                           inputFormatters: [
                                             FilteringTextInputFormatter
@@ -159,7 +165,8 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                             border: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(
-                                                      Dimens.size4),
+                                                Dimens.size4,
+                                              ),
                                               borderSide: BorderSide.none,
                                             ),
                                             prefixIcon: const Icon(
@@ -228,6 +235,21 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                               ),
                             ),
                           ],
+                        ),
+                      ),
+                      const SizedBox(height: Dimens.size20),
+                      ElevatedButton(
+                        onPressed: bloc.onValidate,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: PrimaryColors.primaryColor,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: Dimens.size120,
+                            vertical: Dimens.size18,
+                          ),
+                        ),
+                        child: Text(
+                          'Save',
+                          style: AppTextStyles.headerStyle(Dimens.size16),
                         ),
                       ),
                     ],

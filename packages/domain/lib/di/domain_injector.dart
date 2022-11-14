@@ -1,5 +1,6 @@
 import 'package:domain/repository/local_storage_repository.dart';
 import 'package:domain/repository/remote_db_repository.dart';
+import 'package:domain/usecase/date_validation_usecase.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
 import 'package:domain/usecase/google_auth_usecase.dart';
 import 'package:domain/usecase/imitate_api_call_usecase.dart';
@@ -37,6 +38,17 @@ void _initUseCaseModule() {
         [
           RequiredField(),
           RegEx(passwordValidationRegEx),
+        ],
+      );
+    },
+  );
+  GetIt.I.registerFactory<DateValidationUseCase>(
+    () {
+      return DateValidationUseCase(
+        [
+          RequiredField(),
+          MonthValidation(),
+          DateValidation(),
         ],
       );
     },

@@ -1,4 +1,4 @@
-import 'package:domain/validator/validation_error.dart';
+import 'package:domain/validator/validation_login_error.dart';
 import 'package:flutter/material.dart';
 import 'package:domain/enum/validation_error_type.dart';
 import 'package:domain/model/user/user_model.dart';
@@ -9,7 +9,7 @@ import 'package:domain/usecase/facebook_auth_usecase.dart';
 import 'package:domain/usecase/save_credentials_usecase.dart';
 import 'package:domain/usecase/login_validation_usecase.dart';
 import 'package:presentation/base/bloc.dart';
-import 'package:presentation/models/validation_model.dart';
+import 'package:presentation/models/validation_login_model.dart';
 import '../../utils/events.dart';
 import '../profile/profile_screen.dart';
 import 'login_data.dart';
@@ -37,7 +37,7 @@ abstract class LoginBloc extends Bloc<LoginScreenArguments, LoginData> {
 
   TextEditingController get passwordController;
 
-  ValidationModel? get validationModel;
+  ValidationLoginModel? get validationModel;
 
   Future<void> onLogin();
 
@@ -68,7 +68,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
   );
 
   @override
-  ValidationModel? validationModel;
+  ValidationLoginModel? validationModel;
 
   @override
   TextEditingController get emailController => _emailController;
@@ -90,8 +90,8 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       await _checkUserUseCase(user);
       await _saveCredentialsUseCase(user);
       _pushSuccessScreen();
-    } on ValidationErrors catch (e) {
-      validationModel = ValidationModel(
+    } on ValidationLoginErrors catch (e) {
+      validationModel = ValidationLoginModel(
         e.emailError,
         e.passwordError,
       );
@@ -101,7 +101,7 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
 
   @override
   void onChangedTextForm() {
-    validationModel = ValidationModel(
+    validationModel = ValidationLoginModel(
       null,
       null,
     );
@@ -122,8 +122,8 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       await _checkUserUseCase(userModel);
       await _saveCredentialsUseCase(userModel);
       _pushSuccessScreen();
-    } on ValidationErrors {
-      validationModel = ValidationModel(
+    } on ValidationLoginErrors {
+      validationModel = ValidationLoginModel(
         ValidationErrorType.invalidValue,
         ValidationErrorType.invalidValue,
       );
@@ -145,8 +145,8 @@ class _LoginBloc extends BlocImpl<LoginScreenArguments, LoginData>
       await _checkUserUseCase(userModel);
       await _saveCredentialsUseCase(userModel);
       _pushSuccessScreen();
-    } on ValidationErrors {
-      validationModel = ValidationModel(
+    } on ValidationLoginErrors {
+      validationModel = ValidationLoginModel(
         ValidationErrorType.invalidValue,
         ValidationErrorType.invalidValue,
       );

@@ -3,4 +3,6 @@ enum ValidationErrorType {
   minLengthTypeError,
   invalidValue,
   regexTypeError,
+  monthInvalid,
+  dateInvalid,
 }

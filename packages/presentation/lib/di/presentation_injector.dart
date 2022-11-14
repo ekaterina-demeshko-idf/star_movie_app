@@ -1,6 +1,7 @@
 import 'package:domain/usecase/analytics_event_usecase.dart';
 import 'package:domain/usecase/analytics_screen_usecase.dart';
 import 'package:domain/usecase/check_user_usecase.dart';
+import 'package:domain/usecase/date_validation_usecase.dart';
 import 'package:domain/usecase/facebook_auth_usecase.dart';
 import 'package:domain/usecase/get_cast_usecase.dart';
 import 'package:domain/usecase/google_auth_usecase.dart';
@@ -38,7 +39,9 @@ void _initSplashScreenModule() {
 
 void _initPaymentScreenModule() {
   GetIt.I.registerFactory<PaymentBloc>(
-    () => PaymentBloc(),
+    () => PaymentBloc(
+      GetIt.I.get<DateValidationUseCase>(),
+    ),
   );
 }
 
@@ -61,8 +64,8 @@ void _initDetailsScreenModule() {
 }
 
 void _initLoginScreenModule() {
-  GetIt.I.registerFactory<LoginErrorViewMapper>(
-    () => LoginErrorViewMapper(),
+  GetIt.I.registerFactory<ErrorViewMapper>(
+    () => ErrorViewMapper(),
   );
   GetIt.I.registerFactory<LoginBloc>(
     () => LoginBloc(

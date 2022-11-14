@@ -4,7 +4,7 @@ class PrimaryColors {
   PrimaryColors._();
 
   static const primaryColor = Color(0xFFE51937);
-  static const cardColor = Color(0xB46F1A26);
+  static const cardColor = Color(0x40315EA1);
   static const primaryGradientBottom = Color(0xFFDB5252);
   static const primaryBackgroundColor = Color(0xFF0F1B2B);
   static const primaryBorderColor = Color(0xFF2C3F5B);

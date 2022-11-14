@@ -1,53 +1,61 @@
+import 'package:domain/usecase/date_validation_usecase.dart';
+import 'package:domain/validator/validation_date_error.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/base/bloc.dart';
+import 'package:presentation/models/validation_date_model.dart';
 
 abstract class PaymentBloc extends Bloc {
-  factory PaymentBloc() => _PaymentBloc();
+  factory PaymentBloc(
+    DateValidationUseCase dateValidationUseCase,
+  ) =>
+      _PaymentBloc(dateValidationUseCase);
+
+  TextEditingController get dateController;
+
+  ValidationDateModel? validationModel;
 
   GlobalKey<FormState> get formKey;
 
-  String? validateDate(String? value);
+  void onValidate();
+
+  void onChangedTextForm();
 }
 
 class _PaymentBloc extends BlocImpl implements PaymentBloc {
+  final DateValidationUseCase _dateValidationUseCase;
+  final _dateController = TextEditingController();
+
+  _PaymentBloc(this._dateValidationUseCase);
+
+  @override
+  TextEditingController get dateController => _dateController;
+
+  @override
+  ValidationDateModel? validationModel;
+
   final _formKey = GlobalKey<FormState>();
 
   @override
   GlobalKey<FormState> get formKey => _formKey;
 
   @override
-  String? validateDate(String? value) {
-    if (value == null || value.isEmpty) {
-      return "This field is required";
+  void onValidate() async {
+    final String date = _dateController.text.trim();
+    try {
+      await _dateValidationUseCase(date);
+    } on ValidationDateErrors catch (e) {
+      validationModel = ValidationDateModel(
+        e.dateError,
+      );
+      _formKey.currentState?.validate();
     }
-    int year;
-    int month;
-    if (value.contains(RegExp(r'(/)'))) {
-      List<String> split = value.split(RegExp(r'(/)'));
-      month = int.parse(split[0]);
-      year = int.parse(split[1]);
-    } else {
-      month = int.parse(value.substring(0, (value.length)));
-      year = -1;
-    }
-    if ((month < 1) || (month > 12)) {
-      return 'Month is invalid';
-    }
-    if (year > -1 && _hasDateExpired(month, year)) {
-      return "Card has expired";
-    }
-    return null;
   }
 
-  bool _hasDateExpired(int month, int year) {
-    DateTime now = DateTime.now();
-    String currentYear = now.year.toString();
-    bool yearPassed = year < int.parse(currentYear.substring(2));
-    bool monthPassed = month < now.month + 1;
-    if (yearPassed ||
-        (year == int.parse(currentYear.substring(2)) && monthPassed)) {
-      return true;
-    }
-    return false;
+  @override
+  void onChangedTextForm() {
+    validationModel = ValidationDateModel(
+      null,
+    );
+    formKey.currentState?.validate();
   }
 }

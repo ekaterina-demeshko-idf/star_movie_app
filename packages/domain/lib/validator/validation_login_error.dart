@@ -2,11 +2,11 @@ import 'package:domain/enum/validation_error_type.dart';
 
 class BaseException implements Exception {}
 
-class ValidationErrors extends BaseException {
+class ValidationLoginErrors extends BaseException {
   ValidationErrorType? emailError;
   ValidationErrorType? passwordError;
 
-  ValidationErrors({
+  ValidationLoginErrors({
     required this.emailError,
     required this.passwordError,
   });
