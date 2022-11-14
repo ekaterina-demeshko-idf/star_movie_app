@@ -46,7 +46,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                     children: [
                       Text(
                         'Phone',
-                        style: AppTextStyles.descriptionStyle(Dimens.size16),
+                        style: AppTextStyles.headerStyle(Dimens.size16),
                         textAlign: TextAlign.left,
                       ),
                       const SizedBox(height: Dimens.size10),
@@ -56,7 +56,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                           FilteringTextInputFormatter.digitsOnly,
                           CustomPhoneFormatter(),
                         ],
-                        style: AppTextStyles.descriptionStyle(Dimens.size16),
+                        style: AppTextStyles.headerStyle(Dimens.size16),
                         decoration: InputDecoration(
                           hintText: '+375 (xx) xxx-xx-xx',
                           hintStyle: const TextStyle(
@@ -90,7 +90,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                             Text(
                               'Card Number',
                               style:
-                                  AppTextStyles.descriptionStyle(Dimens.size16),
+                                  AppTextStyles.headerStyle(Dimens.size16),
                               textAlign: TextAlign.left,
                             ),
                             const SizedBox(height: Dimens.size10),
@@ -102,7 +102,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                 LengthLimitingTextInputFormatter(19),
                               ],
                               style:
-                                  AppTextStyles.descriptionStyle(Dimens.size16),
+                                  AppTextStyles.headerStyle(Dimens.size16),
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius:
@@ -133,7 +133,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                       children: [
                                         Text(
                                           'Date',
-                                          style: AppTextStyles.descriptionStyle(
+                                          style: AppTextStyles.headerStyle(
                                             Dimens.size16,
                                           ),
                                           textAlign: TextAlign.left,
@@ -152,7 +152,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                             LengthLimitingTextInputFormatter(4),
                                             CustomDateFormatter(),
                                           ],
-                                          style: AppTextStyles.descriptionStyle(
+                                          style: AppTextStyles.headerStyle(
                                             Dimens.size16,
                                           ),
                                           decoration: InputDecoration(
@@ -186,7 +186,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                       children: [
                                         Text(
                                           'CVV',
-                                          style: AppTextStyles.descriptionStyle(
+                                          style: AppTextStyles.headerStyle(
                                             Dimens.size16,
                                           ),
                                           textAlign: TextAlign.left,
@@ -200,7 +200,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                                             LengthLimitingTextInputFormatter(3),
                                           ],
                                           obscureText: true,
-                                          style: AppTextStyles.descriptionStyle(
+                                          style: AppTextStyles.headerStyle(
                                             Dimens.size16,
                                           ),
                                           decoration: InputDecoration(
