@@ -7,22 +7,10 @@ class CustomCardFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    final List inputChars = newValue.text.split('');
-    String result = '';
-    List newString = [];
-    if (newValue.text.length > oldValue.text.split(' ').join('').length) {
-      for (var i = 0; i < inputChars.length; i++) {
-        if (i == 3 || i == 7 || i == 11) {
-          newString.add(inputChars[i]);
-          newString.add(' ');
-        } else {
-          newString.add(inputChars[i]);
-        }
-      }
-      result = newString.join('');
-    } else {
-      result = oldValue.text.substring(0, oldValue.text.length - 1);
-    }
+    RegExp exp = RegExp(r"\d{" "1,4" "}");
+    Iterable<Match> matches = exp.allMatches(newValue.text);
+    var list = matches.map((m) => m.group(0));
+    String result = list.join(' ');
 
     return TextEditingValue(
       text: result,
@@ -39,17 +27,10 @@ class CustomDateFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    final List inputChars = newValue.text.split('');
-    List newString = [];
-    for (var i = 0; i < inputChars.length; i++) {
-      if (i == 2) {
-        newString.add('/');
-        newString.add(inputChars[i]);
-      } else {
-        newString.add(inputChars[i]);
-      }
-    }
-    final result = newString.join('');
+    RegExp exp = RegExp(r"\d{" "1,2" "}");
+    Iterable<Match> matches = exp.allMatches(newValue.text);
+    var list = matches.map((m) => m.group(0));
+    String result = list.join('/');
 
     return TextEditingValue(
       text: result,
