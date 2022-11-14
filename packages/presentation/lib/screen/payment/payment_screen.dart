@@ -38,7 +38,7 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
               title: const Text('Payment'),
             ),
             body: Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.all(Dimens.size18),
               child: SingleChildScrollView(
                 child: Form(
                   key: bloc.formKey,
@@ -67,132 +67,161 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                             borderSide: BorderSide.none,
                           ),
                           prefixIcon: const Icon(
-                            Icons.person_outline,
+                            Icons.phone,
                             color: PrimaryColors.whiteWithOpacity45,
                           ),
                           filled: true,
                           fillColor: PrimaryColors.backgroundTextField,
                         ),
                       ),
-                      const SizedBox(height: Dimens.size10),
-                      Text(
-                        'Card Number',
-                        style: AppTextStyles.descriptionStyle(Dimens.size16),
-                        textAlign: TextAlign.left,
-                      ),
-                      const SizedBox(height: Dimens.size10),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly,
-                          CustomCardFormatter(),
-                          LengthLimitingTextInputFormatter(19),
-                        ],
-                        style: AppTextStyles.descriptionStyle(Dimens.size16),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Dimens.size4),
-                            borderSide: BorderSide.none,
+                      const SizedBox(height: Dimens.size20),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: PrimaryColors.cardColor,
+                          border: Border.all(
+                            width: Dimens.size4,
+                            color: PrimaryColors.cardColor,
                           ),
-                          prefixIcon: const Icon(
-                            Icons.person_outline,
-                            color: PrimaryColors.whiteWithOpacity45,
-                          ),
-                          hintText: 'xxxx xxxx xxxx xxxx',
-                          hintStyle: const TextStyle(
-                            color: PrimaryColors.whiteWithOpacity45,
-                          ),
-                          filled: true,
-                          fillColor: PrimaryColors.backgroundTextField,
+                          borderRadius: BorderRadius.circular(Dimens.size12),
                         ),
-                      ),
-                      const SizedBox(height: 26),
-                      SizedBox(
-                        height: Dimens.size120,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                        child: Column(
                           children: [
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Text(
-                                    'Date',
-                                    style: AppTextStyles.descriptionStyle(
-                                        Dimens.size16),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  TextFormField(
-                                    autovalidateMode:
-                                        AutovalidateMode.onUserInteraction,
-                                    validator: (value) {
-                                      return bloc.validateDate(value);
-                                    },
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly,
-                                      LengthLimitingTextInputFormatter(4),
-                                      CustomDateFormatter(),
-                                    ],
-                                    style: AppTextStyles.descriptionStyle(
-                                      Dimens.size16,
-                                    ),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(Dimens.size4),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      prefixIcon: const Icon(
-                                        Icons.person_outline,
-                                        color: PrimaryColors.whiteWithOpacity45,
-                                      ),
-                                      hintText: 'MM/YY',
-                                      hintStyle: const TextStyle(
-                                        color: PrimaryColors.whiteWithOpacity45,
-                                      ),
-                                      filled: true,
-                                      fillColor: PrimaryColors.backgroundTextField,
-                                    ),
-                                  ),
-                                ],
+                            const SizedBox(height: Dimens.size10),
+                            Text(
+                              'Card Number',
+                              style:
+                                  AppTextStyles.descriptionStyle(Dimens.size16),
+                              textAlign: TextAlign.left,
+                            ),
+                            const SizedBox(height: Dimens.size10),
+                            TextFormField(
+                              keyboardType: TextInputType.number,
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.digitsOnly,
+                                CustomCardFormatter(),
+                                LengthLimitingTextInputFormatter(19),
+                              ],
+                              style:
+                                  AppTextStyles.descriptionStyle(Dimens.size16),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(Dimens.size4),
+                                  borderSide: BorderSide.none,
+                                ),
+                                prefixIcon: const Icon(
+                                  Icons.credit_card,
+                                  color: PrimaryColors.whiteWithOpacity45,
+                                ),
+                                hintText: 'xxxx xxxx xxxx xxxx',
+                                hintStyle: const TextStyle(
+                                  color: PrimaryColors.whiteWithOpacity45,
+                                ),
+                                filled: true,
+                                fillColor: PrimaryColors.backgroundTextField,
                               ),
                             ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Column(
+                            const SizedBox(height: Dimens.size26),
+                            SizedBox(
+                              height: Dimens.size120,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    'CVV',
-                                    style: AppTextStyles.descriptionStyle(
-                                      Dimens.size16,
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Date',
+                                          style: AppTextStyles.descriptionStyle(
+                                            Dimens.size16,
+                                          ),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                        const SizedBox(height: Dimens.size10),
+                                        TextFormField(
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
+                                          validator: (value) {
+                                            return bloc.validateDate(value);
+                                          },
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter
+                                                .digitsOnly,
+                                            LengthLimitingTextInputFormatter(4),
+                                            CustomDateFormatter(),
+                                          ],
+                                          style: AppTextStyles.descriptionStyle(
+                                            Dimens.size16,
+                                          ),
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      Dimens.size4),
+                                              borderSide: BorderSide.none,
+                                            ),
+                                            prefixIcon: const Icon(
+                                              Icons.date_range,
+                                              color: PrimaryColors
+                                                  .whiteWithOpacity45,
+                                            ),
+                                            hintText: 'MM/YY',
+                                            hintStyle: const TextStyle(
+                                              color: PrimaryColors
+                                                  .whiteWithOpacity45,
+                                            ),
+                                            filled: true,
+                                            fillColor: PrimaryColors
+                                                .backgroundTextField,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    textAlign: TextAlign.left,
                                   ),
-                                  const SizedBox(height: 10),
-                                  TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.digitsOnly,
-                                      LengthLimitingTextInputFormatter(3),
-                                    ],
-                                    obscureText: true,
-                                    style: AppTextStyles.descriptionStyle(
-                                      Dimens.size16,
-                                    ),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(Dimens.size4),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      prefixIcon: const Icon(
-                                        Icons.person_outline,
-                                        color: PrimaryColors.whiteWithOpacity45,
-                                      ),
-                                      filled: true,
-                                      fillColor: PrimaryColors.backgroundTextField,
+                                  const SizedBox(width: Dimens.size10),
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'CVV',
+                                          style: AppTextStyles.descriptionStyle(
+                                            Dimens.size16,
+                                          ),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                        const SizedBox(height: Dimens.size10),
+                                        TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter
+                                                .digitsOnly,
+                                            LengthLimitingTextInputFormatter(3),
+                                          ],
+                                          obscureText: true,
+                                          style: AppTextStyles.descriptionStyle(
+                                            Dimens.size16,
+                                          ),
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                Dimens.size4,
+                                              ),
+                                              borderSide: BorderSide.none,
+                                            ),
+                                            prefixIcon: const Icon(
+                                              Icons.lock_outline,
+                                              color: PrimaryColors
+                                                  .whiteWithOpacity45,
+                                            ),
+                                            filled: true,
+                                            fillColor: PrimaryColors
+                                                .backgroundTextField,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
