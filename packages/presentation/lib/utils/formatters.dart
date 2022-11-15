@@ -54,30 +54,28 @@ class CustomPhoneFormatter extends TextInputFormatter {
       if (newValue.text.isNotEmpty) {
         value = newValue.text.addCharAtPosition('+', 0);
       }
-      if (newValue.text.length >= 4) {
-        value = value.addCharAtPosition(' (', 4);
-      }
-      if (newValue.text.length >= 6) {
-        value = value.addCharAtPosition(') ', 8);
-      }
-      if (newValue.text.length >= 9) {
-        value = value.addCharAtPosition('-', 13);
-      }
-      if (newValue.text.length >= 11) {
-        value = value.addCharAtPosition('-', 16);
-      }
-      if (newValue.text.length > 12) {
-        value = oldValue.text;
-      }
     } else if (newValue.text.length < 4 && newValue.text.isNotEmpty) {
       if (newValue.text.length < 2) {
         value = newValue.text.addCharAtPosition('+375 (', 0);
-      } else if (newValue.text.length < 3) {
-        value = "+375 (${newValue.text})";
       } else {
         String code = newValue.text.substring(0, 2);
         value = "+375 ($code) ${newValue.text.substring(2)}";
       }
+    }
+    if (newValue.text.length >= 4) {
+      value = value.addCharAtPosition(' (', 4);
+    }
+    if (newValue.text.length >= 6) {
+      value = value.addCharAtPosition(') ', 8);
+    }
+    if (newValue.text.length >= 9) {
+      value = value.addCharAtPosition('-', 13);
+    }
+    if (newValue.text.length >= 11) {
+      value = value.addCharAtPosition('-', 16);
+    }
+    if (newValue.text.length > 12) {
+      value = oldValue.text;
     }
 
     return TextEditingValue(
