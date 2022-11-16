@@ -62,7 +62,7 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
       args.add(movieType.name);
       batch.delete(
         'Movies',
-        where: '''"trakt" in (${List.filled(ids.length - 1, '?').join(',')}) 
+        where: '''"trakt" in (${List.filled(ids.length, '?').join(',')}) 
         and "movieType" = ?''',
         whereArgs: args,
       );

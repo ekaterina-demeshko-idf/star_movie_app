@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:domain/model/user/user_model.dart';
 import 'package:domain/usecase/usecase.dart';
-import 'package:domain/validator/validation_error.dart';
+import 'package:domain/validator/validation_login_error.dart';
 import 'package:domain/validator/validator.dart';
 import 'package:domain/enum/validation_error_type.dart';
 
@@ -29,7 +29,7 @@ class LoginValidationUseCase
     final ValidationErrorType? passwordFailedType =
         getEnumByValidator(passwordFailed);
     if (emailFailedType != null || passwordFailedType != null) {
-      throw ValidationErrors(
+      throw ValidationLoginErrors(
         emailError: emailFailedType,
         passwordError: passwordFailedType,
       );

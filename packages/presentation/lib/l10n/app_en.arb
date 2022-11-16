@@ -23,6 +23,14 @@
   "passwordInvalid": "Invalid password",
   "emailLength": "Login field should be at least 8 symbols",
   "emailInvalid": "Invalid login",
+  "monthInvalid": "Month is invalid",
+  "cardExpired": "Card has expired",
+  "requiredField": "Field is required",
+  "date": "Date",
+  "cardNumber": "Card Number",
+  "phoneNumber": "Phone Number",
+  "save": "Save",
+  "payment": "Payment",
   "share": "Look, what movie I found! \nhttps://www.themoviedb.org/movie/{id}?language=eng",
   "@share": {
       "placeholders": {

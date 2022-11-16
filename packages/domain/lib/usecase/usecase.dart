@@ -21,6 +21,12 @@ abstract class BaseValidationUseCase<Params, Output>
     if (v is RegEx) {
       return ValidationErrorType.regexTypeError;
     }
+    if(v is MonthValidation) {
+      return ValidationErrorType.monthInvalid;
+    }
+    if(v is DateValidation) {
+      return ValidationErrorType.dateInvalid;
+    }
     return null;
   }
 }
