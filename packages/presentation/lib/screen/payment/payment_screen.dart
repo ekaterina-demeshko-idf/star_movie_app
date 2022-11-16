@@ -57,7 +57,6 @@ class _PaymentScreenState extends BlocScreenState<PaymentScreen, PaymentBloc> {
                       TextFormField(
                         keyboardType: TextInputType.phone,
                         inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
                           CustomPhoneFormatter(),
                         ],
                         style: AppTextStyles.headerStyle(Dimens.size16),

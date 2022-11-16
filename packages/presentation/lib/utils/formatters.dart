@@ -47,34 +47,27 @@ class CustomPhoneFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-    String value = newValue.text;
-    if (newValue.text == '3' ||
-        newValue.text == '37' ||
-        newValue.text.startsWith('375')) {
-      if (newValue.text.isNotEmpty) {
-        value = newValue.text.addCharAtPosition('+', 0);
-      }
-    } else if (newValue.text.length < 4 && newValue.text.isNotEmpty) {
-      if (newValue.text.length < 2) {
-        value = newValue.text.addCharAtPosition('+375 (', 0);
-      } else {
-        String code = newValue.text.substring(0, 2);
-        value = "+375 ($code) ${newValue.text.substring(2)}";
+    String value = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
+    if (value == '3' || value == '37' || value.startsWith('375')) {
+      value = value.addCharAtPosition('+', 0);
+    } else {
+      if (newValue.text != '+') {
+        value = value.addCharAtPosition('+375', 0);
       }
     }
-    if (newValue.text.length >= 4) {
+    if (value.length >= 5) {
       value = value.addCharAtPosition(' (', 4);
     }
-    if (newValue.text.length >= 6) {
+    if (value.length >= 9) {
       value = value.addCharAtPosition(') ', 8);
     }
-    if (newValue.text.length >= 9) {
+    if (value.length >= 14) {
       value = value.addCharAtPosition('-', 13);
     }
-    if (newValue.text.length >= 11) {
+    if (value.length >= 17) {
       value = value.addCharAtPosition('-', 16);
     }
-    if (newValue.text.length > 12) {
+    if (value.length > 19) {
       value = oldValue.text;
     }
 
